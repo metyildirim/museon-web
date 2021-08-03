@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
+    "@headlessui/react": "^1.4.0",
     "@next/bundle-analyzer": "^11.0.1",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.1",
