@@ -18,13 +18,42 @@
     @apply h-6 border-l-2 border-green-500 ml-6
 
 .jumbotron-container
-    @apply flex flex-col items-center justify-center space-y-6 h-96 bg-gray-300 text-black
+    height: 70vh
+    @apply flex flex-col items-center justify-center space-y-6 bg-gray-300 text-black
 
 .jumbotron-heading
-    @apply text-4xl font-bold
+    @apply text-5xl font-bold
 
 .jumbotron-text
-    @apply text-xl font-light
+    @apply text-2xl font-light
 
 .jumbotron-join
-    @apply text-xl py-2 bg-green-700 w-48 flex items-center justify-center text-white rounded-full hover:bg-gray-700 transition-colors
+    @apply text-lg py-2 bg-green-600 hover:bg-green-500 w-48 flex items-center justify-center text-white font-bold rounded-full transition-colors
+
+.footer
+    height: 30vh
+    @apply flex w-auto py-4 px-24 text-white bg-gray-900
+
+.footer-top
+    @apply flex flex-row justify-center text-white flex-1
+
+.footer-section-container
+    @apply flex flex-row mx-auto
+
+.footer-section
+    @apply flex flex-col items-start mx-10 font-bold
+
+.footer-link-container
+    @apply flex flex-col text-xs font-normal mt-2 space-y-2
+
+.footer-link
+    @apply hover:text-green-500 transition-colors
+
+.footer-logo
+    @apply flex justify-start w-max
+
+.footer-language-btn
+    @apply text-gray-800 font-bold bg-white hover:bg-green-500 hover:text-white transition-colors rounded-full py-2 px-6
+
+.footer-bottom
+    @apply text-white
