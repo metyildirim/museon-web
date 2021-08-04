@@ -48,9 +48,9 @@ const links = [
 ];
 
 const socialIcons = [
-  { icon: faFacebook, path: "/" },
-  { icon: faTwitter, path: "/" },
-  { icon: faInstagram, path: "/" },
+  { icon: faFacebook, url: "https://www.facebook.com/" },
+  { icon: faTwitter, url: "https://twitter.com/" },
+  { icon: faInstagram, url: "https://www.instagram.com/" },
 ];
 
 const Footer = () => {
@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
         <div className="footer-section-container">
           {sections.map(({ heading, links }) => (
-            <Section key="heading" heading={heading} links={links} />
+            <Section key={heading} heading={heading} links={links} />
           ))}
         </div>
         <div className="footer-language">
@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
         <div className="footer-links-container">
           {links.map(({ title, path }) => (
-            <div key="title" className="footer-link">
+            <div key={title} className="footer-link">
               <Link href={path}>
                 <a>{title}</a>
               </Link>
@@ -91,13 +91,11 @@ const Footer = () => {
           ))}
         </div>
         <div className="footer-social-container">
-          {socialIcons.map(({ icon, path }) => (
-            <div key={path} className="footer-icon">
-              <Link href={path}>
-                <a>
-                  <FontAwesomeIcon icon={icon} size="lg" />
-                </a>
-              </Link>
+          {socialIcons.map(({ icon, url }) => (
+            <div key={url} className="footer-icon">
+              <a href={url} target="_blink">
+                <FontAwesomeIcon icon={icon} size="lg" />
+              </a>
             </div>
           ))}
         </div>

@@ -16,7 +16,7 @@ const Section = ({ heading, links }: SectionProps) => {
       <span>{heading}</span>
       <div className="footer-section-link-container">
         {links.map(({ title, path }) => (
-          <div key="title" className="footer-section-link">
+          <div key={title} className="footer-section-link">
             <Link href={path}>
               <a>{title}</a>
             </Link>
