@@ -1,6 +1,6 @@
 // Home
 .header
-    @apply flex flex-row items-center w-auto py-4 px-24 text-sm font-bold text-white bg-gray-700
+    @apply flex flex-row items-center w-full py-4 px-24 font-bold text-white bg-gray-700 fixed
 
 .logo-container
     @apply flex justify-center mt-auto mb-auto w-max
@@ -18,8 +18,7 @@
     @apply h-6 border-l-2 border-green-500 ml-6
 
 .jumbotron-container
-    height: 70vh
-    @apply flex flex-col items-center justify-center space-y-6 bg-gray-300 text-black
+    @apply flex flex-col items-center justify-center space-y-6 bg-gray-200 text-black pb-40 pt-60
 
 .jumbotron-heading
     @apply text-5xl font-bold
@@ -31,23 +30,22 @@
     @apply text-lg py-2 bg-green-600 hover:bg-green-500 w-48 flex items-center justify-center text-white font-bold rounded-full transition-colors
 
 .footer
-    height: 30vh
-    @apply flex w-auto py-4 px-24 text-white bg-gray-900
+    @apply flex flex-col w-auto py-8 px-24 text-white bg-gray-900 space-y-8
 
 .footer-top
-    @apply flex flex-row justify-center text-white flex-1
+    @apply flex flex-row justify-center text-white mb-8
 
 .footer-section-container
     @apply flex flex-row mx-auto
 
 .footer-section
-    @apply flex flex-col items-start mx-10 font-bold
+    @apply flex flex-col items-start mx-10 font-bold text-lg
 
-.footer-link-container
-    @apply flex flex-col text-xs font-normal mt-2 space-y-2
+.footer-section-link-container
+    @apply flex flex-col text-sm font-normal mt-2 space-y-2
 
-.footer-link
-    @apply hover:text-green-500 transition-colors
+.footer-section-link
+    @apply text-gray-400 hover:text-green-400 transition-colors
 
 .footer-logo
     @apply flex justify-start w-max
@@ -56,4 +54,19 @@
     @apply text-gray-800 font-bold bg-white hover:bg-green-500 hover:text-white transition-colors rounded-full py-2 px-6
 
 .footer-bottom
-    @apply text-white
+    @apply flex flex-row items-center
+
+.footer-copyright
+    @apply text-sm
+
+.footer-links-container
+    @apply flex flex-row text-sm mr-auto ml-16
+
+.footer-link
+    @apply mx-4 hover:text-pink-400 transition-colors
+
+.footer-social-container
+    @apply flex flex-row
+
+.footer-icon
+    @apply mx-3 hover:text-green-400 transition-colors

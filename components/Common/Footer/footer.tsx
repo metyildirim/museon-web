@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import Section from "./section";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faTwitter,
+  faFacebook,
+} from "@fortawesome/free-brands-svg-icons";
 
 const sections = [
   {
@@ -34,6 +40,19 @@ const sections = [
   },
 ];
 
+const links = [
+  { title: "Terms", path: "/" },
+  { title: "Privacy", path: "/" },
+  { title: "Cookies", path: "/" },
+  { title: "License", path: "/" },
+];
+
+const socialIcons = [
+  { icon: faFacebook, path: "/" },
+  { icon: faTwitter, path: "/" },
+  { icon: faInstagram, path: "/" },
+];
+
 const Footer = () => {
   return (
     <div className="footer">
@@ -42,12 +61,7 @@ const Footer = () => {
           <Link href="/">
             <a>
               <div className="footer-logo">
-                <Image
-                  height="50px"
-                  width="50px"
-                  src="/logo-simple.svg"
-                  alt="logo"
-                />
+                <Image height="50px" width="150px" src="/logo.svg" alt="logo" />
               </div>
             </a>
           </Link>
@@ -63,7 +77,31 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <div className="footer-bottom"></div>
+      <div className="footer-bottom">
+        <div className="footer-copyright">
+          © {new Date().getFullYear()} Museon
+        </div>
+        <div className="footer-links-container">
+          {links.map(({ title, path }) => (
+            <div key="title" className="footer-link">
+              <Link href={path}>
+                <a>{title}</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className="footer-social-container">
+          {socialIcons.map(({ icon, path }) => (
+            <div key={path} className="footer-icon">
+              <Link href={path}>
+                <a>
+                  <FontAwesomeIcon icon={icon} size="lg" />
+                </a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
