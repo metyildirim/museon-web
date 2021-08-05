@@ -3,6 +3,7 @@ import Link from "next/link";
 type LinksType = {
   title: string;
   path: string;
+  target: string;
 };
 
 type SectionProps = {
@@ -15,10 +16,10 @@ const Section = ({ heading, links }: SectionProps) => {
     <div className="footer-section">
       <span>{heading}</span>
       <div className="footer-section-link-container">
-        {links.map(({ title, path }) => (
+        {links.map(({ title, path, target }) => (
           <div key={title} className="footer-section-link">
             <Link href={path}>
-              <a>{title}</a>
+              <a target={target}>{title}</a>
             </Link>
           </div>
         ))}

@@ -12,39 +12,47 @@ const sections = [
   {
     heading: "Download",
     links: [
-      { title: "Mobile", path: "/" },
-      { title: "Desktop", path: "/" },
+      { title: "Desktop", path: "/download#desktop", target: "_self" },
+      { title: "Mobile", path: "/download#mobile", target: "_self" },
     ],
   },
   {
     heading: "Project",
     links: [
-      { title: "Github", path: "/" },
-      { title: "Donors", path: "/" },
-      { title: "Contributors", path: "/" },
+      {
+        title: "Github",
+        path: "https://github.com/metyildirim/museon-frontend",
+        target: "_blank",
+      },
+      { title: "Donors", path: "/donors", target: "_self" },
+      {
+        title: "Contributors",
+        path: "https://github.com/metyildirim/museon-frontend/graphs/contributors",
+        target: "_blank",
+      },
     ],
   },
   {
     heading: "Support",
     links: [
-      { title: "Docs", path: "/" },
-      { title: "Contact Us", path: "/" },
+      { title: "Docs", path: "/docs", target: "_self" },
+      { title: "Contact Us", path: "/contact", target: "_self" },
     ],
   },
   {
     heading: "Musicians",
     links: [
-      { title: "Artists", path: "/" },
-      { title: "Indie", path: "/" },
+      { title: "Artists", path: "/artists", target: "_self" },
+      { title: "Indie", path: "/indie", target: "_self" },
     ],
   },
 ];
 
 const links = [
-  { title: "Terms", path: "/" },
-  { title: "Privacy", path: "/" },
-  { title: "Cookies", path: "/" },
-  { title: "License", path: "/" },
+  { title: "Terms", path: "/terms" },
+  { title: "Privacy", path: "/privacy" },
+  { title: "Cookies", path: "/cookies" },
+  { title: "License", path: "/license" },
 ];
 
 const socialIcons = [
