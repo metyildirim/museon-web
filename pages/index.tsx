@@ -1,8 +1,6 @@
-import Head from "next/head";
-import Image from "next/image";
-import Header from "../components/Common/Header/header";
-import Jumbotron from "../components/Home/Jumbotron/jumbotron";
-import Footer from "../components/Common/Footer/footer";
+import Header from "../components/home/header";
+import Jumbotron from "../components/home/jumbotron";
+import Footer from "../components/common/footer";
 
 export default function Home() {
   return (

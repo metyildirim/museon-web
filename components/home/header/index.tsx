@@ -13,18 +13,18 @@ const Header = () => {
         </a>
       </Link>
       <div className="header-btn-container">
-        <Link href="/">
+        <Link href="/player">
           <a className="header-btn">Web Player</a>
         </Link>
-        <Link href="/">
+        <Link href="/download">
           <a className="header-btn">Download</a>
         </Link>
         <Divider className="header-divider" />
-        <Link href="/">
+        <Link href="/login">
           <a className="header-btn">Sign In</a>
         </Link>
-        <Link href="/join">
-          <a className="header-btn-join">Sign Up</a>
+        <Link href="/signup">
+          <a className="header-btn-signup">Sign Up</a>
         </Link>
       </div>
     </div>
