@@ -19,10 +19,11 @@
     @apply flex flex-1 items-center justify-end
 
 .header-btn
-    @apply ml-6 hover:text-green-300 transition-colors break-normal
+    @apply ml-6 hover:text-green-300 transition-colors
 
 .header-btn-signup
-    @apply ml-6 bg-white text-green-500 py-2 px-4 rounded-full hover:text-white hover:bg-green-500 transition-colors
+    @apply ml-6 bg-white text-green-500 py-2 px-4 rounded-full hover:text-white hover:bg-green-500
+    @apply transition-colors
 
 .header-divider
     @apply h-6 border-l-2 border-green-500 ml-6
@@ -37,7 +38,8 @@
     @apply text-2xl font-light
 
 .jumbotron-btn-join
-    @apply text-lg py-2 bg-green-600 bg-gradient-to-b hover:bg-green-500 w-48 flex items-center justify-center text-white font-bold rounded-full transition-all
+    @apply flex text-lg py-2 bg-green-600 hover:bg-green-500 w-48 items-center justify-center
+    @apply text-white font-bold rounded-full transition-colors
 
 .footer
     @apply flex flex-col w-auto py-8 px-24 text-white bg-gray-900 space-y-8
@@ -61,7 +63,8 @@
     @apply flex justify-start w-max
 
 .footer-language-btn
-    @apply text-gray-800 font-bold bg-white hover:bg-green-500 hover:text-white transition-colors rounded-full py-2 px-6
+    @apply text-gray-800 font-bold bg-white hover:bg-green-500 hover:text-white transition-colors
+    @apply rounded-full py-2 px-6
 
 .footer-bottom
     @apply flex flex-row items-center
@@ -70,7 +73,7 @@
     @apply text-sm font-bold
 
 .footer-links-container
-    @apply flex flex-row text-sm mr-auto ml-16 mx-auto
+    @apply flex flex-row text-sm ml-16 mr-auto
 
 .footer-link
     @apply mx-4 text-gray-400 hover:text-green-400 transition-colors
@@ -98,4 +101,5 @@
     @apply flex
 
 .download-item-btn
-    @apply bg-gray-900 hover:bg-green-600 active:bg-green-500 text-white rounded-full px-4 py-2 mt-6 font-bold transition-colors
+    @apply bg-gray-900 hover:bg-green-600 active:bg-green-500 text-white rounded-full px-4 py-2 mt-6
+    @apply font-bold transition-colors
