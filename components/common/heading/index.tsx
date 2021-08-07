@@ -1,6 +1,6 @@
 type HeadingProps = {
   children: string;
-  id: string;
+  id?: string;
 };
 
 const CommonHeading = ({ children, id }: HeadingProps) => {
