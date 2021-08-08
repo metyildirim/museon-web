@@ -24,7 +24,7 @@ const mobileApps = [
 
 export default function Download() {
   return (
-    <div className="download-container">
+    <div className="common-container">
       <Header />
       <Heading id="desktop">Download for Desktop</Heading>
       <div className="download-item-container">

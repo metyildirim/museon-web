@@ -2,30 +2,27 @@ import { useState } from "react";
 import Link from "next/link";
 import GoogleLoginButton from "./google-login-button";
 import AppleLoginButton from "./apple-login-button";
-import LoginDivider from "./login-divider";
+import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
 import Switch from "../common/switch";
+
+const onLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  // TODO: login
+};
 
 const Login = () => {
   const [staySignedIn, setStaySignedIn] = useState(true);
 
   return (
-    <div className="login-section-container">
+    <div className="common-container">
       <Heading>Sign In</Heading>
-      <div className="social-login-container">
-        <span className="login-description">
-          It&apos;s always free and open
-        </span>
+      <div className="common-auth-container">
+        <span className="auth-description">It&apos;s always free and open</span>
         <GoogleLoginButton />
         <AppleLoginButton />
-        <LoginDivider />
-        <form
-          className="form-common"
-          onSubmit={(event) => {
-            event.preventDefault();
-            // TODO: login
-          }}
-        >
+        <AuthDivider />
+        <form className="form-common" onSubmit={onLogin}>
           <label className="input-label">Username or Email:</label>
           <input placeholder="Username or Email" className="input-common" />
           <label className="input-label">Password:</label>
@@ -48,10 +45,10 @@ const Login = () => {
           <button type="submit" className="submit-btn">
             Login
           </button>
-          <div className="login-signup-container">
+          <div className="auth-question-container">
             <span>Don&apos;t have an account?</span>
             <Link href="/signup">
-              <a className="login-signup-link">Sign Up</a>
+              <a className="auth-question-link">Sign Up</a>
             </Link>
           </div>
         </form>
