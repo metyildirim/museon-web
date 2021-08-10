@@ -1,5 +1,3 @@
-import arrayShuffle from "array-shuffle";
-
 export enum LoopStates {
   NOLOOP,
   LOOPALL,
@@ -9,7 +7,6 @@ export enum LoopStates {
 export default class MuseonMusicPlayer {
   player: HTMLAudioElement;
   list: Array<string>;
-  shuffledList: Array<string>;
   index: number;
   queue: Array<string>;
   shuffle: boolean;
@@ -26,7 +23,6 @@ export default class MuseonMusicPlayer {
     this.loop = loop || 0;
     this.shuffle = shuffle || false;
     this.list = list || [];
-    this.shuffledList = arrayShuffle(this.list);
     this.queue = [];
     this.player = new Audio();
     this.player.volume = volume || 1;

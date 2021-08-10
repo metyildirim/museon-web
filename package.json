@@ -19,7 +19,6 @@
     "@headlessui/react": "^1.4.0",
     "@next/bundle-analyzer": "^11.0.1",
     "@reduxjs/toolkit": "^1.6.1",
-    "array-shuffle": "^3.0.0",
     "axios": "^0.21.1",
     "graphql": "^15.5.1",
     "next": "11.0.0",
