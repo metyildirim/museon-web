@@ -1,5 +1,5 @@
 import React from "react";
-import MMP from "../../../utils/museon-music-player";
+import MMP, { LoopStates } from "../../../utils/museon-music-player";
 
 type MusicPlayerProps = {};
 
@@ -14,7 +14,7 @@ class MusicPlayer extends React.Component {
     this.mmp = new MMP([
       "https://firebasestorage.googleapis.com/v0/b/actuel.appspot.com/o/sil-mp3%2Fwhere_is_my_mind.mp3?alt=media&token=e802d401-a50b-48e0-95f2-8934f7673e60",
     ]);
-    this.mmp.play();
+    this.mmp.addToQueue("");
   }
 
   render() {

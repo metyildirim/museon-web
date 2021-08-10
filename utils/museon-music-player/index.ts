@@ -5,12 +5,12 @@ export enum LoopStates {
 }
 
 export default class MuseonMusicPlayer {
-  player: HTMLAudioElement;
-  list: Array<string>;
-  index: number;
-  queue: Array<string>;
-  shuffle: boolean;
-  loop: number;
+  private player: HTMLAudioElement;
+  private list: Array<string>;
+  private index: number;
+  private queue: Array<string>;
+  private shuffle: boolean;
+  private loop: number;
 
   constructor(
     list?: Array<string>,
@@ -30,12 +30,36 @@ export default class MuseonMusicPlayer {
     this.updateMusic(this.index);
   }
 
-  onMusicEnd = () => {
+  private onMusicEnd = () => {
     if (this.loop === LoopStates.LOOPONE) {
       this.rewind();
     } else {
       this.next();
     }
+  };
+
+  private shouldRewind = () => {
+    return this.getCurrentTime() > 3;
+  };
+
+  private rewind = () => {
+    this.setCurrentTime(0);
+    this.play();
+  };
+
+  private updateMusic = (index: number, src?: string) => {
+    if (!src) {
+      this.index = index;
+    }
+    this.player.src = src || this.list[index];
+  };
+
+  private getCurrentTime = () => {
+    return this.player.currentTime;
+  };
+
+  private setCurrentTime = (currentTime: number) => {
+    this.player.currentTime = currentTime;
   };
 
   play = () => {
@@ -81,26 +105,10 @@ export default class MuseonMusicPlayer {
     this.play();
   };
 
-  shouldRewind = () => {
-    return this.getCurrentTime() > 3;
-  };
-
-  rewind = () => {
-    this.setCurrentTime(0);
-    this.play();
-  };
-
   updateList = (list: Array<string>, index: number) => {
     this.list = list;
     this.updateMusic(index);
     this.play();
-  };
-
-  updateMusic = (index: number, src?: string) => {
-    if (!src) {
-      this.index = index;
-    }
-    this.player.src = src || this.list[index];
   };
 
   addToQueue = (url: string) => {
@@ -119,16 +127,16 @@ export default class MuseonMusicPlayer {
     return this.player.volume;
   };
 
-  getCurrentTime = () => {
-    return this.player.currentTime;
-  };
-
   setVolume = (volume: number) => {
     this.player.volume = volume;
   };
 
-  setCurrentTime = (currentTime: number) => {
-    this.player.currentTime = currentTime;
+  getProgress = () => {
+    return this.getCurrentTime() / this.getDuration();
+  };
+
+  setProgress = (progress: number) => {
+    this.setCurrentTime(progress * this.getDuration());
   };
 
   setShuffle = (active: boolean) => {
