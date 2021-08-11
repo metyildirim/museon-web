@@ -26,6 +26,9 @@
 .input-common
     @apply flex flex-row mb-2 mt-1 focus:outline-none p-2 border border-gray-300 focus:border-green-600 w-80
 
+.common-btn
+    @apply focus:outline-none
+
 .submit-btn
     @apply bg-green-600 hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-900 focus:outline-none w-80 p-2 mb-4
     @apply rounded-full font-bold mt-1 text-white
@@ -185,7 +188,89 @@
 
 // Web Player
 .web-player-container
-    @apply flex flex-col
+    @apply flex flex-col bg-gray-900 h-screen
 
 .player-container
     @apply flex flex-row w-full bg-gray-800 h-20 fixed bottom-0
+
+.player-left-container
+    @apply flex flex-row w-72 mr-auto items-center ml-6
+
+.player-album-cover
+    @apply h-16 w-16 border border-gray-700
+
+.player-controls
+    @apply mx-auto my-auto
+
+.player-control-action
+    @apply bg-gray-900 rounded-full flex text-gray-100 text-sm w-8 h-8 items-center justify-center mx-2
+    @apply hover:bg-black transition-colors active:bg-gray-700
+
+.play-pause-btn
+    @apply rounded-full text-white w-10 h-10
+
+.play-btn
+    @apply bg-white text-black pl-1 hover:bg-green-500 hover:text-white active:bg-green-600 active:text-white
+
+.pause-btn
+    @apply bg-white text-black hover:bg-red-500 hover:text-white active:bg-red-600 active:text-white
+
+.player-center-container
+    @apply flex
+
+.player-right-container
+    @apply flex flex-row w-72 ml-auto mr-6
+
+.player-queue-action-container
+    @apply flex flex-row ml-auto mr-8
+
+.player-queue-action
+    @apply flex text-gray-400 text-sm w-8 h-8 items-center justify-center mx-2
+    @apply fill-current hover:text-white transition-colors
+
+.player-action-selected
+    @apply fill-current text-green-400 hover:text-white
+
+.player-action-active-indicator
+    @apply bg-green-400 h-1 w-1 absolute bottom-6 rounded-full
+
+.player-action-label
+    @apply text-[9px] font-mono font-bold absolute top-5
+
+.player-volume-container
+    @apply flex flex-row text-gray-400 hover:text-white items-center
+
+.player-volume-icon
+    @apply flex items-center justify-start w-8 h-6
+
+.player-volume-input
+    @apply w-24 h-2 text-white outline-none appearance-none cursor-pointer transition-all border border-gray-900
+
+.player-volume-input::-moz-range-progress
+    @apply bg-green-500
+
+.player-volume-input::-moz-range-track
+    @apply bg-gray-900
+
+.player-volume-input::-ms-fill-lower
+    @apply bg-green-500
+
+.player-volume-input::-ms-fill-upper
+    @apply bg-gray-900
+
+@media screen and (-webkit-min-device-pixel-ratio:0)
+    .player-volume-input
+        -webkit-appearance: none
+        @apply overflow-hidden bg-gray-900
+
+    .player-volume-input::-webkit-slider-runnable-track
+        -webkit-appearance: none
+        @apply mt-[-1px] h-[10px] text-green-500
+
+    .player-volume-input::-webkit-slider-thumb
+        -webkit-appearance: none
+        box-shadow: -80px 0 0 80px rgba(16, 185, 129, 1)
+        @apply bg-green-500 h-[10px] w-[10px] hover:bg-white
+
+    .player-volume-input:hover::-webkit-slider-thumb
+        box-shadow: -80px 0 0 80px rgba(16, 185, 129, 1)

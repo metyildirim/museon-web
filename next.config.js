@@ -8,4 +8,7 @@ module.exports = withBundleAnalyzer({
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
+  images: {
+    domains: ["f4.bcbits.com"], // TODO: remove
+  },
 });
