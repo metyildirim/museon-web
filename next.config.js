@@ -9,6 +9,6 @@ module.exports = withBundleAnalyzer({
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ["f4.bcbits.com"], // TODO: remove
+    domains: ["f4.bcbits.com", "firebasestorage.googleapis.com"], // TODO: remove
   },
 });
