@@ -6,6 +6,7 @@ export enum LOOP_STATES {
 
 export type ListType = {
   song: string;
+  album: string;
   artists: Array<string>;
   cover: string;
   src: string;
@@ -21,6 +22,7 @@ export default class MuseonMusicPlayer {
     duration: string,
     progress: string,
     song: string,
+    album: string,
     artists: Array<string>
   ) => void;
   private list: Array<ListType>;
@@ -38,6 +40,7 @@ export default class MuseonMusicPlayer {
       duration: string,
       progress: string,
       song: string,
+      album: string,
       artists: Array<string>
     ) => void,
     list?: Array<ListType>,
@@ -69,6 +72,7 @@ export default class MuseonMusicPlayer {
       this.getFormatedDuration(),
       this.getProgress(),
       this.getSong(),
+      this.getAlbum(),
       this.getArtists()
     );
   };
@@ -98,11 +102,15 @@ export default class MuseonMusicPlayer {
     this.updateMediaSession(
       this.getCover(),
       this.getSong(),
-      this.getArtists()[0]
+      this.getAlbum(),
+      this.getArtists()
     );
   };
 
   private formatTime = (duration: number) => {
+    if (!duration) {
+      return "0:00";
+    }
     const hours = Math.floor(duration / 3600);
     const mins = Math.floor((duration % 3600) / 60);
     const secs = Math.floor(duration % 60);
@@ -127,6 +135,22 @@ export default class MuseonMusicPlayer {
     this.player.currentTime = currentTime;
   };
 
+  private getFormatedCurrentTime = () => {
+    return this.formatTime(this.getCurrentTime());
+  };
+
+  private getFormatedDuration = () => {
+    return this.formatTime(this.getDuration());
+  };
+
+  private getProgress = () => {
+    const progress = this.getCurrentTime() / this.getDuration();
+    if (!progress) {
+      return "0";
+    }
+    return progress.toFixed(3);
+  };
+
   private isPlaying = () => {
     return !this.player.paused;
   };
@@ -137,6 +161,10 @@ export default class MuseonMusicPlayer {
 
   private getSong = () => {
     return this.list[this.index]?.song;
+  };
+
+  private getAlbum = () => {
+    return this.list[this.index]?.album;
   };
 
   private getArtists = () => {
@@ -153,13 +181,15 @@ export default class MuseonMusicPlayer {
   private updateMediaSession = (
     cover: string,
     song: string,
-    artists: string
+    album: string,
+    artists: Array<string>
   ) => {
+    const mergedArtists = artists.join(", ");
     if ("mediaSession" in navigator) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: song,
-        artist: artists,
-        album: "Museon",
+        artist: mergedArtists,
+        album: album,
         artwork: [{ src: cover, sizes: "512x512", type: "image/png" }],
       });
     }
@@ -222,25 +252,8 @@ export default class MuseonMusicPlayer {
     return this.player.src;
   };
 
-  getVolume = () => {
-    return this.player.volume;
-  };
-
   setVolume = (volume: number) => {
     this.player.volume = volume;
-  };
-
-  getFormatedCurrentTime = () => {
-    return this.formatTime(this.getCurrentTime());
-  };
-
-  getFormatedDuration = () => {
-    return this.formatTime(this.getDuration());
-  };
-
-  getProgress = () => {
-    const progress = this.getCurrentTime() / this.getDuration();
-    return progress.toFixed(2);
   };
 
   setProgress = (progress: string) => {

@@ -7,16 +7,21 @@ type MusicInfoProps = {
   isLiked: boolean;
   artists: Array<string>;
   song: string;
+  album: string;
 };
 
-const MusicInfo = ({ isLiked, artists, song }: MusicInfoProps) => {
+const MusicInfo = ({ isLiked, artists, song, album }: MusicInfoProps) => {
   return (
     <div className="player-music-info">
       <div className="player-song-name">{song}</div>
       <div className="player-like">
         <FontAwesomeIcon icon={faHeartOutline} />
       </div>
-
+      <div className="player-album-name">
+        <Link href={"/player/album/" + album.toLowerCase()}>
+          <a>{album}</a>
+        </Link>
+      </div>
       <div className="player-artists">
         {artists.map((artist, index) => (
           <div key={artist} className="player-artist-link">

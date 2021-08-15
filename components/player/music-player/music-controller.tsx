@@ -21,7 +21,7 @@ const MusicController = ({
         onChange={onProgressChanged}
         max="1"
         min="0"
-        step={0.01}
+        step={0.001}
       />
       <div className="player-music-time">{duration}</div>
     </div>
