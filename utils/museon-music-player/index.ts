@@ -1,3 +1,5 @@
+import shuffleIndexes from "../shuffle-indexes";
+
 export enum LOOP_STATES {
   NoLoop,
   LoopAll,
@@ -27,8 +29,10 @@ export default class MuseonMusicPlayer {
   ) => void;
   private list: Array<ListType>;
   private index: number;
+  private shuffledIndexes: Array<number>;
   private queue: Array<ListType>;
   private shuffle: boolean;
+  private shufflePivot: number;
   private loop: number;
 
   constructor(
@@ -50,10 +54,12 @@ export default class MuseonMusicPlayer {
     volume?: number
   ) {
     this.callback = playerCallback;
-    this.index = index || 0;
     this.loop = loop || 0;
     this.shuffle = shuffle || false;
+    this.index = index || 0;
     this.list = list || [];
+    this.shuffledIndexes = shuffleIndexes(this.list);
+    this.shufflePivot = this.index;
     this.queue = [];
     this.player = new Audio();
     this.player.volume = volume || 1;
@@ -195,6 +201,44 @@ export default class MuseonMusicPlayer {
     }
   };
 
+  private getIndexBeforePivot = () => {
+    const index = this.shuffledIndexes.indexOf(this.shufflePivot) - 1;
+    if (index < 0) {
+      return this.shuffledIndexes[this.shuffledIndexes.length - 1];
+    }
+    return this.shuffledIndexes[index];
+  };
+
+  private getNextIndex = () => {
+    if (!this.shuffle) return this.index + 1;
+    const nextIndex = this.shuffledIndexes.indexOf(this.index) + 1;
+    if (nextIndex === this.shuffledIndexes.length) {
+      return this.shuffledIndexes[0];
+    } else {
+      return this.shuffledIndexes[nextIndex];
+    }
+  };
+
+  private getPrevIndex = () => {
+    if (!this.shuffle) return this.index - 1;
+    const prevIndex = this.shuffledIndexes.indexOf(this.index) - 1;
+    if (prevIndex < 0) {
+      return this.shuffledIndexes[this.shuffledIndexes.length - 1];
+    } else {
+      return this.shuffledIndexes[prevIndex];
+    }
+  };
+
+  private checkNextIndex = (index: number) => {
+    if (!this.shuffle) return index !== this.list.length;
+    return index !== this.shufflePivot;
+  };
+
+  private checkPrevIndex = (index: number) => {
+    if (!this.shuffle) return index < 0;
+    return index === this.getIndexBeforePivot();
+  };
+
   play = () => {
     this.player.play();
   };
@@ -207,16 +251,16 @@ export default class MuseonMusicPlayer {
     if (this.queue.length > 0) {
       this.updateMusic(this.index, this.queue.shift()?.src);
     }
-    let newIndex = this.index + 1;
-    if (newIndex === this.list.length) {
-      newIndex = 0;
-      this.updateMusic(newIndex);
-      if (this.loop === LOOP_STATES.LoopAll) {
+    let nextIndex = this.getNextIndex();
+    if (this.checkNextIndex(nextIndex)) {
+      this.updateMusic(nextIndex);
+      this.play();
+    } else {
+      nextIndex = this.shuffle ? this.shufflePivot : 0;
+      this.updateMusic(nextIndex);
+      if (this.loop !== LOOP_STATES.NoLoop) {
         this.play();
       }
-    } else {
-      this.updateMusic(newIndex);
-      this.play();
     }
   };
 
@@ -225,22 +269,27 @@ export default class MuseonMusicPlayer {
       this.rewind();
       return;
     }
-    let newIndex = this.index - 1;
-    if (newIndex < 0) {
+    let prevIndex = this.getPrevIndex();
+    if (this.checkPrevIndex(prevIndex)) {
       if (this.loop === LOOP_STATES.NoLoop) {
         this.rewind();
         return;
       } else {
-        newIndex = this.list.length - 1;
+        if (this.shuffle) {
+          prevIndex = this.getIndexBeforePivot();
+        } else {
+          prevIndex = this.list.length - 1;
+        }
       }
     }
-    this.updateMusic(newIndex);
+    this.updateMusic(prevIndex);
     this.play();
   };
 
   updateList = (list: Array<ListType>, index: number) => {
     this.list = list;
     this.updateMusic(index);
+    this.shufflePivot = index;
     this.play();
   };
 
@@ -261,6 +310,9 @@ export default class MuseonMusicPlayer {
   };
 
   setShuffle = (active: boolean) => {
+    if (active) {
+      this.shufflePivot = this.index;
+    }
     this.shuffle = active;
   };
 

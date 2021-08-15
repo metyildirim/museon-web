@@ -1,14 +1,16 @@
+function randomize(arr: Array<number>, length: number) {
+  const randomizedIndexes = [];
+  for (let i = 0; i < length; i++) {
+    const random = Math.floor(Math.random() * arr.length);
+    const index = arr.splice(random, 1)[0];
+    randomizedIndexes.push(index);
+  }
+  return randomizedIndexes;
+}
+
 export default function shuffle(arr: Array<any>) {
   const indexes = Array(arr.length)
     .fill(0)
-    .map((v, i) => i);
-  const shuffledIndexes = [];
-  for (let i = 0; i < arr.length; i++) {
-    const random = Math.floor(Math.random() * indexes.length);
-    const index = indexes.splice(random, 1)[0];
-    console.log(indexes, index);
-    shuffledIndexes.push(index);
-  }
-
-  console.log(shuffledIndexes);
+    .map((_v, i) => i);
+  return randomize(indexes, arr.length);
 }
