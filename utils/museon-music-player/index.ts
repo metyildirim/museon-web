@@ -1,4 +1,4 @@
-import shuffleIndexes from "../shuffle-indexes";
+import shuffleIndexes from "./shuffle-indexes";
 
 export enum LOOP_STATES {
   NoLoop,

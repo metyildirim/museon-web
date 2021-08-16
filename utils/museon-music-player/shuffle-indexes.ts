@@ -8,7 +8,7 @@ function randomize(arr: Array<number>, length: number) {
   return randomizedIndexes;
 }
 
-export default function shuffle(arr: Array<any>) {
+export default function shuffleIndexes(arr: Array<any>) {
   const indexes = Array(arr.length)
     .fill(0)
     .map((_v, i) => i);
