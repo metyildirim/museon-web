@@ -15,7 +15,7 @@ const MusicController = ({
     <div className="player-music-controller">
       <div className="player-music-time">{currentTime}</div>
       <input
-        className="player-music-controller-input"
+        className="common-range-input player-music-controller-input"
         type="range"
         value={progress}
         onChange={onProgressChanged}

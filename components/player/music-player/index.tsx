@@ -44,11 +44,12 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
       isLiked: false,
       duration: "0:00",
       currentTime: "0:00",
-      progress: "0.5",
+      progress: "0",
       song: "",
       album: "",
       artists: [""],
-      cover: "https://f4.bcbits.com/img/a2736265476_16.jpg",
+      cover:
+        "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
     };
     this.list = [
       {
@@ -194,6 +195,13 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
   render() {
     return (
       <div className="player-container">
+        <PlayerControls
+          play={this.play}
+          pause={this.pause}
+          next={this.next}
+          previous={this.previous}
+          isPlaying={this.state.isPlaying}
+        />
         <div className="player-album-cover">
           <Link href="/player/album/2h7D8GjdYtg6">
             <a>
@@ -206,13 +214,6 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
             </a>
           </Link>
         </div>
-        <PlayerControls
-          play={this.play}
-          pause={this.pause}
-          next={this.next}
-          previous={this.previous}
-          isPlaying={this.state.isPlaying}
-        />
         <div className="player-center-container">
           <MusicInfo
             isLiked={this.state.isLiked}
@@ -227,28 +228,26 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
             onProgressChanged={this.onProgressChanged}
           />
         </div>
-        <div className="player-right-container">
-          <div className="player-queue-action-container">
-            <QueueAction
-              icon={faRandom}
-              onClick={this.onShuffleClicked}
-              isActive={this.state.isShuffle}
-            />
-            <QueueAction
-              IconSVGR={<LoopIcon />}
-              onClick={this.onLoopClicked}
-              isActive={this.state.loopState !== LOOP_STATES.NoLoop}
-              labelText={
-                this.state.loopState === LOOP_STATES.LoopOne ? "1" : null
-              }
-            />
-          </div>
-          <VolumeController
-            volume={this.state.volume}
-            onVolumeChanged={this.onVolumeChanged}
-            onVolumeIconClicked={this.onVolumeIconClicked}
+        <div className="player-queue-action-container">
+          <QueueAction
+            icon={faRandom}
+            onClick={this.onShuffleClicked}
+            isActive={this.state.isShuffle}
+          />
+          <QueueAction
+            IconSVGR={<LoopIcon />}
+            onClick={this.onLoopClicked}
+            isActive={this.state.loopState !== LOOP_STATES.NoLoop}
+            labelText={
+              this.state.loopState === LOOP_STATES.LoopOne ? "1" : null
+            }
           />
         </div>
+        <VolumeController
+          volume={this.state.volume}
+          onVolumeChanged={this.onVolumeChanged}
+          onVolumeIconClicked={this.onVolumeIconClicked}
+        />
       </div>
     );
   }

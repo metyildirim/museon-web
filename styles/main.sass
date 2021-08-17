@@ -57,6 +57,34 @@
 .auth-question-link
     @apply ml-2 font-medium hover:text-green-700
 
+.common-range-input
+    @apply h-[7px] text-white outline-none appearance-none cursor-pointer transition-all border
+    @apply border-gray-900 rounded-full
+
+.common-range-input::-moz-range-progress, .common-range-input::-ms-fill-lower
+    @apply bg-green-500
+
+.common-range-input::-moz-range-track, common-range-input::-ms-fill-upper
+    @apply bg-gray-900
+
+@media screen and (-webkit-min-device-pixel-ratio:0)
+    .common-range-input
+        -webkit-appearance: none
+        @apply overflow-hidden bg-gray-900
+
+    .common-range-input::-webkit-slider-runnable-track
+        -webkit-appearance: none
+        @apply mt-[-1px] h-[10px] text-green-500
+
+    .common-range-input::-webkit-slider-thumb
+        -webkit-appearance: none
+        box-shadow: -800px 0 0 800px rgb(156, 163, 175)
+        @apply bg-gray-400 h-[10px] w-[10px]
+
+    .common-range-input:hover::-webkit-slider-thumb
+        box-shadow: -800px 0 0 800px rgba(16, 185, 129, 1)
+        @apply bg-white
+
 // Home
 .header
     @apply flex flex-row items-center w-full py-4 px-24 font-bold text-white bg-gray-700 fixed
@@ -194,10 +222,10 @@
     @apply flex flex-row w-full bg-gray-800 h-20 fixed bottom-0
 
 .player-album-cover
-    @apply h-16 w-16 overflow-hidden ml-6 mr-auto my-auto
+    @apply h-16 w-16 overflow-hidden my-auto rounded-md
 
 .player-controls
-    @apply mx-auto my-auto
+    @apply  my-auto mx-auto
 
 .player-control-action
     @apply bg-gray-900 rounded-full flex text-gray-100 text-sm w-8 h-8 items-center justify-center mx-2
@@ -213,10 +241,10 @@
     @apply bg-white text-black hover:bg-red-500 hover:text-white active:bg-red-600 active:text-white
 
 .player-center-container
-    @apply flex flex-col justify-center w-6/12
+    @apply flex flex-col justify-center w-6/12 ml-6
 
 .player-music-info
-    @apply flex flex-row items-center w-full px-8 mb-auto mt-2
+    @apply flex flex-row items-center w-full mb-auto mt-2
 
 .player-song-name
     @apply text-white mr-2 text-sm
@@ -229,7 +257,7 @@
     @apply transition-colors justify-center
 
 .player-music-controller
-    @apply flex flex-row items-center w-full justify-between px-8 mt-auto mb-3
+    @apply flex flex-row items-center w-full justify-between mt-auto mb-3
 
 .player-music-time
     @apply text-gray-400 text-xs
@@ -239,9 +267,6 @@
 
 .player-artist-link
     @apply ml-1 hover:text-green-400
-
-.player-right-container
-    @apply flex flex-row w-72 ml-auto mr-6
 
 .player-queue-action-container
     @apply flex flex-row ml-auto mr-8
@@ -260,76 +285,14 @@
     @apply text-[9px] font-mono font-bold absolute ml-3 mb-3 bg-green-400 h-4 w-4 rounded-full text-gray-800
     @apply flex justify-center items-center border-2 border-gray-800 pt-[1px]
 
-.player-music-controller-input
-    @apply w-10/12 h-[7px] text-white outline-none appearance-none cursor-pointer transition-all border
-    @apply border-gray-900 rounded-full
-
-.player-music-controller-input::-moz-range-progress
-    @apply bg-green-500
-
-.player-music-controller-input::-moz-range-track
-    @apply bg-gray-900
-
-.player-music-controller-input::-ms-fill-lower
-    @apply bg-green-500
-
-.player-music-controller-input::-ms-fill-upper
-    @apply bg-gray-900
-
-@media screen and (-webkit-min-device-pixel-ratio:0)
-    .player-music-controller-input
-        -webkit-appearance: none
-        @apply overflow-hidden bg-gray-900
-
-    .player-music-controller-input::-webkit-slider-runnable-track
-        -webkit-appearance: none
-        @apply mt-[-1px] h-[10px] text-green-500
-
-    .player-music-controller-input::-webkit-slider-thumb
-        -webkit-appearance: none
-        box-shadow: -400px 0 0 400px rgb(156, 163, 175)
-        @apply bg-gray-400 h-[10px] w-[10px]
-
-    .player-music-controller-input:hover::-webkit-slider-thumb
-        box-shadow: -400px 0 0 400px rgba(16, 185, 129, 1)
-        @apply bg-white
-
 .player-volume-container
-    @apply flex flex-row text-gray-400 hover:text-white items-center
+    @apply flex flex-row text-gray-400 hover:text-white items-center mr-6
 
 .player-volume-icon
     @apply flex items-center justify-start w-8 h-6
 
 .player-volume-input
-    @apply w-24 h-[7px] text-white outline-none appearance-none cursor-pointer transition-all border
-    @apply border-gray-900 rounded-full
+    @apply w-24
 
-.player-volume-input::-moz-range-progress
-    @apply bg-green-500
-
-.player-volume-input::-moz-range-track
-    @apply bg-gray-900
-
-.player-volume-input::-ms-fill-lower
-    @apply bg-green-500
-
-.player-volume-input::-ms-fill-upper
-    @apply bg-gray-900
-
-@media screen and (-webkit-min-device-pixel-ratio:0)
-    .player-volume-input
-        -webkit-appearance: none
-        @apply overflow-hidden bg-gray-900
-
-    .player-volume-input::-webkit-slider-runnable-track
-        -webkit-appearance: none
-        @apply mt-[-1px] h-[10px] text-green-500
-
-    .player-volume-input::-webkit-slider-thumb
-        -webkit-appearance: none
-        box-shadow: -80px 0 0 80px rgb(156, 163, 175)
-        @apply bg-gray-400 h-[10px] w-[10px]
-
-    .player-volume-input:hover::-webkit-slider-thumb
-        box-shadow: -80px 0 0 80px rgba(16, 185, 129, 1)
-        @apply bg-white
+.player-music-controller-input
+    @apply w-10/12

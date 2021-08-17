@@ -28,7 +28,7 @@ const VolumeController = ({
         </button>
       </div>
       <input
-        className="player-volume-input"
+        className="common-range-input player-volume-input"
         type="range"
         value={volume}
         onChange={onVolumeChanged}

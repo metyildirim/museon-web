@@ -138,7 +138,7 @@ export default class MuseonMusicPlayer {
   };
 
   private setCurrentTime = (currentTime: number) => {
-    this.player.currentTime = currentTime;
+    this.player.currentTime = isNaN(currentTime) ? 0 : currentTime;
   };
 
   private getFormatedCurrentTime = () => {
