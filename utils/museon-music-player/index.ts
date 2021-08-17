@@ -16,6 +16,7 @@ export type ListType = {
 
 export default class MuseonMusicPlayer {
   private player: HTMLAudioElement;
+  private fetcher: HTMLAudioElement;
   private callback: (
     cover: string,
     isPlaying: boolean,
@@ -61,6 +62,7 @@ export default class MuseonMusicPlayer {
     this.shuffledIndexes = shuffleIndexes(this.list);
     this.shufflePivot = this.index;
     this.queue = [];
+    this.fetcher = new Audio();
     this.player = new Audio();
     this.player.volume = volume || 1;
     this.player.onended = this.onMusicEnd;
@@ -111,6 +113,7 @@ export default class MuseonMusicPlayer {
       this.getAlbum(),
       this.getArtists()
     );
+    this.fetchNext();
   };
 
   private formatTime = (duration: number) => {
@@ -239,6 +242,12 @@ export default class MuseonMusicPlayer {
     return index === this.getIndexBeforePivot();
   };
 
+  private fetchNext = () => {
+    let nextIndex = this.getNextIndex();
+    nextIndex = nextIndex === this.list.length ? 0 : nextIndex;
+    this.fetcher.src = this.list[nextIndex].src;
+  };
+
   play = () => {
     this.player.play();
   };
@@ -314,6 +323,7 @@ export default class MuseonMusicPlayer {
       this.shufflePivot = this.index;
     }
     this.shuffle = active;
+    this.fetchNext();
   };
 
   setLoop = (loopState: number) => {
