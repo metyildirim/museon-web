@@ -15,7 +15,9 @@ const MusicInfo = ({ isLiked, artists, song, album }: MusicInfoProps) => {
     <div className="player-music-info">
       <div className="player-song-name">{song}</div>
       <div className="player-like">
-        <FontAwesomeIcon icon={faHeartOutline} />
+        <button className="common-btn">
+          <FontAwesomeIcon icon={isLiked ? faHeart : faHeartOutline} />
+        </button>
       </div>
       <div className="player-album-name">
         <Link href={"/player/album/" + album.toLowerCase()}>

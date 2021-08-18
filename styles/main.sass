@@ -222,10 +222,10 @@
     @apply flex flex-row w-full bg-gray-800 h-20 fixed bottom-0
 
 .player-album-cover
-    @apply h-16 w-16 overflow-hidden my-auto rounded-md
+    @apply h-16 w-16 overflow-hidden my-auto rounded-md ml-6
 
 .player-controls
-    @apply  my-auto mx-auto
+    @apply my-auto mx-auto
 
 .player-control-action
     @apply bg-gray-900 rounded-full flex text-gray-100 text-sm w-8 h-8 items-center justify-center mx-2
@@ -241,7 +241,7 @@
     @apply bg-white text-black hover:bg-red-500 hover:text-white active:bg-red-600 active:text-white
 
 .player-center-container
-    @apply flex flex-col justify-center w-6/12 ml-6
+    @apply flex flex-col justify-center w-6/12 mx-6
 
 .player-music-info
     @apply flex flex-row items-center w-full mb-auto mt-2
@@ -269,7 +269,7 @@
     @apply ml-1 hover:text-green-400
 
 .player-queue-action-container
-    @apply flex flex-row ml-auto mr-8
+    @apply flex flex-row mr-8
 
 .player-queue-action
     @apply flex text-gray-400 text-sm w-8 h-8 items-center justify-center mx-2
@@ -296,3 +296,31 @@
 
 .player-music-controller-input
     @apply w-10/12
+
+.player-top-container
+    @apply flex flex-row flex-1
+
+.player-user-section
+    @apply flex flex-col w-64 bg-gray-700
+
+.player-user-profile
+    @apply flex flex-col h-40 bg-gray-800 items-center justify-center
+
+.profile-image
+    @apply flex items-center justify-center h-12 w-12 bg-gray-600 text-xl text-white rounded-full
+
+.player-body-section
+    @apply flex flex-col flex-1 bg-gray-900
+
+.player-body-header
+    @apply flex flex-row h-24 items-center px-8
+
+.player-playlists-header
+    @apply flex flex-row text-white m-4 items-center justify-between
+
+.player-playlists
+    @apply flex flex-col
+
+.player-playlist-item
+    @apply flex flex-row bg-gray-800 hover:bg-gray-900 active:bg-gray-800 focus:bg-gray-900 text-white
+    @apply mx-2 text-sm py-2 px-4 rounded-md justify-between items-center transition-colors mb-2

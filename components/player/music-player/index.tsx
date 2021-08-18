@@ -195,13 +195,6 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
   render() {
     return (
       <div className="player-container">
-        <PlayerControls
-          play={this.play}
-          pause={this.pause}
-          next={this.next}
-          previous={this.previous}
-          isPlaying={this.state.isPlaying}
-        />
         <div className="player-album-cover">
           <Link href="/player/album/2h7D8GjdYtg6">
             <a>
@@ -228,6 +221,13 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
             onProgressChanged={this.onProgressChanged}
           />
         </div>
+        <PlayerControls
+          play={this.play}
+          pause={this.pause}
+          next={this.next}
+          previous={this.previous}
+          isPlaying={this.state.isPlaying}
+        />
         <div className="player-queue-action-container">
           <QueueAction
             icon={faRandom}
