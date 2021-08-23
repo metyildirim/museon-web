@@ -10,41 +10,20 @@ import Album from "../../components/player/album";
 import { ParsedUrlQuery } from "querystring";
 
 const getBodySection = (query: ParsedUrlQuery) => {
-  let index = 0;
-  let param = "";
   if (query.path) {
     const path = query.path[0];
-    param = query.path[1];
-    switch (path) {
-      case "search":
-        index = 1;
-        break;
-      case "playlist":
-        index = 2;
-        break;
-      case "album":
-        index = 3;
-        break;
-      case "artist":
-        index = 4;
-        break;
-      default:
-        index = 0;
-        break;
+    const param = query.path[1];
+    if (path === "search") {
+      return <Search param={param} />;
+    } else if (path === "playlist") {
+      return <Playlist param={param} />;
+    } else if (path === "album") {
+      return <Album param={param} />;
+    } else if (path === "artist") {
+      return <Artist param={param} />;
     }
   }
-
-  if (index === 1) {
-    return <Search param={param} />;
-  } else if (index === 2) {
-    return <Playlist param={param} />;
-  } else if (index === 3) {
-    return <Album param={param} />;
-  } else if (index === 4) {
-    return <Artist param={param} />;
-  } else {
-    return <Home />;
-  }
+  return <Home />;
 };
 
 export default function Player() {

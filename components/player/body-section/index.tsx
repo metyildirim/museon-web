@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import NavigationButton from "./navigation-button";
@@ -15,10 +16,13 @@ type BodySectionProps = {
 };
 
 const BodySection = ({ children }: BodySectionProps) => {
+  const router = useRouter();
   const [disabledHome, setDisabledHome] = useState(false);
   const [disabledBack, setDisabledBack] = useState(true);
   const [disabledForward, setDisabledForward] = useState(true);
-  const onHomeClicked = () => {};
+  const onHomeClicked = () => {
+    router.push("/player/home", undefined, { shallow: true });
+  };
   const onBackClicked = () => {};
   const onForwardClicked = () => {};
   return (
