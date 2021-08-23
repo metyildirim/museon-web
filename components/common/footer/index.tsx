@@ -21,13 +21,13 @@ const sections = [
     links: [
       {
         title: "Github",
-        path: "https://github.com/metyildirim/museon-frontend",
+        path: "https://github.com/metyildirim/museon-web",
         target: "_blank",
       },
       { title: "Donors", path: "/donors", target: "_self" },
       {
         title: "Contributors",
-        path: "https://github.com/metyildirim/museon-frontend/graphs/contributors",
+        path: "https://github.com/metyildirim/museon-web/graphs/contributors",
         target: "_blank",
       },
     ],

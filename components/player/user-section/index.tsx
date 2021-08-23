@@ -29,7 +29,7 @@ const UserSection = () => {
         <FontAwesomeIcon icon={faListUl} />
       </div>
       <div className="player-playlists">
-        <PlaylistItem text="Liked songs" icon={faHeart} listId="likes" />
+        <PlaylistItem text="Liked Songs" icon={faHeart} listId="likes" />
         <PlaylistItem text="Daily Mix" icon={faCompactDisc} listId="dailymix" />
         {playlists.map(({ text, listId }) => (
           <PlaylistItem

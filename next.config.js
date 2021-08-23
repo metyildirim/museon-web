@@ -9,6 +9,15 @@ module.exports = withBundleAnalyzer({
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ["f4.bcbits.com", "firebasestorage.googleapis.com"], // TODO: remove
+    domains: ["firebasestorage.googleapis.com"],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/player",
+        destination: "/player/home",
+        permanent: true,
+      },
+    ];
   },
 });

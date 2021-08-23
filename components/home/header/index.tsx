@@ -13,7 +13,7 @@ const Header = () => {
         </a>
       </Link>
       <div className="header-btn-container">
-        <Link href="/player">
+        <Link href="/player/home">
           <a className="header-btn">Web Player</a>
         </Link>
         <Link href="/download">
