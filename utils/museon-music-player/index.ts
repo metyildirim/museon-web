@@ -15,6 +15,7 @@ export type ListType = {
 };
 
 export default class MuseonMusicPlayer {
+  static instance: MuseonMusicPlayer;
   private player: HTMLAudioElement;
   private fetcher: HTMLAudioElement;
   private callback: (
@@ -54,6 +55,9 @@ export default class MuseonMusicPlayer {
     shuffle?: boolean,
     volume?: number
   ) {
+    if (MuseonMusicPlayer.instance) {
+      throw "There should only be one music player instance";
+    }
     this.callback = playerCallback;
     this.loop = loop || 0;
     this.shuffle = shuffle || false;
@@ -69,6 +73,7 @@ export default class MuseonMusicPlayer {
     this.updateMusic(this.index);
     this.setMediaButtons();
     setInterval(this.notify, 200);
+    MuseonMusicPlayer.instance = this;
   }
 
   private notify = () => {

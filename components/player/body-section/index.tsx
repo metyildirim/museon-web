@@ -28,13 +28,6 @@ const BodySection = ({ children }: BodySectionProps) => {
   return (
     <div className="player-body-section">
       <div className="player-body-header">
-        <Link href="/">
-          <a>
-            <div className="common-header-logo">
-              <Image src="/logo.svg" alt="logo" height="50px" width="150px" />
-            </div>
-          </a>
-        </Link>
         <div className="player-navigation-container">
           <NavigationButton
             onClick={onHomeClicked}
