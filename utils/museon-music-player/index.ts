@@ -304,6 +304,7 @@ export default class MuseonMusicPlayer {
     this.list = list;
     this.updateMusic(index);
     this.shufflePivot = index;
+    this.shuffledIndexes = shuffleIndexes(this.list);
     this.play();
   };
 
