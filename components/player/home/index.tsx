@@ -1,7 +1,7 @@
-import Album from "../../common/album";
+import Album from "../../common/album-item";
 import Artist from "../../common/artist";
 
-const madeForUser = [
+const featuredPlaylists = [
   {
     cover:
       "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
@@ -16,7 +16,7 @@ const madeForUser = [
       },
     ],
     playlistId: "1",
-    title: "Daily Mix",
+    title: "Daily Mix 1",
   },
   {
     cover:
@@ -32,7 +32,7 @@ const madeForUser = [
       },
     ],
     playlistId: "2",
-    title: "Weekly Mix",
+    title: "Daily Mix 2",
   },
   {
     cover:
@@ -98,9 +98,9 @@ const featuredArtists = [
 const Home = () => {
   return (
     <div className="player-home">
-      <span className="player-home-title">Made for you</span>
+      <span className="player-home-title">Featured playlists</span>
       <div className="player-album-container">
-        {madeForUser.map(({ cover, playlist, playlistId, title }) => (
+        {featuredPlaylists.map(({ cover, playlist, playlistId, title }) => (
           <Album
             key={title}
             cover={cover}

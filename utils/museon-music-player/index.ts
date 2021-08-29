@@ -12,6 +12,7 @@ export type ListType = {
   artists: Array<string>;
   cover: string;
   src: string;
+  index?: number;
 };
 
 export default class MuseonMusicPlayer {
