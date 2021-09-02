@@ -8,4 +8,16 @@ module.exports = withBundleAnalyzer({
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
+  images: {
+    domains: ["firebasestorage.googleapis.com"],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/player",
+        destination: "/player/home",
+        permanent: true,
+      },
+    ];
+  },
 });

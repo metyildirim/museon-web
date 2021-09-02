@@ -4,7 +4,9 @@ const Jumbotron = () => {
   return (
     <div className="jumbotron-container">
       <span className="jumbotron-heading">Enjoy The Music Freedom</span>
-      <span className="jumbotron-text">Open source free music platform.</span>
+      <span className="jumbotron-text">
+        Free and open-source music platform.
+      </span>
       <Link href="/signup">
         <a className="jumbotron-btn-join">Join</a>
       </Link>

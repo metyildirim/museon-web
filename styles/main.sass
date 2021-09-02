@@ -26,6 +26,9 @@
 .input-common
     @apply flex flex-row mb-2 mt-1 focus:outline-none p-2 border border-gray-300 focus:border-green-600 w-80
 
+.common-btn
+    @apply focus:outline-none
+
 .submit-btn
     @apply bg-green-600 hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-900 focus:outline-none w-80 p-2 mb-4
     @apply rounded-full font-bold mt-1 text-white
@@ -53,6 +56,34 @@
 
 .auth-question-link
     @apply ml-2 font-medium hover:text-green-700
+
+.common-range-input
+    @apply h-[7px] text-white outline-none appearance-none cursor-pointer transition-all border
+    @apply border-gray-900 rounded-full
+
+.common-range-input::-moz-range-progress, .common-range-input::-ms-fill-lower
+    @apply bg-green-500
+
+.common-range-input::-moz-range-track, common-range-input::-ms-fill-upper
+    @apply bg-gray-900
+
+@media screen and (-webkit-min-device-pixel-ratio:0)
+    .common-range-input
+        -webkit-appearance: none
+        @apply overflow-hidden bg-gray-900
+
+    .common-range-input::-webkit-slider-runnable-track
+        -webkit-appearance: none
+        @apply mt-[-1px] h-[10px] text-green-500
+
+    .common-range-input::-webkit-slider-thumb
+        -webkit-appearance: none
+        box-shadow: -800px 0 0 800px rgb(156, 163, 175)
+        @apply h-[10px] w-[10px] bg-gray-400
+
+    .common-range-input:hover::-webkit-slider-thumb
+        box-shadow: -800px 0 0 800px rgba(16, 185, 129, 1)
+        @apply bg-white
 
 // Home
 .header
@@ -182,3 +213,233 @@
 
 .signup-link
     @apply font-medium hover:text-green-700
+
+// Web Player
+.web-player-container
+    @apply flex flex-col bg-gray-900 h-screen overflow-hidden
+
+.player-container
+    @apply flex flex-row w-full bg-gray-800 h-20 fixed bottom-0
+
+.player-album-cover
+    @apply h-16 w-16 overflow-hidden my-auto rounded-md ml-6 border border-gray-400
+
+.player-controls
+    @apply my-auto mx-auto
+
+.player-control-action
+    @apply bg-gray-900 rounded-full flex text-gray-100 text-sm w-8 h-8 items-center justify-center mx-2
+    @apply hover:bg-black transition-colors active:bg-gray-700
+
+.play-pause-btn
+    @apply rounded-full text-white w-10 h-10
+
+.play-btn
+    @apply bg-white text-black pl-1 hover:bg-green-500 hover:text-white active:bg-green-600 active:text-white
+
+.pause-btn
+    @apply bg-white text-black hover:bg-red-500 hover:text-white active:bg-red-600 active:text-white
+
+.player-center-container
+    @apply flex flex-col justify-center w-6/12 mx-6
+
+.player-music-info
+    @apply flex flex-row items-center w-full mb-auto mt-2
+
+.player-song-name
+    @apply text-white mr-2 text-sm
+
+.player-album-name
+    @apply text-gray-400 ml-2 text-xs hover:text-green-400
+
+.player-like
+    @apply text-gray-400 text-lg h-8 w-6 flex items-center justify-center hover:text-white hover:text-xl
+    @apply transition-colors justify-center
+
+.player-music-controller
+    @apply flex flex-row items-center w-full justify-between mt-auto mb-3
+
+.player-music-time
+    @apply text-gray-400 text-xs
+
+.player-artists
+    @apply flex flex-row ml-auto text-xs text-gray-300
+
+.player-artist-link
+    @apply ml-1 hover:text-green-400
+
+.player-queue-action-container
+    @apply flex flex-row mr-8
+
+.player-queue-action
+    @apply flex text-gray-400 text-sm w-8 h-8 items-center justify-center mx-2
+    @apply fill-current hover:text-white transition-colors
+
+.player-action-selected
+    @apply fill-current text-green-400 hover:text-green-300
+
+.player-action-active-indicator
+    @apply bg-green-400 h-1 w-1 absolute bottom-7 rounded-full
+
+.player-action-label
+    @apply text-[9px] font-mono font-bold absolute ml-3 mb-3 bg-green-400 h-4 w-4 rounded-full text-gray-800
+    @apply flex justify-center items-center border-2 pt-[1px] border-gray-800
+
+.player-volume-container
+    @apply flex flex-row text-gray-400 hover:text-white items-center mr-6
+
+.player-volume-icon
+    @apply flex items-center justify-start w-8 h-6
+
+.player-volume-input
+    @apply w-24
+
+.player-music-controller-input
+    @apply w-10/12
+
+.player-top-container
+    @apply flex flex-row flex-1
+
+.player-user-section
+    @apply flex flex-col w-64 bg-gray-700 fixed h-full
+
+.player-user-profile
+    @apply flex flex-col h-40 bg-gray-800 items-center justify-center
+
+.profile-image
+    @apply flex items-center justify-center h-12 w-12 bg-gray-600 text-xl text-white rounded-full
+
+.player-playlists
+    @apply flex flex-col
+
+.player-playlist-item
+    @apply flex flex-row bg-gray-800 hover:bg-gray-900 active:bg-green-500 text-white mx-2 text-sm py-2 px-4
+    @apply rounded-md justify-between items-center transition-colors mb-2
+
+.player-body-section
+    height: calc(100vh - 80px)
+    width: calc(100vw - 256px)
+    @apply bg-gray-900 pb-8 pt-32 overflow-x-hidden ml-auto
+
+.player-body-section::-webkit-scrollbar
+    @apply w-2
+
+.player-body-section::-webkit-scrollbar-track
+    @apply bg-black
+
+.player-body-section::-webkit-scrollbar-thumb
+    @apply bg-green-500 rounded-full
+
+.player-body-section::-webkit-scrollbar-thumb:hover
+    @apply bg-white
+
+.player-body-header
+    width: calc(100vw - 264px)
+    @apply flex flex-row h-24 items-center px-8 bg-black bg-opacity-20 shadow-2xl fixed top-0 z-10
+
+.player-welcome-text
+    @apply text-white font-bold text-3xl m-16 bg-gray-800 p-8 rounded-xl
+
+.player-playlists-header
+    @apply flex flex-row text-white m-4 items-center justify-between
+
+.player-navigation-container
+    @apply flex flex-row w-36 justify-between items-center
+
+.navigation-btn
+    @apply bg-gray-700 rounded-full w-10 h-10 text-white text-lg hover:bg-gray-600 active:bg-green-500
+    @apply disabled:bg-gray-800 disabled:bg-opacity-80 disabled:text-gray-600 disabled:cursor-not-allowed
+
+.search-container
+    @apply flex flex-row relative items-center ml-auto
+
+.search-icon
+    @apply absolute origin-top-left text-white left-3 pointer-events-none
+
+.input-search
+    @apply rounded-full bg-gray-700 border-0 pl-10 pr-4 text-white m-0 text-sm h-10 w-80
+
+.player-home
+    @apply flex flex-col px-8
+
+.player-home-title
+    @apply text-white w-full text-center text-xl my-6 font-bold
+
+.player-album-container
+    @apply flex flex-row w-full justify-center items-center my-4
+
+.album-item
+    @apply flex flex-col rounded-md w-40 h-52 mx-8 items-center
+
+.album-item-cover
+    @apply relative flex items-center justify-center rounded-xl overflow-hidden mb-4
+    @apply drop-shadow-xl
+
+.album-item-title
+    @apply text-white text-xs font-bold
+
+.artist-item
+    @apply flex flex-col w-40 h-40 mx-8 items-center justify-between
+
+.artist-item-title
+    @apply text-white text-xs font-bold
+
+.artist-image
+    @apply rounded-full shadow-xl
+
+.album-play-btn
+    @apply absolute origin-top-left z-10 h-12 w-12 right-10 bottom-10 rounded-full text-white pl-1
+    @apply bg-green-500 hover:bg-green-600 active:bg-green-700 transition-colors
+
+.player-playlist-section
+    @apply flex flex-col px-16 mt-8
+
+.player-playlist-header
+    @apply flex flex-row items-center
+
+.player-playlist-image
+    @apply rounded-xl border border-gray-400 overflow-hidden h-36 w-36
+
+.player-playlist-title
+    @apply ml-8 text-2xl font-bold text-white
+
+.playlist-play-btn
+    @apply flex items-center justify-center h-12 w-12 bg-green-600 text-white rounded-full cursor-pointer
+    @apply hover:bg-green-500 pl-1 ml-4
+
+.playlist-like-btn
+    @apply flex items-center justify-center h-12 w-12 bg-gray-700 hover:bg-gray-600 rounded-full ml-4
+    @apply text-white cursor-pointer text-lg
+
+.playlist-table-titles
+    @apply flex flex-row w-full h-10 items-center justify-center bg-gray-800 mt-8 rounded-xl px-2 pr-4
+
+.playlist-table-title-item
+    @apply flex items-center text-gray-400 text-sm pl-4 font-light
+
+.playlist-table-items
+    @apply flex flex-col w-full mt-2 items-center justify-center
+
+.playlist-table-item-container
+    @apply flex flex-row w-full h-10 items-center justify-center mb-2 rounded-xl px-2 pr-4 hover:bg-gray-800
+
+.playlist-table-item
+    @apply flex flex-row items-center justify-between pl-4 text-gray-300 font-light text-sm
+
+.player-artist-section
+    @apply flex flex-col px-16 mt-8
+
+.player-artist-header
+    @apply flex flex-row items-center text-white text-2xl font-bold bg-gray-800 rounded-xl overflow-hidden
+
+.player-artist-name
+    @apply ml-8
+
+.player-artist-appears-on
+    @apply flex flex-col mt-8
+
+.text-appears-on
+    @apply text-white text-xl text-center font-bold
+
+.artist-appears-on-container
+    @apply flex flex-row mt-10

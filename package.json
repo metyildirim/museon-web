@@ -8,12 +8,14 @@
     "start": "next start",
     "analyze": "ANALYZE=true next build",
     "lint": "next lint",
-    "test": "jest --env=jsdom"
+    "test": "jest --env=jsdom",
+    "svgr": "svgr -d icons icons --typescript"
   },
   "dependencies": {
     "@apollo/client": "^3.3.21",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.15",
     "@headlessui/react": "^1.4.0",
@@ -31,12 +33,14 @@
   "devDependencies": {
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
+    "@svgr/cli": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react": "17.0.11",
     "@types/react-redux": "^7.1.18",
+    "@types/wicg-mediasession": "^1.1.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "autoprefixer": "^10.2.6",
     "babel-jest": "^27.0.5",
