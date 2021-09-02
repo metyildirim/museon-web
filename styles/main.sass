@@ -322,20 +322,23 @@
     @apply bg-gray-900 pb-8 pt-32 overflow-x-hidden ml-auto
 
 .player-body-section::-webkit-scrollbar
-    @apply w-3
+    @apply w-2
 
 .player-body-section::-webkit-scrollbar-track
     @apply bg-black
 
 .player-body-section::-webkit-scrollbar-thumb
-    @apply bg-green-500
+    @apply bg-green-500 rounded-full
 
 .player-body-section::-webkit-scrollbar-thumb:hover
     @apply bg-white
 
 .player-body-header
-    width: calc(100vw - 268px)
+    width: calc(100vw - 264px)
     @apply flex flex-row h-24 items-center px-8 bg-black bg-opacity-20 shadow-2xl fixed top-0 z-10
+
+.player-welcome-text
+    @apply text-white font-bold text-3xl m-16 bg-gray-800 p-8 rounded-xl
 
 .player-playlists-header
     @apply flex flex-row text-white m-4 items-center justify-between
@@ -366,26 +369,26 @@
     @apply flex flex-row w-full justify-center items-center my-4
 
 .album-item
-    @apply flex flex-col bg-gradient-to-b from-gray-700 to-gray-900 rounded-md w-40 h-52 mx-8 items-center
-    @apply hover:from-gray-600 hover:to-gray-800 transition-colors
+    @apply flex flex-col rounded-md w-40 h-52 mx-8 items-center
 
 .album-item-cover
-    @apply relative flex h-40 w-40 items-center justify-center
+    @apply relative flex items-center justify-center rounded-xl overflow-hidden mb-4
+    @apply drop-shadow-xl
 
 .album-item-title
-    @apply text-white text-sm
+    @apply text-white text-xs font-bold
 
 .artist-item
     @apply flex flex-col w-40 h-40 mx-8 items-center justify-between
 
 .artist-item-title
-    @apply text-white text-sm
+    @apply text-white text-xs font-bold
 
 .artist-image
-    @apply rounded-full
+    @apply rounded-full shadow-xl
 
 .album-play-btn
-    @apply absolute origin-top-left z-10 h-10 w-10 right-5 bottom-5 rounded-full text-sm text-white pl-1
+    @apply absolute origin-top-left z-10 h-12 w-12 right-10 bottom-10 rounded-full text-white pl-1
     @apply bg-green-500 hover:bg-green-600 active:bg-green-700 transition-colors
 
 .player-playlist-section
@@ -422,3 +425,21 @@
 
 .playlist-table-item
     @apply flex flex-row items-center justify-between pl-4 text-gray-300 font-light text-sm
+
+.player-artist-section
+    @apply flex flex-col px-16 mt-8
+
+.player-artist-header
+    @apply flex flex-row items-center text-white text-2xl font-bold bg-gray-800 rounded-xl overflow-hidden
+
+.player-artist-name
+    @apply ml-8
+
+.player-artist-appears-on
+    @apply flex flex-col mt-8
+
+.text-appears-on
+    @apply text-white text-xl text-center font-bold
+
+.artist-appears-on-container
+    @apply flex flex-row mt-10

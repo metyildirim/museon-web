@@ -98,6 +98,7 @@ const featuredArtists = [
 const Home = () => {
   return (
     <div className="player-home">
+      <span className="player-welcome-text">Welcome to Museon!</span>
       <span className="player-home-title">Featured playlists</span>
       <div className="player-album-container">
         {featuredPlaylists.map(({ cover, playlist, playlistId, title }) => (
