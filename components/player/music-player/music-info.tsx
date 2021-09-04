@@ -2,10 +2,11 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
+import { Artist } from "../../../utils/museon-music-player";
 
 type MusicInfoProps = {
   isLiked: boolean;
-  artists: Array<string>;
+  artists: Array<Artist>;
   song: string;
   album: string;
 };
@@ -26,9 +27,9 @@ const MusicInfo = ({ isLiked, artists, song, album }: MusicInfoProps) => {
       </div>
       <div className="player-artists">
         {artists.map((artist, index) => (
-          <div key={artist} className="player-artist-link">
-            <Link href={"/player/artist/" + artist.toLowerCase()}>
-              <a>{artist + (index !== artists.length - 1 ? ", " : "")}</a>
+          <div key={artist.id} className="player-artist-link">
+            <Link href={"/player/artist/" + artist.id}>
+              <a>{artist.name + (index !== artists.length - 1 ? ", " : "")}</a>
             </Link>
           </div>
         ))}

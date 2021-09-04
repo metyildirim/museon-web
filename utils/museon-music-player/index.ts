@@ -6,10 +6,15 @@ export enum LOOP_STATES {
   LoopOne,
 }
 
+export type Artist = {
+  id: string;
+  name: string;
+};
+
 export type ListType = {
-  song: string;
+  title: string;
   album: string;
-  artists: Array<string>;
+  artists: Array<Artist>;
   cover: string;
   src: string;
   index?: number;
@@ -26,9 +31,9 @@ export default class MuseonMusicPlayer {
     currentTime: string,
     duration: string,
     progress: string,
-    song: string,
+    title: string,
     album: string,
-    artists: Array<string>
+    artists: Array<Artist>
   ) => void;
   private list: Array<ListType>;
   private index: number;
@@ -46,9 +51,9 @@ export default class MuseonMusicPlayer {
       currentTime: string,
       duration: string,
       progress: string,
-      song: string,
+      title: string,
       album: string,
-      artists: Array<string>
+      artists: Array<Artist>
     ) => void,
     list?: Array<ListType>,
     index?: number,
@@ -85,7 +90,7 @@ export default class MuseonMusicPlayer {
       this.getFormatedCurrentTime(),
       this.getFormatedDuration(),
       this.getProgress(),
-      this.getSong(),
+      this.gettitle(),
       this.getAlbum(),
       this.getArtists()
     );
@@ -115,7 +120,7 @@ export default class MuseonMusicPlayer {
     this.player.src = src || this.list[index].src;
     this.updateMediaSession(
       this.getCover(),
-      this.getSong(),
+      this.gettitle(),
       this.getAlbum(),
       this.getArtists()
     );
@@ -174,8 +179,8 @@ export default class MuseonMusicPlayer {
     return this.list[this.index]?.cover;
   };
 
-  private getSong = () => {
-    return this.list[this.index]?.song;
+  private gettitle = () => {
+    return this.list[this.index]?.title;
   };
 
   private getAlbum = () => {
@@ -195,14 +200,18 @@ export default class MuseonMusicPlayer {
 
   private updateMediaSession = (
     cover: string,
-    song: string,
+    title: string,
     album: string,
-    artists: Array<string>
+    artists: Array<Artist>
   ) => {
-    const mergedArtists = artists.join(", ");
+    const artistNames: Array<string> = [];
+    artists.forEach(({ name }) => {
+      artistNames.push(name);
+    });
+    const mergedArtists = artistNames.join(", ");
     if ("mediaSession" in navigator) {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: song,
+        title: title,
         artist: mergedArtists,
         album: album,
         artwork: [{ src: cover, sizes: "512x512", type: "image/png" }],

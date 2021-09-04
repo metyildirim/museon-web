@@ -3,12 +3,29 @@ import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import PlaylistItem from "./playlist-item";
+import { gql, useQuery } from "@apollo/client";
+import { ListType } from "../../../utils/museon-music-player";
 
 type PlaylistSectionProps = {
-  src: string;
-  title: string;
   isAlbum?: boolean;
+  id: string;
 };
+
+const GET_PLAYLIST = gql`
+  query GetPlaylist($id: ID!) {
+    album(id: $id) {
+      title
+      cover
+      songs {
+        title
+        src
+        artists {
+          name
+        }
+      }
+    }
+  }
+`;
 
 const _playlist = [
   {
@@ -61,14 +78,25 @@ const _playlist = [
   },
 ];
 
-const PlaylistSection = ({ src, title, isAlbum }: PlaylistSectionProps) => {
-  return (
+const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
+  const { loading, error, data } = useQuery(GET_PLAYLIST, {
+    variables: { id: id },
+  });
+
+  return loading ? (
+    <div>LOADING...</div>
+  ) : (
     <div className="player-playlist-section">
       <div className="player-playlist-header">
         <div className="player-playlist-image">
-          <Image src={src} height="144px" width="144px" alt={title} />
+          <Image
+            src={data.album.cover}
+            height="144px"
+            width="144px"
+            alt={data.album.title}
+          />
         </div>
-        <span className="player-playlist-title">{title}</span>
+        <span className="player-playlist-title">{data.album.title}</span>
         <div className="playlist-like-btn" onClick={() => {}}>
           <FontAwesomeIcon icon={faHeartOutline} />
         </div>
@@ -84,17 +112,19 @@ const PlaylistSection = ({ src, title, isAlbum }: PlaylistSectionProps) => {
         <div className="playlist-table-title-item w-2/12"></div>
       </div>
       <div className="playlist-table-items">
-        {_playlist.map(({ song, album, artists, cover, src }, index) => (
-          <PlaylistItem
-            key={index}
-            song={song}
-            album={album}
-            artists={artists}
-            cover={cover}
-            src={src}
-            index={index}
-          />
-        ))}
+        {data.album.songs.map(
+          ({ title, src, artists }: ListType, index: number) => (
+            <PlaylistItem
+              key={index}
+              title={title}
+              album={data.album.title}
+              artists={artists}
+              cover={data.album.cover}
+              src={src}
+              index={index}
+            />
+          )
+        )}
       </div>
     </div>
   );

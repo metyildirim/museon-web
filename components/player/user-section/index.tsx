@@ -11,8 +11,8 @@ import DropDown from "../../common/dropdown";
 import PlaylistItem from "./playlist-item";
 
 const playlists = [
-  { text: "Pop", listId: "" },
-  { text: "Classical", listId: "" },
+  { text: "Pop", listId: "3" },
+  { text: "Classical", listId: "4" },
 ];
 
 const UserSection = () => {
