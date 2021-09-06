@@ -6,7 +6,8 @@ import VolumeController from "./volume-controller";
 import MMP, {
   LOOP_STATES,
   ListType,
-  Artist,
+  ArtistType,
+  AlbumType,
 } from "../../../utils/museon-music-player";
 import { faRandom } from "@fortawesome/free-solid-svg-icons";
 import LoopIcon from "../../../icons/Loop";
@@ -28,8 +29,8 @@ type StateTypes = {
   progress: string;
   cover: string;
   song: string;
-  album: string;
-  artists: Array<Artist>;
+  album: AlbumType;
+  artists: Array<ArtistType>;
 };
 
 class MusicPlayer extends React.Component<{}, StateTypes> {
@@ -50,7 +51,13 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
       currentTime: "0:00",
       progress: "0",
       song: "",
-      album: "",
+      album: {
+        id: "1",
+        cover:
+          "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
+        title: "The Best of LMMS Vol. 6",
+        songs: [],
+      },
       artists: [],
       cover:
         "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
@@ -58,10 +65,14 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     this.list = [
       {
         title: "Other Side",
-        album: "The Best of LMMS Vol. 6",
-        artists: [{ id: "1", name: "Umcaruje" }],
-        cover:
-          "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
+        album: {
+          songs: [],
+          title: "The Best of LMMS Vol. 6",
+          id: "1",
+          cover:
+            "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
+        },
+        artists: [{ id: "1", name: "Umcaruje", cover: "" }],
         src: "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2FUmcaruje%20-%20The%20Best%20of%20LMMS%20Vol.%206%20-%2001%20Other%20side.mp3?alt=media&token=c6b46661-09d2-44dd-88b5-6ee7b6f94d8f",
       },
     ];
@@ -79,8 +90,8 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     duration: string,
     progress: string,
     song: string,
-    album: string,
-    artists: Array<Artist>
+    album: AlbumType,
+    artists: Array<ArtistType>
   ) => {
     this.setState({
       cover,

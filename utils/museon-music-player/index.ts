@@ -6,35 +6,51 @@ export enum LOOP_STATES {
   LoopOne,
 }
 
-export type Artist = {
+export type ArtistType = {
   id: string;
   name: string;
+  cover: string;
+};
+
+export type SongType = {
+  title: string;
+  src: string;
+  album: AlbumType;
+  artists: Array<ArtistType>;
+};
+
+export type AlbumType = {
+  id: string;
+  title: string;
+  cover: string;
+  songs: Array<SongType>;
 };
 
 export type ListType = {
   title: string;
-  album: string;
-  artists: Array<Artist>;
-  cover: string;
+  album: AlbumType;
+  artists: Array<ArtistType>;
   src: string;
   index?: number;
 };
+
+export type CallbackType = (
+  cover: string,
+  isPlaying: boolean,
+  index: number,
+  currentTime: string,
+  duration: string,
+  progress: string,
+  title: string,
+  album: AlbumType,
+  artists: Array<ArtistType>
+) => void;
 
 export default class MuseonMusicPlayer {
   static instance: MuseonMusicPlayer;
   private player: HTMLAudioElement;
   private fetcher: HTMLAudioElement;
-  private callback: (
-    cover: string,
-    isPlaying: boolean,
-    index: number,
-    currentTime: string,
-    duration: string,
-    progress: string,
-    title: string,
-    album: string,
-    artists: Array<Artist>
-  ) => void;
+  private callback: CallbackType;
   private list: Array<ListType>;
   private index: number;
   private shuffledIndexes: Array<number>;
@@ -44,17 +60,7 @@ export default class MuseonMusicPlayer {
   private loop: number;
 
   constructor(
-    playerCallback: (
-      cover: string,
-      isPlaying: boolean,
-      index: number,
-      currentTime: string,
-      duration: string,
-      progress: string,
-      title: string,
-      album: string,
-      artists: Array<Artist>
-    ) => void,
+    playerCallback: CallbackType,
     list?: Array<ListType>,
     index?: number,
     loop?: number,
@@ -176,7 +182,7 @@ export default class MuseonMusicPlayer {
   };
 
   private getCover = () => {
-    return this.list[this.index]?.cover;
+    return this.list[this.index]?.album.cover;
   };
 
   private gettitle = () => {
@@ -201,8 +207,8 @@ export default class MuseonMusicPlayer {
   private updateMediaSession = (
     cover: string,
     title: string,
-    album: string,
-    artists: Array<Artist>
+    album: AlbumType,
+    artists: Array<ArtistType>
   ) => {
     const artistNames: Array<string> = [];
     artists.forEach(({ name }) => {
@@ -213,7 +219,7 @@ export default class MuseonMusicPlayer {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: title,
         artist: mergedArtists,
-        album: album,
+        album: album.title,
         artwork: [{ src: cover, sizes: "512x512", type: "image/png" }],
       });
     }
