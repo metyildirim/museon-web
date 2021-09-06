@@ -1,10 +1,11 @@
-import { faHeart, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { faHeart, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import PlaylistItem from "./playlist-item";
 import { gql, useQuery } from "@apollo/client";
-import { ListType } from "../../../utils/museon-music-player";
+import MMP, { ListType } from "../../../utils/museon-music-player";
 
 type PlaylistSectionProps = {
   isAlbum?: boolean;
@@ -62,6 +63,9 @@ const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
       variables: { id: id },
     }
   );
+  const [isPlaying, setPlaying] = useState(false);
+  const [isActive, setActive] = useState(false);
+  const mmp = MMP.instance;
 
   return loading ? (
     <div>LOADING...</div>
@@ -80,8 +84,25 @@ const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
         <div className="playlist-like-btn" onClick={() => {}}>
           <FontAwesomeIcon icon={faHeartOutline} />
         </div>
-        <div className="playlist-play-btn" onClick={() => {}}>
-          <FontAwesomeIcon icon={faPlay} />
+        <div
+          className={
+            "playlist-play-btn " + (isPlaying ? "playlist-pause-btn" : "")
+          }
+          onClick={() => {
+            if (!isActive) {
+              mmp.updateList(data.album.songs, isAlbum || true, 0);
+              setActive(true);
+              setPlaying(true);
+            } else if (isPlaying) {
+              mmp.pause();
+              setPlaying(false);
+            } else {
+              mmp.play();
+              setPlaying(true);
+            }
+          }}
+        >
+          <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
         </div>
       </div>
       <div className="playlist-table-titles">

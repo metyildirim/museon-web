@@ -43,7 +43,8 @@ export type CallbackType = (
   progress: string,
   title: string,
   album: AlbumType,
-  artists: Array<ArtistType>
+  artists: Array<ArtistType>,
+  isAlbum: boolean
 ) => void;
 
 export default class MuseonMusicPlayer {
@@ -58,9 +59,11 @@ export default class MuseonMusicPlayer {
   private shuffle: boolean;
   private shufflePivot: number;
   private loop: number;
+  private isAlbum: boolean;
 
   constructor(
     playerCallback: CallbackType,
+    isAlbum: boolean,
     list?: Array<ListType>,
     index?: number,
     loop?: number,
@@ -71,6 +74,7 @@ export default class MuseonMusicPlayer {
       throw "There should only be one music player instance";
     }
     this.callback = playerCallback;
+    this.isAlbum = isAlbum;
     this.loop = loop || 0;
     this.shuffle = shuffle || false;
     this.index = index || 0;
@@ -98,7 +102,8 @@ export default class MuseonMusicPlayer {
       this.getProgress(),
       this.gettitle(),
       this.getAlbum(),
-      this.getArtists()
+      this.getArtists(),
+      this.isAlbum
     );
   };
 
@@ -316,8 +321,9 @@ export default class MuseonMusicPlayer {
     this.play();
   };
 
-  updateList = (list: Array<ListType>, index: number) => {
+  updateList = (list: Array<ListType>, isAlbum: boolean, index: number) => {
     this.list = list;
+    this.isAlbum = isAlbum;
     this.updateMusic(index);
     this.shufflePivot = index;
     this.shuffledIndexes = shuffleIndexes(this.list);

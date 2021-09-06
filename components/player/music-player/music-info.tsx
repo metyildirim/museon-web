@@ -29,7 +29,9 @@ const MusicInfo = ({ isLiked, artists, song, album }: MusicInfoProps) => {
         {artists.map((artist, index) => (
           <div key={artist.id} className="player-artist-link">
             <Link href={"/player/artist/" + artist.id}>
-              <a>{artist.name + (index !== artists.length - 1 ? ", " : "")}</a>
+              <a className="ml-1">
+                {artist.name + (index !== artists.length - 1 ? ", " : "")}
+              </a>
             </Link>
           </div>
         ))}

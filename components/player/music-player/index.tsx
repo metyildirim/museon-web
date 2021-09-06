@@ -31,6 +31,7 @@ type StateTypes = {
   song: string;
   album: AlbumType;
   artists: Array<ArtistType>;
+  isAlbum: boolean;
 };
 
 class MusicPlayer extends React.Component<{}, StateTypes> {
@@ -61,6 +62,7 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
       artists: [],
       cover:
         "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
+      isAlbum: true,
     };
     this.list = [
       {
@@ -79,7 +81,7 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
   }
 
   componentDidMount() {
-    this.mmp = new MMP(this.playerCallback, this.list);
+    this.mmp = new MMP(this.playerCallback, this.state.isAlbum, this.list);
   }
 
   playerCallback = (
@@ -91,7 +93,8 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     progress: string,
     song: string,
     album: AlbumType,
-    artists: Array<ArtistType>
+    artists: Array<ArtistType>,
+    isAlbum: boolean
   ) => {
     this.setState({
       cover,
@@ -103,6 +106,7 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
       song,
       album,
       artists,
+      isAlbum,
     });
   };
 
@@ -171,7 +175,13 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     return (
       <div className="player-container">
         <div className="player-album-cover">
-          <Link href="/player/album/2h7D8GjdYtg6">
+          <Link
+            href={
+              "/player/" +
+              (this.state.isAlbum ? "album/" : "playlist/") +
+              this.state.album.id
+            }
+          >
             <a>
               <Image
                 height="100%"
