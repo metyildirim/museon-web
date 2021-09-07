@@ -5,18 +5,28 @@ import {
   faListUl,
   faHeart,
   faCompactDisc,
-  faHeadphonesAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import DropDown from "../../common/dropdown";
 import PlaylistItem from "./playlist-item";
+import { gql, useQuery } from "@apollo/client";
+import { AlbumType } from "../../../utils/museon-music-player";
 
-const playlists = [
-  { text: "Pop", listId: "3" },
-  { text: "Classical", listId: "4" },
-];
+const GET_PLAYLISTS = gql`
+  query {
+    featured {
+      playlists {
+        id
+        title
+      }
+    }
+  }
+`;
 
 const UserSection = () => {
-  return (
+  const { loading, error, data } = useQuery(GET_PLAYLISTS);
+  return !data ? (
+    <div>LOADING...</div>
+  ) : (
     <div className="player-user-section">
       <div className="player-user-profile">
         <div className="profile-image">
@@ -30,13 +40,12 @@ const UserSection = () => {
       </div>
       <div className="player-playlists">
         <PlaylistItem text="Liked Songs" icon={faHeart} listId="likes" />
-        <PlaylistItem text="Daily Mix" icon={faCompactDisc} listId="dailymix" />
-        {playlists.map(({ text, listId }) => (
+        {data.featured.playlists.map(({ id, title }: AlbumType) => (
           <PlaylistItem
-            key={listId}
-            text={text}
-            listId={listId}
-            icon={faHeadphonesAlt}
+            key={id}
+            text={title}
+            icon={faCompactDisc}
+            listId={id}
           />
         ))}
       </div>
