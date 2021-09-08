@@ -32,6 +32,7 @@ const BodySection = ({ children }: BodySectionProps) => {
   const [disabledHome, setDisabledHome] = useState(true);
   const [disabledBack, setDisabledBack] = useState(true);
   const [disabledForward, setDisabledForward] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
 
   const onHomeClicked = () => {
     router.push("/player/home", undefined, { shallow: true });
@@ -50,6 +51,12 @@ const BodySection = ({ children }: BodySectionProps) => {
   };
 
   const onRouteChanged = (url: string) => {
+    if (url.includes("/player/search")) {
+      setDisabledHome(false);
+      return;
+    } else {
+      setSearchValue("");
+    }
     if (routeAction === RouteActions.NEW_ROUTE) {
       if (shouldClearHistory) {
         routeStack.splice(routeIndex + 1);
@@ -92,6 +99,14 @@ const BodySection = ({ children }: BodySectionProps) => {
     };
   });
 
+  const onSearchTextChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    router.push("/player/search/" + value, undefined, {
+      shallow: true,
+    });
+    setSearchValue(value);
+  };
+
   return (
     <div className="player-body-section">
       <div className="player-body-header">
@@ -117,6 +132,8 @@ const BodySection = ({ children }: BodySectionProps) => {
           <input
             placeholder="Search anything..."
             className="input-common input-search"
+            value={searchValue}
+            onChange={onSearchTextChanged}
           />
         </div>
       </div>
