@@ -17,3 +17,5 @@ jobs:
         run: yarn install
       - name: Build
         run: CI=true yarn build
+        env:
+          GRAPHQL_ENDPOINT: http://localhost:4000
