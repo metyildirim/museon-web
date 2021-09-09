@@ -1,15 +1,40 @@
+import { useState } from "react";
 import Link from "next/link";
 import GoogleLoginButton from "../login/google-login-button";
 import AppleLoginButton from "../login/apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-const onRegister = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  // TODO: register
+const validationSchema = yup.object().shape({
+  username: yup.string().required().min(4).label("username"),
+  email: yup.string().required().email().label("email"),
+  password: yup.string().required().min(6).label("password"),
+});
+
+const initialValues = {
+  username: "",
+  email: "",
+  password: "",
+};
+
+const onRegister = (values: typeof initialValues) => {
+  alert(JSON.stringify(values));
+  // event.preventDefault();
 };
 
 const Register = () => {
+  const [emailErrorVisibility, setEmailErrorVisibility] = useState(false);
+  const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
+  const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: onRegister,
+  });
+
   return (
     <div className="common-container">
       <Heading>Sign Up</Heading>
@@ -18,17 +43,72 @@ const Register = () => {
         <GoogleLoginButton />
         <AppleLoginButton />
         <AuthDivider />
-        <form className="form-common" onSubmit={onRegister}>
-          <label className="input-label">Username:</label>
-          <input placeholder="Username" className="input-common" />
-          <label className="input-label">Email:</label>
-          <input type="email" placeholder="Email" className="input-common" />
-          <label className="input-label">Password:</label>
+        <form className="form-common" onSubmit={formik.handleSubmit}>
+          <label htmlFor="username" className="input-label">
+            Username:
+          </label>
+          <input
+            placeholder="Username"
+            className={
+              usernameErrorVisibility && formik.errors.username
+                ? "input-common input-common-error"
+                : "input-common"
+            }
+            id="username"
+            name="username"
+            onChange={formik.handleChange}
+            value={formik.values.username}
+            onBlur={() => {
+              setUsernameErrorVisibility(true);
+            }}
+          />
+          <span className="form-error-message">
+            {usernameErrorVisibility && formik.errors.username}
+          </span>
+          <label htmlFor="email" className="input-label">
+            Email:
+          </label>
+          <input
+            type="email"
+            placeholder="Email"
+            className={
+              emailErrorVisibility && formik.errors.email
+                ? "input-common input-common-error"
+                : "input-common"
+            }
+            id="email"
+            name="email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            onBlur={() => {
+              setEmailErrorVisibility(true);
+            }}
+          />
+          <span className="form-error-message">
+            {emailErrorVisibility && formik.errors.email}
+          </span>
+          <label htmlFor="password" className="input-label">
+            Password:
+          </label>
           <input
             type="Password"
             placeholder="Password"
-            className="input-common"
+            className={
+              passwordErrorVisibility && formik.errors.password
+                ? "input-common input-common-error"
+                : "input-common"
+            }
+            id="password"
+            name="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            onBlur={() => {
+              setPasswordErrorVisibility(true);
+            }}
           />
+          <span className="form-error-message">
+            {passwordErrorVisibility && formik.errors.password}
+          </span>
           <div className="signup-links-container">
             By signing up, you agree the{" "}
             <Link href="/terms">
