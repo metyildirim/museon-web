@@ -6,30 +6,52 @@ export enum LOOP_STATES {
   LoopOne,
 }
 
-export type ListType = {
-  song: string;
-  album: string;
-  artists: Array<string>;
+export type ArtistType = {
+  id: string;
+  name: string;
   cover: string;
+};
+
+export type SongType = {
+  title: string;
+  src: string;
+  album: AlbumType;
+  artists: Array<ArtistType>;
+};
+
+export type AlbumType = {
+  id: string;
+  title: string;
+  cover: string;
+  songs: Array<SongType>;
+};
+
+export type ListType = {
+  title: string;
+  album: AlbumType;
+  artists: Array<ArtistType>;
   src: string;
   index?: number;
 };
+
+export type CallbackType = (
+  cover: string,
+  isPlaying: boolean,
+  index: number,
+  currentTime: string,
+  duration: string,
+  progress: string,
+  title: string,
+  album: AlbumType,
+  artists: Array<ArtistType>,
+  isAlbum: boolean
+) => void;
 
 export default class MuseonMusicPlayer {
   static instance: MuseonMusicPlayer;
   private player: HTMLAudioElement;
   private fetcher: HTMLAudioElement;
-  private callback: (
-    cover: string,
-    isPlaying: boolean,
-    index: number,
-    currentTime: string,
-    duration: string,
-    progress: string,
-    song: string,
-    album: string,
-    artists: Array<string>
-  ) => void;
+  private callback: CallbackType;
   private list: Array<ListType>;
   private index: number;
   private shuffledIndexes: Array<number>;
@@ -37,19 +59,11 @@ export default class MuseonMusicPlayer {
   private shuffle: boolean;
   private shufflePivot: number;
   private loop: number;
+  private isAlbum: boolean;
 
   constructor(
-    playerCallback: (
-      cover: string,
-      isPlaying: boolean,
-      index: number,
-      currentTime: string,
-      duration: string,
-      progress: string,
-      song: string,
-      album: string,
-      artists: Array<string>
-    ) => void,
+    playerCallback: CallbackType,
+    isAlbum: boolean,
     list?: Array<ListType>,
     index?: number,
     loop?: number,
@@ -60,6 +74,7 @@ export default class MuseonMusicPlayer {
       throw "There should only be one music player instance";
     }
     this.callback = playerCallback;
+    this.isAlbum = isAlbum;
     this.loop = loop || 0;
     this.shuffle = shuffle || false;
     this.index = index || 0;
@@ -85,9 +100,10 @@ export default class MuseonMusicPlayer {
       this.getFormatedCurrentTime(),
       this.getFormatedDuration(),
       this.getProgress(),
-      this.getSong(),
+      this.gettitle(),
       this.getAlbum(),
-      this.getArtists()
+      this.getArtists(),
+      this.isAlbum
     );
   };
 
@@ -115,7 +131,7 @@ export default class MuseonMusicPlayer {
     this.player.src = src || this.list[index].src;
     this.updateMediaSession(
       this.getCover(),
-      this.getSong(),
+      this.gettitle(),
       this.getAlbum(),
       this.getArtists()
     );
@@ -171,11 +187,11 @@ export default class MuseonMusicPlayer {
   };
 
   private getCover = () => {
-    return this.list[this.index]?.cover;
+    return this.list[this.index]?.album.cover;
   };
 
-  private getSong = () => {
-    return this.list[this.index]?.song;
+  private gettitle = () => {
+    return this.list[this.index]?.title;
   };
 
   private getAlbum = () => {
@@ -195,16 +211,20 @@ export default class MuseonMusicPlayer {
 
   private updateMediaSession = (
     cover: string,
-    song: string,
-    album: string,
-    artists: Array<string>
+    title: string,
+    album: AlbumType,
+    artists: Array<ArtistType>
   ) => {
-    const mergedArtists = artists.join(", ");
+    const artistNames: Array<string> = [];
+    artists.forEach(({ name }) => {
+      artistNames.push(name);
+    });
+    const mergedArtists = artistNames.join(", ");
     if ("mediaSession" in navigator) {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: song,
+        title: title,
         artist: mergedArtists,
-        album: album,
+        album: album.title,
         artwork: [{ src: cover, sizes: "512x512", type: "image/png" }],
       });
     }
@@ -301,8 +321,9 @@ export default class MuseonMusicPlayer {
     this.play();
   };
 
-  updateList = (list: Array<ListType>, index: number) => {
+  updateList = (list: Array<ListType>, isAlbum: boolean, index: number) => {
     this.list = list;
+    this.isAlbum = isAlbum;
     this.updateMusic(index);
     this.shufflePivot = index;
     this.shuffledIndexes = shuffleIndexes(this.list);

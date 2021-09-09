@@ -266,7 +266,7 @@
     @apply flex flex-row ml-auto text-xs text-gray-300
 
 .player-artist-link
-    @apply ml-1 hover:text-green-400
+    @apply hover:text-green-400
 
 .player-queue-action-container
     @apply flex flex-row mr-8
@@ -314,7 +314,7 @@
 
 .player-playlist-item
     @apply flex flex-row bg-gray-800 hover:bg-gray-900 active:bg-green-500 text-white mx-2 text-sm py-2 px-4
-    @apply rounded-md justify-between items-center transition-colors mb-2
+    @apply rounded-md justify-between items-center mb-2
 
 .player-body-section
     height: calc(100vh - 80px)
@@ -366,7 +366,7 @@
     @apply text-white w-full text-center text-xl my-6 font-bold
 
 .player-album-container
-    @apply flex flex-row w-full justify-center items-center my-4
+    @apply flex flex-row w-full justify-center items-center my-4 flex-wrap
 
 .album-item
     @apply flex flex-col rounded-md w-40 h-52 mx-8 items-center
@@ -379,7 +379,7 @@
     @apply text-white text-xs font-bold
 
 .artist-item
-    @apply flex flex-col w-40 h-40 mx-8 items-center justify-between
+    @apply flex flex-col w-40 h-40 mx-8 items-center justify-between mb-8
 
 .artist-item-title
     @apply text-white text-xs font-bold
@@ -407,6 +407,9 @@
     @apply flex items-center justify-center h-12 w-12 bg-green-600 text-white rounded-full cursor-pointer
     @apply hover:bg-green-500 pl-1 ml-4
 
+.playlist-pause-btn
+    @apply pl-0 bg-red-600 hover:bg-red-500
+
 .playlist-like-btn
     @apply flex items-center justify-center h-12 w-12 bg-gray-700 hover:bg-gray-600 rounded-full ml-4
     @apply text-white cursor-pointer text-lg
@@ -415,7 +418,7 @@
     @apply flex flex-row w-full h-10 items-center justify-center bg-gray-800 mt-8 rounded-xl px-2 pr-4
 
 .playlist-table-title-item
-    @apply flex items-center text-gray-400 text-sm pl-4 font-light
+    @apply flex items-center text-gray-400 text-sm pl-4 font-bold
 
 .playlist-table-items
     @apply flex flex-col w-full mt-2 items-center justify-center
@@ -424,7 +427,7 @@
     @apply flex flex-row w-full h-10 items-center justify-center mb-2 rounded-xl px-2 pr-4 hover:bg-gray-800
 
 .playlist-table-item
-    @apply flex flex-row items-center justify-between pl-4 text-gray-300 font-light text-sm
+    @apply flex flex-row items-center justify-between pl-4 text-gray-300 font-normal text-sm
 
 .player-artist-section
     @apply flex flex-col px-16 mt-8

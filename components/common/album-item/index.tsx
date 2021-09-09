@@ -29,7 +29,7 @@ const Album = ({
     setIsHover(false);
   };
   const onPlayClicked = () => {
-    MMP.instance.updateList(playlist, 0);
+    MMP.instance.updateList(playlist, !isPlaylist, 0);
   };
   return (
     <div className="album-item">
