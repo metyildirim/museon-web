@@ -30,6 +30,7 @@ const Register = () => {
 
   const formik = useFormik({
     initialValues: initialValues,
+    validateOnMount: true,
     validationSchema: validationSchema,
     onSubmit: onRegister,
   });

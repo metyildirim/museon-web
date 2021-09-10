@@ -30,6 +30,7 @@ const Login = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
+    validateOnMount: true,
     onSubmit: onLogin,
   });
 
