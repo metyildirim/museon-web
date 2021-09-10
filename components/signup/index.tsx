@@ -8,9 +8,9 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
-  username: yup.string().required().min(4).label("username"),
-  email: yup.string().required().email().label("email"),
-  password: yup.string().required().min(6).label("password"),
+  username: yup.string().required().min(4).label("Username"),
+  email: yup.string().required().email().label("Email"),
+  password: yup.string().required().min(6).label("Password"),
 });
 
 const initialValues = {
@@ -19,15 +19,14 @@ const initialValues = {
   password: "",
 };
 
-const onRegister = (values: typeof initialValues) => {
-  alert(JSON.stringify(values));
-  // event.preventDefault();
-};
-
 const Register = () => {
   const [emailErrorVisibility, setEmailErrorVisibility] = useState(false);
   const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
+
+  const onRegister = (values: typeof initialValues) => {
+    alert(JSON.stringify(values));
+  };
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -43,7 +42,15 @@ const Register = () => {
         <GoogleLoginButton />
         <AppleLoginButton />
         <AuthDivider />
-        <form className="form-common" onSubmit={formik.handleSubmit}>
+        <form
+          className="form-common"
+          onSubmit={(e) => {
+            setEmailErrorVisibility(true);
+            setUsernameErrorVisibility(true);
+            setPasswordErrorVisibility(true);
+            formik.handleSubmit(e);
+          }}
+        >
           <label htmlFor="username" className="input-label">
             Username:
           </label>

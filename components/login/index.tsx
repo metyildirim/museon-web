@@ -5,14 +5,33 @@ import AppleLoginButton from "./apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
 import Switch from "../common/switch";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
-const onLogin = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  // TODO: login
+const validationSchema = yup.object().shape({
+  username_email: yup.string().required().min(4).label("Username or Email"),
+  password: yup.string().required().min(6).label("Password"),
+});
+
+const initialValues = {
+  username_email: "",
+  password: "",
 };
 
 const Login = () => {
   const [staySignedIn, setStaySignedIn] = useState(true);
+  const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
+  const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
+
+  const onLogin = (values: typeof initialValues) => {
+    alert(JSON.stringify(values));
+  };
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: onLogin,
+  });
 
   return (
     <div className="common-container">
@@ -22,15 +41,57 @@ const Login = () => {
         <GoogleLoginButton />
         <AppleLoginButton />
         <AuthDivider />
-        <form className="form-common" onSubmit={onLogin}>
-          <label className="input-label">Username or Email:</label>
-          <input placeholder="Username or Email" className="input-common" />
-          <label className="input-label">Password:</label>
+        <form
+          className="form-common"
+          onSubmit={(e) => {
+            setUsernameErrorVisibility(true);
+            setPasswordErrorVisibility(true);
+            formik.handleSubmit(e);
+          }}
+        >
+          <label className="input-label" htmlFor="username_email">
+            Username or Email:
+          </label>
+          <input
+            placeholder="Username or Email"
+            className={
+              usernameErrorVisibility && formik.errors.username_email
+                ? "input-common input-common-error"
+                : "input-common"
+            }
+            id="username_email"
+            name="username_email"
+            onChange={formik.handleChange}
+            value={formik.values.username_email}
+            onBlur={() => {
+              setUsernameErrorVisibility(true);
+            }}
+          />
+          <span className="form-error-message">
+            {usernameErrorVisibility && formik.errors.username_email}
+          </span>
+          <label htmlFor="password" className="input-label">
+            Password:
+          </label>
           <input
             type="Password"
             placeholder="Password"
-            className="input-common"
+            className={
+              passwordErrorVisibility && formik.errors.password
+                ? "input-common input-common-error"
+                : "input-common"
+            }
+            id="password"
+            name="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            onBlur={() => {
+              setPasswordErrorVisibility(true);
+            }}
           />
+          <span className="form-error-message">
+            {passwordErrorVisibility && formik.errors.password}
+          </span>
           <Link href="/reset-password">
             <a className="reset-password">Forgot your password?</a>
           </Link>
