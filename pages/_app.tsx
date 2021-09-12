@@ -18,7 +18,7 @@ const client = new ApolloClient({
   ssrMode: typeof window === "undefined",
   link: new HttpLink({
     uri: publicRuntimeConfig.graphqlEndpoint,
-    credentials: "same-origin",
+    credentials: "include",
   }),
   cache: new InMemoryCache(),
 });

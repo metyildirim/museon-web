@@ -1,12 +1,23 @@
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import GoogleLoginButton from "./google-login-button";
 import AppleLoginButton from "./apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
 import Switch from "../common/switch";
+import { useMutation, gql } from "@apollo/client";
 import { useFormik } from "formik";
 import * as yup from "yup";
+
+const LOGIN_MUTATION = gql`
+  mutation Login($username_email: String!, $password: String!) {
+    login(username_email: $username_email, password: $password) {
+      result
+      error
+    }
+  }
+`;
 
 const validationSchema = yup.object().shape({
   username_email: yup.string().required().min(4).label("Username or Email"),
@@ -18,13 +29,39 @@ const initialValues = {
   password: "",
 };
 
+let loginErrorSet = false;
+
 const Login = () => {
+  const router = useRouter();
   const [staySignedIn, setStaySignedIn] = useState(true);
   const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
+  const [loginError, setLoginError] = useState("");
+  const [login, { data, error }] = useMutation(LOGIN_MUTATION);
 
-  const onLogin = (values: typeof initialValues) => {
-    alert(JSON.stringify(values));
+  useEffect(() => {
+    if (error && !loginErrorSet) {
+      loginErrorSet = true;
+      setLoginError(error.message);
+    }
+    if (data) {
+      if (data.login.result) {
+        router.push("/", undefined, { shallow: true });
+      } else if (!loginErrorSet) {
+        loginErrorSet = true;
+        setLoginError(data.login.error);
+      }
+    }
+  }, [setLoginError, data, error, router]);
+
+  const onLogin = async (values: typeof initialValues) => {
+    loginErrorSet = false;
+    login({
+      variables: {
+        username_email: values.username_email,
+        password: values.password,
+      },
+    });
   };
 
   const formik = useFormik({
@@ -50,6 +87,7 @@ const Login = () => {
             formik.handleSubmit(e);
           }}
         >
+          <span className="form-error-general">{loginError}</span>
           <label className="input-label" htmlFor="username_email">
             Username or Email:
           </label>

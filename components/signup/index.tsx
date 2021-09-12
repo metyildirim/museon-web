@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import GoogleLoginButton from "../login/google-login-button";
 import AppleLoginButton from "../login/apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
+import { useMutation, gql } from "@apollo/client";
 import { useFormik } from "formik";
 import * as yup from "yup";
+
+const REGISTER_MUTATION = gql`
+  mutation Register($username: String!, $email: String!, $password: String!) {
+    register(username: $username, email: $email, password: $password) {
+      result
+      error
+    }
+  }
+`;
 
 const validationSchema = yup.object().shape({
   username: yup.string().required().min(4).label("Username"),
@@ -19,14 +30,41 @@ const initialValues = {
   password: "",
 };
 
+let registerErrorSet = false;
+
 const Register = () => {
+  const router = useRouter();
   const [emailErrorVisibility, setEmailErrorVisibility] = useState(false);
   const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
+  const [registerError, setRegisterError] = useState("");
+  const [register, { data, error }] = useMutation(REGISTER_MUTATION);
 
   const onRegister = (values: typeof initialValues) => {
-    alert(JSON.stringify(values));
+    registerErrorSet = false;
+    register({
+      variables: {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      },
+    });
   };
+
+  useEffect(() => {
+    if (error && !registerErrorSet) {
+      registerErrorSet = true;
+      setRegisterError(error.message);
+    }
+    if (data) {
+      if (data.register.result) {
+        router.push("/", undefined, { shallow: true });
+      } else if (!registerErrorSet) {
+        registerErrorSet = true;
+        setRegisterError(data.register.error);
+      }
+    }
+  }, [setRegisterError, data, error, router]);
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -52,6 +90,7 @@ const Register = () => {
             formik.handleSubmit(e);
           }}
         >
+          <span className="form-error-general">{registerError}</span>
           <label htmlFor="username" className="input-label">
             Username:
           </label>
