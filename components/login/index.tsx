@@ -1,19 +1,25 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { AuthState, selectIsLoggedIn, signIn } from "../../app/authSlice";
+import { useMutation, gql } from "@apollo/client";
+import { useFormik } from "formik";
 import Link from "next/link";
 import GoogleLoginButton from "./google-login-button";
 import AppleLoginButton from "./apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
 import Switch from "../common/switch";
-import { useMutation, gql } from "@apollo/client";
-import { useFormik } from "formik";
+
 import * as yup from "yup";
 
 const LOGIN_MUTATION = gql`
   mutation Login($username_email: String!, $password: String!) {
     login(username_email: $username_email, password: $password) {
-      result
+      result {
+        id
+        username
+      }
       error
     }
   }
@@ -32,6 +38,8 @@ const initialValues = {
 let loginErrorSet = false;
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const router = useRouter();
   const [staySignedIn, setStaySignedIn] = useState(true);
   const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
@@ -40,19 +48,29 @@ const Login = () => {
   const [login, { data, error }] = useMutation(LOGIN_MUTATION);
 
   useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/", undefined, { shallow: true });
+    }
     if (error && !loginErrorSet) {
       loginErrorSet = true;
       setLoginError(error.message);
     }
     if (data) {
       if (data.login.result) {
-        router.push("/", undefined, { shallow: true });
+        const result: AuthState = data.login.result;
+        dispatch(
+          signIn({
+            id: result.id,
+            username: result.username,
+            isLoggedIn: true,
+          })
+        );
       } else if (!loginErrorSet) {
         loginErrorSet = true;
         setLoginError(data.login.error);
       }
     }
-  }, [setLoginError, data, error, router]);
+  }, [setLoginError, data, error, router, isLoggedIn, dispatch]);
 
   const onLogin = async (values: typeof initialValues) => {
     loginErrorSet = false;

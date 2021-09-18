@@ -321,6 +321,13 @@ export default class MuseonMusicPlayer {
     this.play();
   };
 
+  clearPlayer = () => {
+    this.callback = () => {};
+    this.list = [];
+    this.index = 0;
+    this.player.src = "";
+  };
+
   updateList = (list: Array<ListType>, isAlbum: boolean, index: number) => {
     this.list = list;
     this.isAlbum = isAlbum;
@@ -356,5 +363,9 @@ export default class MuseonMusicPlayer {
 
   setLoop = (loopState: number) => {
     this.loop = loopState;
+  };
+
+  updateCallback = (playerCallback: CallbackType) => {
+    this.callback = playerCallback;
   };
 }

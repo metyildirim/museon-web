@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { AuthState, selectIsLoggedIn, signIn } from "../../app/authSlice";
 import Link from "next/link";
 import GoogleLoginButton from "../login/google-login-button";
 import AppleLoginButton from "../login/apple-login-button";
@@ -12,7 +14,10 @@ import * as yup from "yup";
 const REGISTER_MUTATION = gql`
   mutation Register($username: String!, $email: String!, $password: String!) {
     register(username: $username, email: $email, password: $password) {
-      result
+      result {
+        id
+        username
+      }
       error
     }
   }
@@ -33,7 +38,9 @@ const initialValues = {
 let registerErrorSet = false;
 
 const Register = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const [emailErrorVisibility, setEmailErrorVisibility] = useState(false);
   const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
@@ -52,19 +59,29 @@ const Register = () => {
   };
 
   useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/", undefined, { shallow: true });
+    }
     if (error && !registerErrorSet) {
       registerErrorSet = true;
       setRegisterError(error.message);
     }
     if (data) {
       if (data.register.result) {
-        router.push("/", undefined, { shallow: true });
+        const result: AuthState = data.register.result;
+        dispatch(
+          signIn({
+            id: result.id,
+            username: result.username,
+            isLoggedIn: true,
+          })
+        );
       } else if (!registerErrorSet) {
         registerErrorSet = true;
         setRegisterError(data.register.error);
       }
     }
-  }, [setRegisterError, data, error, router]);
+  }, [setRegisterError, data, error, router, isLoggedIn, dispatch]);
 
   const formik = useFormik({
     initialValues: initialValues,

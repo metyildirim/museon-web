@@ -81,7 +81,12 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
   }
 
   componentDidMount() {
-    this.mmp = new MMP(this.playerCallback, this.state.isAlbum, this.list);
+    try {
+      this.mmp = new MMP(this.playerCallback, this.state.isAlbum, this.list);
+    } catch {
+      this.mmp = MMP.instance;
+      this.mmp.updateCallback(this.playerCallback);
+    }
   }
 
   playerCallback = (
@@ -165,6 +170,11 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     this.mmp?.setVolume(Number(volume));
   };
 
+  setVolume = (volume: string) => {
+    this.mmp?.setVolume(Number(volume));
+    this.setState({ volume });
+  };
+
   onProgressChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const progress = event.target.value;
     this.mmp?.setProgress(progress);
@@ -230,6 +240,7 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
         </div>
         <VolumeController
           volume={this.state.volume}
+          setVolume={this.setVolume}
           onVolumeChanged={this.onVolumeChanged}
           onVolumeIconClicked={this.onVolumeIconClicked}
         />
