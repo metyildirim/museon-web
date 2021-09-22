@@ -3,7 +3,7 @@ import "../styles/main.sass";
 
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
-import store from "../redux/store";
+import store from "../app/store";
 import {
   ApolloClient,
   InMemoryCache,
@@ -18,7 +18,7 @@ const client = new ApolloClient({
   ssrMode: typeof window === "undefined",
   link: new HttpLink({
     uri: publicRuntimeConfig.graphqlEndpoint,
-    credentials: "same-origin",
+    credentials: "include",
   }),
   cache: new InMemoryCache(),
 });

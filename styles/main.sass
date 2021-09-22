@@ -20,11 +20,20 @@
 .form-common
     @apply flex flex-col justify-center items-center
 
+.form-error-message
+    @apply flex text-xs text-red-500 w-80 mb-2
+
+.form-error-general
+    @apply flex justify-center text-sm font-bold text-red-500 w-80 mb-4
+
 .input-label
     @apply text-gray-700 text-sm font-medium mr-auto
 
 .input-common
     @apply flex flex-row mb-2 mt-1 focus:outline-none p-2 border border-gray-300 focus:border-green-600 w-80
+
+.input-common-error
+    @apply border-red-300 focus:border-red-600
 
 .common-btn
     @apply focus:outline-none
@@ -41,6 +50,23 @@
 .switch-custom-circle
     @apply pointer-events-none inline-block h-6 w-6 rounded-full bg-white shadow-lg transform ring-0 transition
     @apply ease-in-out duration-200
+
+.dropdown-common
+    @apply mt-4 flex items-center justify-center
+
+.dropdown-menu
+    @apply relative inline-block text-left
+
+.dropdown-menu-btn
+    @apply inline-flex justify-between items-center w-48 px-4 py-2 text-sm font-medium text-white bg-black
+    @apply rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2
+    @apply focus-visible:ring-white focus-visible:ring-opacity-75
+
+.dropdown-menu-items
+    @apply absolute left-0 w-52 mt-2 origin-top-left bg-black rounded-md shadow-lg focus:outline-none
+
+.dropdown-menu-item-btn
+    @apply text-xs w-full text-white hover:text-green-400 p-2 rounded-md text-left
 
 .auth-divider
     @apply flex flex-row items-center my-4
@@ -96,11 +122,17 @@
     @apply flex flex-1 items-center justify-end
 
 .header-btn
-    @apply ml-6 hover:text-green-300 transition-colors
+    @apply ml-6 hover:text-green-300 transition-colors font-bold
 
 .header-btn-signup
     @apply ml-6 bg-white text-green-500 py-2 px-4 rounded-full hover:text-white hover:bg-green-500
-    @apply transition-colors
+    @apply transition-colors font-bold
+
+.header-auth-container
+    @apply flex flex-row items-center
+
+.header-username
+    @apply ml-2 font-normal
 
 .header-divider
     @apply h-6 border-l-2 border-green-500 ml-6

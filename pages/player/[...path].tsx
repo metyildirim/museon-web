@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import MusicPlayer from "../../components/player/music-player";
 import UserSection from "../../components/player/user-section";
@@ -8,6 +9,8 @@ import Playlist from "../../components/player/playlist";
 import Artist from "../../components/player/artist";
 import Album from "../../components/player/album";
 import { ParsedUrlQuery } from "querystring";
+import { useAppSelector } from "../../app/hooks";
+import { selectIsLoggedIn } from "../../app/authSlice";
 
 const getBodySection = (query: ParsedUrlQuery) => {
   if (query.path) {
@@ -29,13 +32,25 @@ const getBodySection = (query: ParsedUrlQuery) => {
 export default function Player() {
   const router = useRouter();
   const query = router.query;
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/login?next=player/home", undefined, { shallow: true });
+    }
+  }, [router, isLoggedIn]);
   return (
     <div className="web-player-container">
-      <div className="player-top-container">
-        <UserSection />
-        <BodySection>{getBodySection(query)}</BodySection>
-      </div>
-      <MusicPlayer />
+      {isLoggedIn ? (
+        <React.Fragment>
+          <div className="player-top-container">
+            <UserSection />
+            <BodySection>{getBodySection(query)}</BodySection>
+          </div>
+          <MusicPlayer />
+        </React.Fragment>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 }

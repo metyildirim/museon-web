@@ -11,12 +11,14 @@ const getVolumeIcon = (vol: string) => {
 
 type VolumeControllerProps = {
   volume: string;
+  setVolume: (volume: string) => void;
   onVolumeChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onVolumeIconClicked: () => void;
 };
 
 const VolumeController = ({
   volume,
+  setVolume,
   onVolumeChanged,
   onVolumeIconClicked,
 }: VolumeControllerProps) => {
@@ -28,6 +30,17 @@ const VolumeController = ({
         </button>
       </div>
       <input
+        onWheelCapture={(event) => {
+          let vol;
+          if (event.deltaY > 0) {
+            vol = Number(volume) - 0.1;
+            vol = vol < 0 ? 0 : vol;
+          } else {
+            vol = Number(volume) + 0.1;
+            vol = vol > 1 ? 1 : vol;
+          }
+          setVolume(vol.toString());
+        }}
         className="common-range-input player-volume-input"
         type="range"
         value={volume}
