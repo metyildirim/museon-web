@@ -10,7 +10,6 @@ import AppleLoginButton from "./apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
 import Switch from "../common/switch";
-
 import * as yup from "yup";
 
 const LOGIN_MUTATION = gql`
@@ -46,10 +45,11 @@ const Login = () => {
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [login, { data, error }] = useMutation(LOGIN_MUTATION);
+  const { next } = router.query;
 
   useEffect(() => {
     if (isLoggedIn) {
-      router.push("/", undefined, { shallow: true });
+      router.push(`/${next || ""}`, undefined, { shallow: true });
     }
     if (error && !loginErrorSet) {
       loginErrorSet = true;
@@ -70,7 +70,7 @@ const Login = () => {
         setLoginError(data.login.error);
       }
     }
-  }, [setLoginError, data, error, router, isLoggedIn, dispatch]);
+  }, [setLoginError, data, error, router, isLoggedIn, dispatch, next]);
 
   const onLogin = async (values: typeof initialValues) => {
     loginErrorSet = false;
@@ -165,7 +165,7 @@ const Login = () => {
           </button>
           <div className="auth-question-container">
             <span>Don&apos;t have an account?</span>
-            <Link href="/signup">
+            <Link href={`/signup${next ? `?next=${next}` : ""}`}>
               <a className="auth-question-link">Sign Up</a>
             </Link>
           </div>

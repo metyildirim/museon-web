@@ -46,6 +46,7 @@ const Register = () => {
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
   const [registerError, setRegisterError] = useState("");
   const [register, { data, error }] = useMutation(REGISTER_MUTATION);
+  const { next } = router.query;
 
   const onRegister = (values: typeof initialValues) => {
     registerErrorSet = false;
@@ -60,7 +61,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      router.push("/", undefined, { shallow: true });
+      router.push(`/${next || ""}`, undefined, { shallow: true });
     }
     if (error && !registerErrorSet) {
       registerErrorSet = true;
@@ -81,7 +82,7 @@ const Register = () => {
         setRegisterError(data.register.error);
       }
     }
-  }, [setRegisterError, data, error, router, isLoggedIn, dispatch]);
+  }, [setRegisterError, data, error, router, isLoggedIn, dispatch, next]);
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -199,7 +200,7 @@ const Register = () => {
           </button>
           <div className="auth-question-container">
             <span>Have an account?</span>
-            <Link href="/login">
+            <Link href={`/login${next ? `?next=${next}` : ""}`}>
               <a className="auth-question-link">Sign In</a>
             </Link>
           </div>

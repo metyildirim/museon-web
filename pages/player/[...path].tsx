@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import MusicPlayer from "../../components/player/music-player";
 import UserSection from "../../components/player/user-section";
@@ -11,7 +11,6 @@ import Album from "../../components/player/album";
 import { ParsedUrlQuery } from "querystring";
 import { useAppSelector } from "../../app/hooks";
 import { selectIsLoggedIn } from "../../app/authSlice";
-import AppLogin from "../../components/login";
 
 const getBodySection = (query: ParsedUrlQuery) => {
   if (query.path) {
@@ -34,6 +33,11 @@ export default function Player() {
   const router = useRouter();
   const query = router.query;
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/login?next=player/home", undefined, { shallow: true });
+    }
+  }, [router, isLoggedIn]);
   return (
     <div className="web-player-container">
       {isLoggedIn ? (
@@ -45,9 +49,7 @@ export default function Player() {
           <MusicPlayer />
         </React.Fragment>
       ) : (
-        <div className="player-login-container">
-          <AppLogin />
-        </div>
+        <div>Loading...</div>
       )}
     </div>
   );
