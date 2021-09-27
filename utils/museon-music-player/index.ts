@@ -13,6 +13,7 @@ export type ArtistType = {
 };
 
 export type SongType = {
+  id: string;
   title: string;
   src: string;
   album: AlbumType;
@@ -27,6 +28,7 @@ export type AlbumType = {
 };
 
 export type ListType = {
+  id: string;
   title: string;
   album: AlbumType;
   artists: Array<ArtistType>;
@@ -44,7 +46,8 @@ export type CallbackType = (
   title: string,
   album: AlbumType,
   artists: Array<ArtistType>,
-  isAlbum: boolean
+  isAlbum: boolean,
+  list: Array<ListType>
 ) => void;
 
 export default class MuseonMusicPlayer {
@@ -100,10 +103,11 @@ export default class MuseonMusicPlayer {
       this.getFormatedCurrentTime(),
       this.getFormatedDuration(),
       this.getProgress(),
-      this.gettitle(),
+      this.getTitle(),
       this.getAlbum(),
       this.getArtists(),
-      this.isAlbum
+      this.isAlbum,
+      this.list
     );
   };
 
@@ -131,7 +135,7 @@ export default class MuseonMusicPlayer {
     this.player.src = src || this.list[index].src;
     this.updateMediaSession(
       this.getCover(),
-      this.gettitle(),
+      this.getTitle(),
       this.getAlbum(),
       this.getArtists()
     );
@@ -190,7 +194,7 @@ export default class MuseonMusicPlayer {
     return this.list[this.index]?.album.cover;
   };
 
-  private gettitle = () => {
+  private getTitle = () => {
     return this.list[this.index]?.title;
   };
 
@@ -285,6 +289,8 @@ export default class MuseonMusicPlayer {
   next = () => {
     if (this.queue.length > 0) {
       this.updateMusic(this.index, this.queue.shift()?.src);
+      this.play();
+      return;
     }
     let nextIndex = this.getNextIndex();
     if (this.checkNextIndex(nextIndex)) {

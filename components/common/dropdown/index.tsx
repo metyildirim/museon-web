@@ -9,20 +9,25 @@ type DropDownItem = {
 };
 
 type DropDownProps = {
-  title: string;
   items: Array<DropDownItem>;
+  title?: string;
+  children?: JSX.Element;
 };
 
-const DropDown = ({ title, items }: DropDownProps) => {
+const DropDown = ({ title, items, children }: DropDownProps) => {
   return (
     <div className="dropdown-common">
       <Menu as="div" className="dropdown-menu">
-        <div>
+        {children ? (
+          <Menu.Button className="dropdown-playlist-item">
+            {children}
+          </Menu.Button>
+        ) : (
           <Menu.Button className="dropdown-menu-btn">
             {title}
             <FontAwesomeIcon icon={faChevronDown} />
           </Menu.Button>
-        </div>
+        )}
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -32,7 +37,11 @@ const DropDown = ({ title, items }: DropDownProps) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="dropdown-menu-items">
+          <Menu.Items
+            className={
+              children ? "dropdown-menu-items-playlist" : "dropdown-menu-items"
+            }
+          >
             {items.map(({ title, action }) => (
               <div key={title} className="px-1 py-1">
                 <Menu.Item>

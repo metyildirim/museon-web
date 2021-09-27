@@ -9,35 +9,83 @@ import Playlist from "../../components/player/playlist";
 import Artist from "../../components/player/artist";
 import Album from "../../components/player/album";
 import { ParsedUrlQuery } from "querystring";
-import { useAppSelector } from "../../app/hooks";
-import { selectIsLoggedIn } from "../../app/authSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectID, selectIsLoggedIn } from "../../app/authSlice";
+import { selectLikedSongs, likeSong, removeLike } from "../../app/playerSlice";
+import { SongType } from "../../utils/museon-music-player";
+import { useMutation, gql } from "@apollo/client";
 
-const getBodySection = (query: ParsedUrlQuery) => {
-  if (query.path) {
-    const path = query.path[0];
-    const param = query.path[1];
-    if (path === "search") {
-      return <Search param={param} />;
-    } else if (path === "playlist") {
-      return <Playlist param={param} />;
-    } else if (path === "album") {
-      return <Album param={param} />;
-    } else if (path === "artist") {
-      return <Artist param={param} />;
+const LIKE_SONG = gql`
+  mutation LikeSong($songID: ID!, $userID: ID!) {
+    addLike(songID: $songID, userID: $userID) {
+      result
     }
   }
-  return <Home />;
-};
+`;
+
+const REMOVE_LIKE = gql`
+  mutation RemoveLike($songID: ID!, $userID: ID!) {
+    removeLike(songID: $songID, userID: $userID) {
+      result
+    }
+  }
+`;
 
 export default function Player() {
   const router = useRouter();
   const query = router.query;
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const dispatch = useAppDispatch();
+  const likedSongs = useAppSelector(selectLikedSongs);
+  const userID = useAppSelector(selectID);
+  const [likeMutation] = useMutation(LIKE_SONG);
+  const [removeLikeMutation] = useMutation(REMOVE_LIKE);
+
   useEffect(() => {
     if (!isLoggedIn) {
       router.push("/login?next=player/home", undefined, { shallow: true });
     }
   }, [router, isLoggedIn]);
+
+  const playerLikeSong = (song: SongType) => {
+    dispatch(likeSong({ song: song }));
+    likeMutation({ variables: { songID: song.id, userID: userID } });
+  };
+
+  const playerRemoveLike = (song: SongType) => {
+    dispatch(removeLike({ song: song }));
+    removeLikeMutation({ variables: { songID: song.id, userID: userID } });
+  };
+
+  const getBodySection = (query: ParsedUrlQuery) => {
+    if (query.path) {
+      const path = query.path[0];
+      const param = query.path[1];
+      if (path === "search") {
+        return <Search param={param} />;
+      } else if (path === "playlist") {
+        return (
+          <Playlist
+            param={param}
+            likeSong={playerLikeSong}
+            removeLike={playerRemoveLike}
+          />
+        );
+      } else if (path === "album") {
+        return (
+          <Album
+            param={param}
+            likeSong={playerLikeSong}
+            removeLike={playerRemoveLike}
+          />
+        );
+      } else if (path === "artist") {
+        return <Artist param={param} />;
+      }
+    }
+    return <Home />;
+  };
+
   return (
     <div className="web-player-container">
       {isLoggedIn ? (
@@ -46,7 +94,11 @@ export default function Player() {
             <UserSection />
             <BodySection>{getBodySection(query)}</BodySection>
           </div>
-          <MusicPlayer />
+          <MusicPlayer
+            likedSongs={likedSongs}
+            likeSong={playerLikeSong}
+            removeLike={playerRemoveLike}
+          />
         </React.Fragment>
       ) : (
         <div>Loading...</div>

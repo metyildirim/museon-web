@@ -9,14 +9,21 @@ type MusicInfoProps = {
   artists: Array<ArtistType>;
   song: string;
   album: AlbumType;
+  toggleLike: () => void;
 };
 
-const MusicInfo = ({ isLiked, artists, song, album }: MusicInfoProps) => {
+const MusicInfo = ({
+  isLiked,
+  artists,
+  song,
+  album,
+  toggleLike,
+}: MusicInfoProps) => {
   return (
     <div className="player-music-info">
       <div className="player-song-name">{song}</div>
-      <div className="player-like">
-        <button className="common-btn">
+      <div className={`player-like ${isLiked ? "player-like-liked" : ""}`}>
+        <button className="common-btn" onClick={toggleLike}>
           <FontAwesomeIcon icon={isLiked ? faHeart : faHeartOutline} />
         </button>
       </div>

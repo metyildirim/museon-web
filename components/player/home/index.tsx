@@ -11,6 +11,7 @@ const GET_FEATURED = gql`
         title
         cover
         songs {
+          id
           title
           src
           album {

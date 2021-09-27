@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { SongType } from "../utils/museon-music-player";
 import type { AppState } from "./store";
 
 export interface PlayerState {
-  likedSongs: Array<string>;
+  likedSongs: Array<SongType>;
 }
 
 export interface PlayerLikeActionType {
-  id: string;
+  song: SongType;
 }
 
 const initialState: PlayerState = {
@@ -18,17 +19,20 @@ export const playerSlice = createSlice({
   initialState,
   reducers: {
     likeSong: (state, action: PayloadAction<PlayerLikeActionType>) => {
-      state.likedSongs.push(action.payload.id);
+      state.likedSongs.push(action.payload.song);
     },
     removeLike: (state, action: PayloadAction<PlayerLikeActionType>) => {
       state.likedSongs = state.likedSongs.filter(
-        (id) => id !== action.payload.id
+        (song) => song.id !== action.payload.song.id
       );
+    },
+    setLikes: (state, action: PayloadAction<PlayerState>) => {
+      state.likedSongs = action.payload.likedSongs;
     },
   },
 });
 
-export const { likeSong, removeLike } = playerSlice.actions;
+export const { likeSong, removeLike, setLikes } = playerSlice.actions;
 
 export const selectLikedSongs = (state: AppState) => state.player.likedSongs;
 

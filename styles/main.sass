@@ -52,7 +52,7 @@
     @apply ease-in-out duration-200
 
 .dropdown-common
-    @apply mt-4 flex items-center justify-center
+    @apply flex items-center justify-center
 
 .dropdown-menu
     @apply relative inline-block text-left
@@ -62,8 +62,14 @@
     @apply rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2
     @apply focus-visible:ring-white focus-visible:ring-opacity-75
 
+.dropdown-playlist-item
+    @apply inline-flex focus:outline-none pt-1
+
 .dropdown-menu-items
-    @apply absolute left-0 w-52 mt-2 origin-top-left bg-black rounded-md shadow-lg focus:outline-none
+    @apply absolute left-0 w-52 mt-2 origin-top-left bg-black rounded-md shadow-lg focus:outline-none z-10
+
+.dropdown-menu-items-playlist
+    @apply absolute right-0 w-52 mt-2 origin-top-right bg-black rounded-md shadow-lg focus:outline-none z-10
 
 .dropdown-menu-item-btn
     @apply text-xs w-full text-white hover:text-green-400 p-2 rounded-md text-left
@@ -286,7 +292,10 @@
 
 .player-like
     @apply text-gray-400 text-lg h-8 w-6 flex items-center justify-center hover:text-white hover:text-xl
-    @apply transition-colors justify-center
+    @apply justify-center active:text-green-500 active:text-lg
+
+.player-like-liked
+    @apply text-green-500
 
 .player-music-controller
     @apply flex flex-row items-center w-full justify-between mt-auto mb-3
@@ -339,7 +348,7 @@
     @apply flex flex-col h-40 bg-gray-800 items-center justify-center
 
 .profile-image
-    @apply flex items-center justify-center h-12 w-12 bg-gray-600 text-xl text-white rounded-full
+    @apply flex items-center justify-center h-12 w-12 bg-gray-600 text-xl text-white rounded-full mb-4
 
 .player-playlists
     @apply flex flex-col
@@ -459,6 +468,9 @@
 
 .playlist-table-item
     @apply flex flex-row items-center justify-between pl-4 text-gray-300 font-normal text-sm
+
+.playlist-table-item-action
+    @apply cursor-pointer hover:text-green-500 active:text-white
 
 .player-artist-section
     @apply flex flex-col px-16 mt-8

@@ -10,6 +10,29 @@ import {
   faChevronRight,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import { selectID } from "../../../app/authSlice";
+import { selectLikedSongs, setLikes } from "../../../app/playerSlice";
+import { useQuery, gql } from "@apollo/client";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+
+const GET_LIKES = gql`
+  query GetLikes($id: ID!) {
+    likes(id: $id) {
+      id
+      title
+      src
+      album {
+        id
+        title
+        cover
+      }
+      artists {
+        id
+        name
+      }
+    }
+  }
+`;
 
 type BodySectionProps = {
   children: JSX.Element;
@@ -26,13 +49,24 @@ let routeAction = RouteActions.NEW_ROUTE;
 let routeIndex = 0;
 let isInitialPath = true;
 let shouldClearHistory = false;
+let likedSongsFetched = false;
 
 const BodySection = ({ children }: BodySectionProps) => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [disabledHome, setDisabledHome] = useState(true);
   const [disabledBack, setDisabledBack] = useState(true);
   const [disabledForward, setDisabledForward] = useState(true);
   const [searchValue, setSearchValue] = useState("");
+  const userID = useAppSelector(selectID);
+  const { data, loading, error } = useQuery(GET_LIKES, {
+    variables: { id: userID },
+  });
+
+  if (data && !likedSongsFetched) {
+    dispatch(setLikes({ likedSongs: data.likes }));
+    likedSongsFetched = true;
+  }
 
   const onHomeClicked = () => {
     router.push("/player/home", undefined, { shallow: true });

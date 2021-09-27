@@ -5,13 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import PlaylistItem from "./playlist-item";
 import { gql, useQuery } from "@apollo/client";
-import MMP, { ListType } from "../../../utils/museon-music-player";
-import { selectID } from "../../../app/authSlice";
+import MMP, { ListType, SongType } from "../../../utils/museon-music-player";
 import { useAppSelector } from "../../../app/hooks";
+import { selectLikedSongs } from "../../../app/playerSlice";
 
 type PlaylistSectionProps = {
   isAlbum?: boolean;
+  isLikes?: boolean;
   id: string;
+  likeSong: (song: SongType) => void;
+  removeLike: (song: SongType) => void;
 };
 
 const GET_ALBUM = gql`
@@ -20,6 +23,7 @@ const GET_ALBUM = gql`
       title
       cover
       songs {
+        id
         title
         src
         album {
@@ -42,6 +46,7 @@ const GET_PLAYLIST = gql`
       title
       cover
       songs {
+        id
         title
         src
         album {
@@ -58,36 +63,31 @@ const GET_PLAYLIST = gql`
   }
 `;
 
-const GET_LIKES = gql`
-  query GetLikes($id: ID!) {
-    likes(id: $id) {
-      id
-      title
-      src
-      album {
-        id
-        title
-        cover
-      }
-      artists {
-        id
-        name
-      }
-    }
-  }
-`;
-
-const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
-  const userID = useAppSelector(selectID);
+const PlaylistSection = ({
+  isAlbum,
+  isLikes,
+  id,
+  likeSong,
+  removeLike,
+}: PlaylistSectionProps) => {
   const { loading, error, data } = useQuery(
-    isAlbum ? GET_ALBUM : id === "likes" ? GET_LIKES : GET_PLAYLIST,
+    isAlbum ? GET_ALBUM : GET_PLAYLIST,
     {
-      variables: { id: id === "likes" ? userID : id },
+      variables: { id: id },
     }
   );
+  const likedSongs = useAppSelector(selectLikedSongs);
   const [isPlaying, setPlaying] = useState(false);
   const [isActive, setActive] = useState(false);
   const mmp = MMP.instance;
+
+  const updateList = (index: number) => {
+    mmp.updateList(
+      isLikes ? likedSongs : data.album.songs,
+      isAlbum || false,
+      index
+    );
+  };
 
   return loading ? (
     <div>LOADING...</div>
@@ -95,7 +95,7 @@ const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
     <div className="player-playlist-section">
       <div className="player-playlist-header">
         <div className="player-playlist-image">
-          {id === "likes" ? (
+          {isLikes ? (
             <div className="playlist-likes-icon">
               <FontAwesomeIcon icon={faHeart} />
             </div>
@@ -109,7 +109,7 @@ const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
           )}
         </div>
         <span className="player-playlist-title">
-          {id === "likes" ? "Liked Songs" : data.album.title}
+          {isLikes ? "Liked Songs" : data.album.title}
         </span>
         <div
           className={
@@ -117,11 +117,7 @@ const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
           }
           onClick={() => {
             if (!isActive) {
-              mmp.updateList(
-                id === "likes" ? data.likes : data.album.songs,
-                isAlbum || true,
-                0
-              );
+              updateList(0);
               setActive(true);
               setPlaying(true);
             } else if (isPlaying) {
@@ -144,28 +140,36 @@ const PlaylistSection = ({ isAlbum, id }: PlaylistSectionProps) => {
         <div className="playlist-table-title-item w-2/12"></div>
       </div>
       <div className="playlist-table-items">
-        {id === "likes"
-          ? data.likes.map(
-              ({ title, src, artists, album }: ListType, index: number) => (
+        {isLikes
+          ? likedSongs.map(
+              ({ id, title, src, artists, album }: ListType, index: number) => (
                 <PlaylistItem
+                  id={id}
                   key={index}
                   title={title}
                   album={album}
                   artists={artists}
                   src={src}
                   index={index}
+                  likeSong={likeSong}
+                  removeLike={removeLike}
+                  updateList={updateList}
                 />
               )
             )
           : data.album.songs.map(
-              ({ title, src, artists, album }: ListType, index: number) => (
+              ({ id, title, src, artists, album }: ListType, index: number) => (
                 <PlaylistItem
+                  id={id}
                   key={index}
                   title={title}
                   album={album}
                   artists={artists}
                   src={src}
                   index={index}
+                  likeSong={likeSong}
+                  removeLike={removeLike}
+                  updateList={updateList}
                 />
               )
             )}
