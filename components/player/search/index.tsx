@@ -19,6 +19,7 @@ const GET_SEARCH_RESULT = gql`
         title
         cover
         songs {
+          id
           title
           src
           album {
@@ -37,6 +38,7 @@ const GET_SEARCH_RESULT = gql`
         cover
       }
       songs {
+        id
         src
         title
         artists {
@@ -73,12 +75,13 @@ const Search = ({ param }: SearchProps) => {
           <span className="player-home-title">Songs</span>
           <div className="player-album-container">
             {data.search.songs.map(
-              ({ title, album, artists, src }: SongType) => (
+              ({ id, title, album, artists, src }: SongType) => (
                 <Album
                   key={title}
                   cover={album.cover}
                   playlist={[
                     {
+                      id: id,
                       album: album,
                       title: title,
                       artists: artists,

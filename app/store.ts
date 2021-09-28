@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { saveState } from "./localStorage";
 import authReducer from "./authSlice";
+import playerReducer from "./playerSlice";
 
 export function makeStore() {
   return configureStore({
-    reducer: { auth: authReducer },
+    reducer: { auth: authReducer, player: playerReducer },
   });
 }
 

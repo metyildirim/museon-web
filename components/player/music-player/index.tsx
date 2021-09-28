@@ -8,6 +8,7 @@ import MMP, {
   ListType,
   ArtistType,
   AlbumType,
+  SongType,
 } from "../../../utils/museon-music-player";
 import { faRandom } from "@fortawesome/free-solid-svg-icons";
 import LoopIcon from "../../../icons/Loop";
@@ -15,7 +16,12 @@ import MusicInfo from "./music-info";
 import MusicController from "./music-controller";
 import PlayerControls from "./player-controls";
 
-type MusicPlayerProps = {};
+type MusicPlayerProps = {
+  likedSongs: Array<SongType>;
+  likeSong: (song: SongType) => void;
+  removeLike: (song: SongType) => void;
+};
+
 type StateTypes = {
   isPlaying: boolean;
   index: number;
@@ -34,9 +40,11 @@ type StateTypes = {
   isAlbum: boolean;
 };
 
-class MusicPlayer extends React.Component<{}, StateTypes> {
+class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
   mmp?: MMP;
   list: Array<ListType>;
+  songID: string;
+  likedSongs: Array<SongType>;
 
   constructor(props: MusicPlayerProps) {
     super(props);
@@ -66,6 +74,7 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     };
     this.list = [
       {
+        id: "1",
         title: "Other Side",
         album: {
           songs: [],
@@ -78,6 +87,8 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
         src: "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2FUmcaruje%20-%20The%20Best%20of%20LMMS%20Vol.%206%20-%2001%20Other%20side.mp3?alt=media&token=c6b46661-09d2-44dd-88b5-6ee7b6f94d8f",
       },
     ];
+    this.songID = "";
+    this.likedSongs = this.props.likedSongs;
   }
 
   componentDidMount() {
@@ -99,7 +110,8 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     song: string,
     album: AlbumType,
     artists: Array<ArtistType>,
-    isAlbum: boolean
+    isAlbum: boolean,
+    list: Array<ListType>
   ) => {
     this.setState({
       cover,
@@ -113,6 +125,22 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
       artists,
       isAlbum,
     });
+    this.list = list;
+    const songID = list[index].id;
+    if (
+      this.props.likedSongs.length !== this.likedSongs.length ||
+      this.songID !== songID
+    ) {
+      this.likedSongs = this.props.likedSongs;
+      this.songID = songID;
+      let isLiked = false;
+      this.props.likedSongs.forEach((likedSong) => {
+        if (likedSong.id === songID) {
+          isLiked = true;
+        }
+      });
+      this.setState({ isLiked });
+    }
   };
 
   previous = () => {
@@ -181,6 +209,16 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
     this.setState({ progress });
   };
 
+  toggleLike = () => {
+    if (!this.state.isLiked) {
+      this.props.likeSong(this.list[this.state.index]);
+      this.setState({ isLiked: true });
+    } else {
+      this.props.removeLike(this.list[this.state.index]);
+      this.setState({ isLiked: false });
+    }
+  };
+
   render() {
     return (
       <div className="player-container">
@@ -208,6 +246,7 @@ class MusicPlayer extends React.Component<{}, StateTypes> {
             artists={this.state.artists}
             song={this.state.song}
             album={this.state.album}
+            toggleLike={this.toggleLike}
           />
           <MusicController
             duration={this.state.duration}
