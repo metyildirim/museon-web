@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import Image from "next/image";
 import NavigationButton from "./navigation-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -85,6 +83,9 @@ const BodySection = ({ children }: BodySectionProps) => {
   };
 
   const onRouteChanged = (url: string) => {
+    if (url === routeStack[routeIndex]) {
+      return;
+    }
     if (url.includes("/player/search")) {
       setDisabledHome(false);
       return;
