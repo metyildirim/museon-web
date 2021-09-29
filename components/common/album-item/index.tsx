@@ -9,7 +9,7 @@ import MMP from "../../../utils/museon-music-player";
 type AlbumProps = {
   cover: string;
   playlist: Array<ListType>;
-  playlistId: string;
+  playlistID: string;
   children: string;
   isPlaylist: boolean;
 };
@@ -17,7 +17,7 @@ type AlbumProps = {
 const Album = ({
   cover,
   playlist,
-  playlistId,
+  playlistID,
   children,
   isPlaylist,
 }: AlbumProps) => {
@@ -29,7 +29,7 @@ const Album = ({
     setIsHover(false);
   };
   const onPlayClicked = () => {
-    MMP.instance.updateList(playlist, !isPlaylist, 0);
+    MMP.instance.updateList(playlist, !isPlaylist, 0, playlistID);
   };
   return (
     <div className="album-item">
@@ -47,7 +47,7 @@ const Album = ({
       </div>
       <Link
         href={
-          (isPlaylist ? "/player/playlist/" : "/player/album/") + playlistId
+          (isPlaylist ? "/player/playlist/" : "/player/album/") + playlistID
         }
       >
         <a>

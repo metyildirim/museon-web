@@ -4,6 +4,11 @@ import type { AppState } from "./store";
 
 export interface PlayerState {
   likedSongs: Array<SongType>;
+  isPlaying?: boolean;
+  isPlaylist?: boolean;
+  isLikes?: boolean;
+  listID?: string;
+  songID?: string;
 }
 
 export interface PlayerLikeActionType {
@@ -12,6 +17,11 @@ export interface PlayerLikeActionType {
 
 const initialState: PlayerState = {
   likedSongs: [],
+  isPlaying: false,
+  isPlaylist: false,
+  isLikes: false,
+  listID: "",
+  songID: "",
 };
 
 export const playerSlice = createSlice({
@@ -29,10 +39,12 @@ export const playerSlice = createSlice({
     setLikes: (state, action: PayloadAction<PlayerState>) => {
       state.likedSongs = action.payload.likedSongs;
     },
+    setPlayerState: (state, action: PayloadAction<PlayerState>) => {},
   },
 });
 
-export const { likeSong, removeLike, setLikes } = playerSlice.actions;
+export const { likeSong, removeLike, setLikes, setPlayerState } =
+  playerSlice.actions;
 
 export const selectLikedSongs = (state: AppState) => state.player.likedSongs;
 

@@ -38,6 +38,7 @@ type StateTypes = {
   album: AlbumType;
   artists: Array<ArtistType>;
   isAlbum: boolean;
+  listID: string;
 };
 
 class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
@@ -71,6 +72,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
       cover:
         "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
       isAlbum: true,
+      listID: "",
     };
     this.list = [
       {
@@ -111,7 +113,8 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
     album: AlbumType,
     artists: Array<ArtistType>,
     isAlbum: boolean,
-    list: Array<ListType>
+    list: Array<ListType>,
+    listID: string
   ) => {
     this.setState({
       cover,
@@ -124,6 +127,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
       album,
       artists,
       isAlbum,
+      listID,
     });
     this.list = list;
     const songID = list[index].id;
@@ -227,7 +231,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
             href={
               "/player/" +
               (this.state.isAlbum ? "album/" : "playlist/") +
-              this.state.album.id
+              this.state.listID
             }
           >
             <a>

@@ -20,6 +20,7 @@ type PlaylistSectionProps = {
 const GET_ALBUM = gql`
   query GetAlbum($id: ID!) {
     album(id: $id) {
+      id
       title
       cover
       songs {
@@ -43,6 +44,7 @@ const GET_ALBUM = gql`
 const GET_PLAYLIST = gql`
   query GetPlaylist($id: ID!) {
     album: playlist(id: $id) {
+      id
       title
       cover
       songs {
@@ -81,11 +83,12 @@ const PlaylistSection = ({
   const [isActive, setActive] = useState(false);
   const mmp = MMP.instance;
 
-  const updateList = (index: number) => {
+  const updateList = (index: number, listID: string) => {
     mmp.updateList(
       isLikes ? likedSongs : data.album.songs,
       isAlbum || false,
-      index
+      index,
+      listID
     );
   };
 
@@ -117,7 +120,7 @@ const PlaylistSection = ({
           }
           onClick={() => {
             if (!isActive) {
-              updateList(0);
+              updateList(0, isLikes ? "likes" : data.album.id);
               setActive(true);
               setPlaying(true);
             } else if (isPlaying) {
@@ -154,6 +157,7 @@ const PlaylistSection = ({
                   likeSong={likeSong}
                   removeLike={removeLike}
                   updateList={updateList}
+                  listID={isLikes ? "likes" : data.album.id}
                 />
               )
             )
@@ -170,6 +174,7 @@ const PlaylistSection = ({
                   likeSong={likeSong}
                   removeLike={removeLike}
                   updateList={updateList}
+                  listID={isLikes ? "likes" : data.album.id}
                 />
               )
             )}

@@ -88,7 +88,7 @@ const Search = ({ param }: SearchProps) => {
                       src: src,
                     },
                   ]}
-                  playlistId={album.id}
+                  playlistID={album.id}
                   isPlaylist={false}
                 >
                   {title}
@@ -108,7 +108,7 @@ const Search = ({ param }: SearchProps) => {
                   key={id}
                   cover={cover}
                   playlist={songs}
-                  playlistId={id}
+                  playlistID={id}
                   isPlaylist={false}
                 >
                   {title}

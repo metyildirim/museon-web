@@ -13,7 +13,8 @@ import { selectLikedSongs } from "../../../app/playerSlice";
 type PlaylistItemProps = {
   likeSong: (song: SongType) => void;
   removeLike: (song: SongType) => void;
-  updateList: (index: number) => void;
+  updateList: (index: number, listID: string) => void;
+  listID: string;
 };
 
 interface CombinedProps extends ListType, PlaylistItemProps {}
@@ -28,6 +29,7 @@ const PlaylistItem = ({
   likeSong,
   removeLike,
   updateList,
+  listID,
 }: CombinedProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isMouseOn, setIsMouseOn] = useState(false);
@@ -100,7 +102,7 @@ const PlaylistItem = ({
           <div
             className="playlist-table-item-action"
             onClick={() => {
-              updateList(index || 0);
+              updateList(index || 0, listID);
             }}
           >
             <FontAwesomeIcon icon={faPlayCircle} />
