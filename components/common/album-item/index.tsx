@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ListType } from "../../../utils/museon-music-player";
+import { ListType, LIST_STATES } from "../../../utils/museon-music-player";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAppDispatch } from "../../../app/hooks";
+import { setListID, setListState } from "../../../app/playerSlice";
 import MMP from "../../../utils/museon-music-player";
 
 type AlbumProps = {
@@ -21,16 +23,25 @@ const Album = ({
   children,
   isPlaylist,
 }: AlbumProps) => {
+  const dispatch = useAppDispatch();
   const [isHover, setIsHover] = useState(false);
+
   const onMouseEnter = () => {
     setIsHover(true);
   };
+
   const onMouseLeave = () => {
     setIsHover(false);
   };
+
   const onPlayClicked = () => {
     MMP.instance.updateList(playlist, !isPlaylist, 0, playlistID);
+    dispatch(setListID(playlistID));
+    dispatch(
+      setListState(isPlaylist ? LIST_STATES.Playlist : LIST_STATES.Album)
+    );
   };
+
   return (
     <div className="album-item">
       <div

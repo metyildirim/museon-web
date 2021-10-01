@@ -20,10 +20,11 @@ type MusicPlayerProps = {
   likedSongs: Array<SongType>;
   likeSong: (song: SongType) => void;
   removeLike: (song: SongType) => void;
+  isPlaying: boolean;
+  setIsPlaying: (isPlaying: boolean) => void;
 };
 
 type StateTypes = {
-  isPlaying: boolean;
   index: number;
   volume: string;
   lastVolume: string;
@@ -50,7 +51,6 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
   constructor(props: MusicPlayerProps) {
     super(props);
     this.state = {
-      isPlaying: false,
       index: 0,
       volume: "1",
       lastVolume: "1",
@@ -118,7 +118,6 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
   ) => {
     this.setState({
       cover,
-      isPlaying,
       index,
       currentTime,
       duration,
@@ -129,6 +128,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
       isAlbum,
       listID,
     });
+    this.props.setIsPlaying(isPlaying);
     this.list = list;
     const songID = list[index].id;
     if (
@@ -157,12 +157,12 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
 
   play = () => {
     this.mmp?.play();
-    this.setState({ isPlaying: true });
+    this.props.setIsPlaying(true);
   };
 
   pause = () => {
     this.mmp?.pause();
-    this.setState({ isPlaying: false });
+    this.props.setIsPlaying(false);
   };
 
   onShuffleClicked = () => {
@@ -264,7 +264,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
           pause={this.pause}
           next={this.next}
           previous={this.previous}
-          isPlaying={this.state.isPlaying}
+          isPlaying={this.props.isPlaying}
         />
         <div className="player-queue-action-container">
           <QueueAction

@@ -6,6 +6,12 @@ export enum LOOP_STATES {
   LoopOne,
 }
 
+export enum LIST_STATES {
+  Album,
+  Playlist,
+  Likes,
+}
+
 export type ArtistType = {
   id: string;
   name: string;
@@ -280,7 +286,9 @@ export default class MuseonMusicPlayer {
   private fetchNext = () => {
     let nextIndex = this.getNextIndex();
     nextIndex = nextIndex === this.list.length ? 0 : nextIndex;
-    this.fetcher.src = this.list[nextIndex].src;
+    if (this.list[nextIndex].src) {
+      this.fetcher.src = this.list[nextIndex].src;
+    }
   };
 
   play = () => {

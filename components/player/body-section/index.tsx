@@ -9,7 +9,7 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { selectID } from "../../../app/authSlice";
-import { selectLikedSongs, setLikes } from "../../../app/playerSlice";
+import { setLikes } from "../../../app/playerSlice";
 import { useQuery, gql } from "@apollo/client";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 
@@ -62,7 +62,7 @@ const BodySection = ({ children }: BodySectionProps) => {
   });
 
   if (data && !likedSongsFetched) {
-    dispatch(setLikes({ likedSongs: data.likes }));
+    dispatch(setLikes(data.likes));
     likedSongsFetched = true;
   }
 
