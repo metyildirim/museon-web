@@ -16,6 +16,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const client = new ApolloClient({
   ssrMode: typeof window === "undefined",
+  credentials: "include",
   link: new HttpLink({
     uri: publicRuntimeConfig.graphqlEndpoint,
     credentials: "include",
