@@ -11,7 +11,13 @@ import Album from "../../components/player/album";
 import { ParsedUrlQuery } from "querystring";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectID, selectIsLoggedIn } from "../../app/authSlice";
-import { selectLikedSongs, likeSong, removeLike } from "../../app/playerSlice";
+import {
+  selectLikedSongs,
+  likeSong,
+  removeLike,
+  selectIsPlaying,
+  setIsPlaying as setIsPlayingApp,
+} from "../../app/playerSlice";
 import { SongType } from "../../utils/museon-music-player";
 import { useMutation, gql } from "@apollo/client";
 
@@ -34,9 +40,10 @@ const REMOVE_LIKE = gql`
 export default function Player() {
   const router = useRouter();
   const query = router.query;
-  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const likedSongs = useAppSelector(selectLikedSongs);
+  const isPlaying = useAppSelector(selectIsPlaying);
   const userID = useAppSelector(selectID);
   const [likeMutation] = useMutation(LIKE_SONG);
   const [removeLikeMutation] = useMutation(REMOVE_LIKE);
@@ -55,6 +62,10 @@ export default function Player() {
   const playerRemoveLike = (song: SongType) => {
     dispatch(removeLike({ song: song }));
     removeLikeMutation({ variables: { songID: song.id, userID: userID } });
+  };
+
+  const setIsPlaying = (isPlaying: boolean) => {
+    dispatch(setIsPlayingApp(isPlaying));
   };
 
   const getBodySection = (query: ParsedUrlQuery) => {
@@ -98,6 +109,8 @@ export default function Player() {
             likedSongs={likedSongs}
             likeSong={playerLikeSong}
             removeLike={playerRemoveLike}
+            isPlaying={isPlaying}
+            setIsPlaying={setIsPlaying}
           />
         </React.Fragment>
       ) : (

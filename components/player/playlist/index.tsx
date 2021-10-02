@@ -1,4 +1,4 @@
-import { SongType } from "../../../utils/museon-music-player";
+import { LIST_STATES, SongType } from "../../../utils/museon-music-player";
 import PlaylistSection from "../../common/playlist-section";
 
 type PlaylistProps = {
@@ -10,9 +10,8 @@ type PlaylistProps = {
 const Playlist = ({ param, likeSong, removeLike }: PlaylistProps) => {
   return (
     <PlaylistSection
-      isAlbum={false}
+      listState={param === "likes" ? LIST_STATES.Likes : LIST_STATES.Playlist}
       id={param}
-      isLikes={param === "likes"}
       likeSong={likeSong}
       removeLike={removeLike}
     />

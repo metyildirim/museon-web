@@ -49,7 +49,7 @@ const Home = () => {
               key={id}
               cover={cover}
               playlist={songs}
-              playlistId={id}
+              playlistID={id}
               isPlaylist={true}
             >
               {title}

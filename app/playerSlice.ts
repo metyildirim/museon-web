@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SongType } from "../utils/museon-music-player";
+import { LIST_STATES, SongType } from "../utils/museon-music-player";
 import type { AppState } from "./store";
 
 export interface PlayerState {
   likedSongs: Array<SongType>;
+  isPlaying: boolean;
+  listState: LIST_STATES;
+  listID: string;
+  songID: string;
 }
 
 export interface PlayerLikeActionType {
@@ -12,6 +16,10 @@ export interface PlayerLikeActionType {
 
 const initialState: PlayerState = {
   likedSongs: [],
+  isPlaying: false,
+  listState: LIST_STATES.Playlist,
+  listID: "",
+  songID: "",
 };
 
 export const playerSlice = createSlice({
@@ -26,14 +34,38 @@ export const playerSlice = createSlice({
         (song) => song.id !== action.payload.song.id
       );
     },
-    setLikes: (state, action: PayloadAction<PlayerState>) => {
-      state.likedSongs = action.payload.likedSongs;
+    setLikes: (state, action: PayloadAction<Array<SongType>>) => {
+      state.likedSongs = action.payload;
+    },
+    setIsPlaying: (state, action: PayloadAction<boolean>) => {
+      state.isPlaying = action.payload;
+    },
+    setListState: (state, action: PayloadAction<LIST_STATES>) => {
+      state.listState = action.payload;
+    },
+    setListID: (state, action: PayloadAction<string>) => {
+      state.listID = action.payload;
+    },
+    setSongID: (state, action: PayloadAction<string>) => {
+      state.songID = action.payload;
     },
   },
 });
 
-export const { likeSong, removeLike, setLikes } = playerSlice.actions;
+export const {
+  likeSong,
+  removeLike,
+  setLikes,
+  setIsPlaying,
+  setListState,
+  setListID,
+  setSongID,
+} = playerSlice.actions;
 
 export const selectLikedSongs = (state: AppState) => state.player.likedSongs;
+export const selectIsPlaying = (state: AppState) => state.player.isPlaying;
+export const selectListState = (state: AppState) => state.player.listState;
+export const selectListID = (state: AppState) => state.player.listID;
+export const selectSongID = (state: AppState) => state.player.songID;
 
 export default playerSlice.reducer;

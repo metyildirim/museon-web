@@ -60,7 +60,7 @@ const Artist = ({ param }: ArtistProps) => {
             <Album
               key={album.id}
               playlist={album.songs}
-              playlistId={album.id}
+              playlistID={album.id}
               cover={album.cover}
               isPlaylist={false}
             >
