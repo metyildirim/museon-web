@@ -10,16 +10,12 @@ import {
   ApolloProvider,
   HttpLink,
 } from "@apollo/client";
-import getConfig from "next/config";
 import fetch from "cross-fetch";
-
-const { publicRuntimeConfig } = getConfig();
 
 const client = new ApolloClient({
   ssrMode: typeof window === "undefined",
   link: new HttpLink({
-    uri: publicRuntimeConfig.graphqlEndpoint,
-    credentials: "include",
+    uri: "/api/graphql",
     fetch: fetch,
   }),
   cache: new InMemoryCache(),
