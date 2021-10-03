@@ -11,6 +11,7 @@ import {
   HttpLink,
 } from "@apollo/client";
 import getConfig from "next/config";
+import fetch from "cross-fetch";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -19,6 +20,7 @@ const client = new ApolloClient({
   link: new HttpLink({
     uri: publicRuntimeConfig.graphqlEndpoint,
     credentials: "include",
+    fetch: fetch,
   }),
   cache: new InMemoryCache(),
 });

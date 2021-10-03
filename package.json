@@ -30,7 +30,8 @@
     "react-redux": "^7.2.4",
     "sass": "^1.36.0",
     "swr": "^0.5.6",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "cross-fetch": "^3.1.4"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.7",
@@ -47,7 +48,6 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "autoprefixer": "^10.2.6",
     "babel-jest": "^27.0.5",
-    "cross-fetch": "^3.1.4",
     "enzyme": "^3.11.0",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.0",
