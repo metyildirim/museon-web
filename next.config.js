@@ -11,9 +11,6 @@ module.exports = withBundleAnalyzer({
   images: {
     domains: ["firebasestorage.googleapis.com"],
   },
-  publicRuntimeConfig: {
-    graphqlEndpoint: process.env.GRAPHQL_ENDPOINT,
-  },
   async redirects() {
     return [
       {
