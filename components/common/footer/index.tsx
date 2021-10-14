@@ -65,15 +65,18 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-top">
-        <div className="footer-logo">
-          <Link href="/">
-            <a>
-              <div className="footer-logo">
-                <Image height="50px" width="150px" src="/logo.svg" alt="logo" />
-              </div>
-            </a>
-          </Link>
-        </div>
+        <Link href="/">
+          <a>
+            <div className="footer-logo">
+              <Image
+                height="max-content"
+                width="max-content"
+                src="/logo.svg"
+                alt="logo"
+              />
+            </div>
+          </a>
+        </Link>
         <div className="footer-section-container">
           {sections.map(({ heading, links }) => (
             <Section key={heading} heading={heading} links={links} />
