@@ -119,23 +119,29 @@
 
 // Home
 .header
-    @apply flex flex-row items-center w-full py-4 px-24 font-bold text-white bg-gray-700 fixed
+    @apply flex flex-row items-center w-full py-4 px-4 font-bold text-white bg-gray-700 fixed
+    @apply md:px-20
 
 .header-logo
-    @apply flex justify-center mt-auto mb-auto w-max
+    @apply flex justify-center  h-[35px] w-[115px] md:h-[50px] md:w-[165px] mt-auto mb-auto
 
 .header-btn-container
-    @apply flex flex-1 items-center justify-end
+    @apply flex w-0 md:w-max ml-0 md:ml-auto items-center justify-end
 
 .header-btn
-    @apply ml-6 hover:text-green-300 transition-colors font-bold
+    @apply hover:text-green-300 transition-colors font-bold whitespace-nowrap text-sm md:text-base
+
+.md-visible
+    display: none
+    @apply md:block
 
 .header-btn-signup
-    @apply ml-6 bg-white text-green-500 py-2 px-4 rounded-full hover:text-white hover:bg-green-500
-    @apply transition-colors font-bold
+    @apply ml-2 md:ml-6 bg-white text-green-500 py-2 px-2 md:px-4 rounded-full hover:text-white
+    @apply transition-colors font-bold w-24 text-sm md:text-base whitespace-nowrap
+    @apply hover:bg-green-500
 
 .header-auth-container
-    @apply flex flex-row items-center
+    @apply flex flex-row items-center ml-auto md:ml-0 w-max
 
 .header-username
     @apply ml-2 font-normal
@@ -144,20 +150,21 @@
     @apply h-6 border-l-2 border-green-500 ml-6
 
 .jumbotron-container
-    @apply flex flex-col items-center justify-center space-y-6 bg-gray-200 text-black pb-40 pt-60
+    @apply flex flex-col items-center w-full justify-center space-y-6 bg-gray-200 text-black
+    @apply pb-12 pt-32 md:pb-40 md:pt-60 text-center
 
 .jumbotron-heading
-    @apply text-5xl font-bold
+    @apply font-bold text-3xl md:text-5xl
 
 .jumbotron-text
-    @apply text-2xl font-light
+    @apply text-xl md:text-2xl font-light
 
 .jumbotron-btn-join
-    @apply flex text-lg py-2 bg-green-600 hover:bg-green-500 w-48 items-center justify-center
+    @apply flex text-base md:text-lg py-2 bg-green-600 hover:bg-green-500 w-48 items-center justify-center
     @apply text-white font-bold rounded-full transition-colors
 
 .footer
-    @apply flex flex-col w-auto py-8 px-24 text-white bg-gray-900 space-y-8
+    @apply flex flex-col w-full py-8 px-24 text-white bg-gray-900 space-y-8
 
 .footer-top
     @apply flex flex-row justify-center text-white mb-8

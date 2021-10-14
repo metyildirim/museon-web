@@ -28,45 +28,52 @@ const Header = () => {
       <Link href="/">
         <a>
           <div className="header-logo">
-            <Image height="50px" width="165px" src="/logo.svg" alt="logo" />
+            <Image
+              height="max-content"
+              width="max-content"
+              src="/logo.svg"
+              alt="logo"
+            />
           </div>
         </a>
       </Link>
-      <div className="header-btn-container">
-        <Link href="/player/home">
-          <a className="header-btn" target="_top">
-            Web Player
-          </a>
-        </Link>
-        <Link href="/download">
-          <a className="header-btn">Download</a>
-        </Link>
-        <Divider className="header-divider" />
-        {isLoggedIn ? (
-          <div className="header-auth-container">
-            <FontAwesomeIcon className="ml-6" icon={faUserCircle} size="2x" />
-            <span className="header-username">{username}</span>
-            <button
-              onClick={() => {
-                logout();
-                dispatch(signOut());
-              }}
-              className="header-btn-signup"
-            >
-              Sign Out
-            </button>
-          </div>
-        ) : (
-          <div className="header-auth-container">
-            <Link href="/login">
-              <a className="header-btn">Sign In</a>
-            </Link>
-            <Link href="/signup">
-              <a className="header-btn-signup">Sign Up</a>
-            </Link>
-          </div>
-        )}
-      </div>
+      <Link href="/player/home">
+        <a className="header-btn md-visible ml-auto" target="_top">
+          Web Player
+        </a>
+      </Link>
+      <Link href="/download">
+        <a className="header-btn ml-auto md:ml-6 ">Download</a>
+      </Link>
+      <Divider className="header-divider md-visible" />
+      {isLoggedIn ? (
+        <>
+          <FontAwesomeIcon
+            className="ml-6 md-visible"
+            icon={faUserCircle}
+            size="2x"
+          />
+          <span className="header-username md-visible">{username}</span>
+          <button
+            onClick={() => {
+              logout();
+              dispatch(signOut());
+            }}
+            className="header-btn-signup"
+          >
+            Sign Out
+          </button>
+        </>
+      ) : (
+        <>
+          <Link href="/login">
+            <a className="header-btn ml-6">Sign In</a>
+          </Link>
+          <Link href="/signup">
+            <a className="header-btn-signup md-visible">Sign Up</a>
+          </Link>
+        </>
+      )}
     </div>
   );
 };
