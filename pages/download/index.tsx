@@ -30,7 +30,7 @@ export default function Download() {
       <div className="download-item-container">
         {desktopApps.map(({ title, path, icon }) => (
           <DownloadItem key={title} title={title} path={path}>
-            <FontAwesomeIcon icon={icon} size="5x" />
+            <FontAwesomeIcon icon={icon} className="download-item-icon" />
           </DownloadItem>
         ))}
       </div>
@@ -38,7 +38,7 @@ export default function Download() {
       <div className="download-item-container">
         {mobileApps.map(({ title, path, icon }) => (
           <DownloadItem key={title} title={title} path={path}>
-            <FontAwesomeIcon icon={icon} size="5x" />
+            <FontAwesomeIcon icon={icon} className="download-item-icon" />
           </DownloadItem>
         ))}
       </div>

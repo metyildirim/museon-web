@@ -10,7 +10,7 @@ const Item = ({ title, children, path }: ItemProps) => {
   return (
     <div className="download-item">
       <div className="download-item-title">{title}</div>
-      <div className="download-item-image">{children}</div>
+      <div className="download-item-icon-container">{children}</div>
       <Link href={path}>
         <a>
           <div className="download-item-btn">Download for {title}</div>
