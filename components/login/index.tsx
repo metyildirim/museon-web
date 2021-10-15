@@ -10,6 +10,7 @@ import AppleLoginButton from "./apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
 import Switch from "../common/switch";
+import Spinner from "../common/spinner";
 import * as yup from "yup";
 
 const LOGIN_MUTATION = gql`
@@ -40,6 +41,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [staySignedIn, setStaySignedIn] = useState(true);
   const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
@@ -54,6 +56,7 @@ const Login = () => {
     if (error && !loginErrorSet) {
       loginErrorSet = true;
       setLoginError(error.message);
+      setIsLoading(false);
     }
     if (data) {
       if (data.login.result) {
@@ -68,11 +71,13 @@ const Login = () => {
       } else if (!loginErrorSet) {
         loginErrorSet = true;
         setLoginError(data.login.error);
+        setIsLoading(false);
       }
     }
   }, [setLoginError, data, error, router, isLoggedIn, dispatch, next]);
 
   const onLogin = async (values: typeof initialValues) => {
+    setIsLoading(true);
     loginErrorSet = false;
     login({
       variables: {
@@ -161,7 +166,7 @@ const Login = () => {
             <span className="stay-signed-in">Stay signed in</span>
           </div>
           <button type="submit" className="submit-btn">
-            Login
+            {isLoading ? <Spinner /> : "Login"}
           </button>
           <div className="auth-question-container">
             <span>Don&apos;t have an account?</span>
