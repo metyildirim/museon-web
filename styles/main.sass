@@ -9,28 +9,29 @@
     @apply flex justify-center items-center w-full bg-gray-700
 
 .common-header-logo
-    @apply flex my-4
+    @apply flex h-[35px] w-[115px] md:h-[50px] md:w-[165px] my-4
 
 .common-heading
-    @apply flex flex-1 justify-center items-center py-8 text-2xl bg-gray-200 font-bold text-gray-900
+    @apply flex flex-1 justify-center items-center py-8 text-xl md:text-2xl bg-gray-200 font-bold text-gray-900
 
 .horizontal-line
     @apply h-0.5 w-28 bg-gray-400 mx-4
 
 .form-common
-    @apply flex flex-col justify-center items-center
+    @apply flex flex-col justify-center items-center w-72 md:w-80
 
 .form-error-message
-    @apply flex text-xs text-red-500 w-80 mb-2
+    @apply flex text-xs text-red-500 w-72 md:w-80 mb-2
 
 .form-error-general
-    @apply flex justify-center text-sm font-bold text-red-500 w-80 mb-4
+    @apply flex justify-center text-xs md:text-sm font-bold text-red-500 w-80 mb-4
 
 .input-label
-    @apply text-gray-700 text-sm font-medium mr-auto
+    @apply text-gray-700 text-xs md:text-sm font-medium mr-auto
 
 .input-common
-    @apply flex flex-row mb-2 mt-1 focus:outline-none p-2 border border-gray-300 focus:border-green-600 w-80
+    @apply flex flex-row mb-2 mt-1 focus:outline-none p-2 border border-gray-300 focus:border-green-600
+    @apply w-72 md:w-80 text-sm md:text-base
 
 .input-common-error
     @apply border-red-300 focus:border-red-600
@@ -39,8 +40,8 @@
     @apply focus:outline-none
 
 .submit-btn
-    @apply bg-green-600 hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-900 focus:outline-none w-80 p-2 mb-4
-    @apply rounded-full font-bold mt-1 text-white
+    @apply bg-green-600 hover:bg-gray-700 active:bg-gray-900 focus:bg-gray-900 focus:outline-none p-2 mb-4
+    @apply rounded-full font-bold mt-1 text-white w-72 md:w-80 text-sm md:text-base
 
 .switch-custom
     @apply relative inline-flex flex-shrink-0 h-7 w-14 border-2 border-transparent rounded-full cursor-pointer
@@ -78,13 +79,13 @@
     @apply flex flex-row items-center my-4
 
 .divider-text-or
-    @apply font-bold text-sm text-gray-500
+    @apply font-bold text-xs md:text-sm text-gray-500
 
 .auth-description
-    @apply mt-4 mb-2 font-medium text-gray-900
+    @apply mt-4 mb-2 text-sm md:text-base md:font-medium text-gray-900
 
 .auth-question-container
-    @apply flex flex-row text-sm font-light justify-center w-80
+    @apply flex flex-row text-xs md:text-sm font-light justify-center w-72 md:w-80
 
 .auth-question-link
     @apply ml-2 font-medium hover:text-green-700
@@ -119,23 +120,29 @@
 
 // Home
 .header
-    @apply flex flex-row items-center w-full py-4 px-24 font-bold text-white bg-gray-700 fixed
+    @apply flex flex-row items-center w-full py-4 px-4 font-bold text-white bg-gray-700 fixed
+    @apply md:px-20 z-50
 
 .header-logo
-    @apply flex justify-center mt-auto mb-auto w-max
+    @apply flex justify-center h-[35px] w-[115px] md:h-[50px] md:w-[165px] mt-auto mb-auto
 
 .header-btn-container
-    @apply flex flex-1 items-center justify-end
+    @apply flex w-0 md:w-max ml-0 md:ml-auto items-center justify-end
 
 .header-btn
-    @apply ml-6 hover:text-green-300 transition-colors font-bold
+    @apply hover:text-green-300 transition-colors font-bold whitespace-nowrap text-sm md:text-base
+
+.md-visible
+    display: none
+    @apply md:block
 
 .header-btn-signup
-    @apply ml-6 bg-white text-green-500 py-2 px-4 rounded-full hover:text-white hover:bg-green-500
-    @apply transition-colors font-bold
+    @apply ml-2 md:ml-6 bg-white text-green-500 py-2 px-2 md:px-4 rounded-full hover:text-white
+    @apply transition-colors font-bold w-24 text-sm md:text-base whitespace-nowrap
+    @apply hover:bg-green-500
 
 .header-auth-container
-    @apply flex flex-row items-center
+    @apply flex flex-row items-center ml-auto md:ml-0 w-max
 
 .header-username
     @apply ml-2 font-normal
@@ -144,29 +151,33 @@
     @apply h-6 border-l-2 border-green-500 ml-6
 
 .jumbotron-container
-    @apply flex flex-col items-center justify-center space-y-6 bg-gray-200 text-black pb-40 pt-60
+    @apply flex flex-col items-center w-full justify-center space-y-6 bg-gray-200 text-black
+    @apply pb-12 pt-32 md:pb-40 md:pt-60 text-center px-4
 
 .jumbotron-heading
-    @apply text-5xl font-bold
+    @apply font-bold text-3xl md:text-5xl
 
 .jumbotron-text
-    @apply text-2xl font-light
+    @apply text-lg md:text-2xl font-light
 
 .jumbotron-btn-join
-    @apply flex text-lg py-2 bg-green-600 hover:bg-green-500 w-48 items-center justify-center
+    @apply flex text-base md:text-lg py-2 bg-green-600 hover:bg-green-500 w-48 items-center justify-center
     @apply text-white font-bold rounded-full transition-colors
 
 .footer
-    @apply flex flex-col w-auto py-8 px-24 text-white bg-gray-900 space-y-8
+    @apply flex flex-col w-full py-8 px-4 sm:px-24 text-white bg-gray-900 space-y-8
 
 .footer-top
-    @apply flex flex-row justify-center text-white mb-8
+    @apply flex flex-col md:flex-row gap-y-4 md:gap-y-0 items-center sm:items-start justify-center text-white mb-2 md:mb-8
+
+.footer-logo
+    @apply h-[35px] w-[115px] md:h-[50px] md:w-[165px] flex
 
 .footer-section-container
-    @apply flex flex-row mx-auto
+    @apply flex flex-wrap md:flex-row gap-y-4 my-8 md:my-0 md:gap-y-0 mx-0 md:mx-auto
 
 .footer-section
-    @apply flex flex-col items-start mx-10 font-bold text-lg
+    @apply flex flex-col items-start mx-10 sm:mr-20 sm:pb-0 md:pb-4 lg:pb-0 font-bold text-sm md:text-lg
 
 .footer-section-link-container
     @apply flex flex-col text-sm font-normal mt-2 space-y-2
@@ -174,21 +185,18 @@
 .footer-section-link
     @apply text-gray-400 hover:text-green-400 transition-colors
 
-.footer-logo
-    @apply w-max
-
 .footer-language-btn
     @apply text-gray-800 font-bold bg-white hover:bg-green-500 hover:text-white transition-colors
     @apply rounded-full py-2 px-6
 
 .footer-bottom
-    @apply flex flex-row items-center
+    @apply flex flex-row items-center justify-center flex-wrap
 
 .footer-copyright
-    @apply text-sm font-bold
+    @apply text-xs md:text-sm font-bold whitespace-nowrap
 
 .footer-links-container
-    @apply flex flex-row text-sm ml-16 mr-auto
+    @apply flex flex-row text-xs md:text-sm mx-0 md:ml-16 my-8 md:my-0 md:mr-auto
 
 .footer-link
     @apply mx-4 text-gray-400 hover:text-green-400 transition-colors
@@ -204,13 +212,16 @@
     @apply flex flex-row justify-center flex-wrap
 
 .download-item
-    @apply flex flex-col text-gray-900 my-8 items-center justify-center px-12 py-6 rounded-md
+    @apply flex flex-col text-gray-900 my-0 md:my-8 items-center justify-center px-12 py-6 rounded-md
 
 .download-item-title
-    @apply mb-4 font-bold text-2xl
+    @apply mb-4 font-bold text-xl md:text-2xl
 
-.download-item-image
+.download-item-icon-container
     @apply flex
+
+.download-item-icon
+    @apply text-5xl md:text-7xl
 
 .download-item-btn
     @apply bg-gray-900 hover:bg-green-600 active:bg-green-500 text-white rounded-full px-4 py-2 mt-6
@@ -221,8 +232,9 @@
     @apply flex flex-col
 
 .social-login-btn
-    @apply flex flex-row justify-center items-center rounded-full w-80 h-10 my-2 font-bold text-base px-4
+    @apply flex flex-row justify-center items-center rounded-full h-10 my-2 font-bold px-4
     @apply active:outline-none focus:outline-none hover:bg-gray-600 active:bg-gray-500 focus:bg-gray-500
+    @apply w-72 md:w-80 text-sm md:text-base
 
 .google-login-btn
     @apply bg-blue-600 text-white
@@ -237,17 +249,17 @@
     @apply mr-auto text-xs mb-2 text-gray-600 hover:text-green-700 mb-4
 
 .login-switch-container
-    @apply flex flex-row w-80 justify-start items-center mb-3
+    @apply flex flex-row w-72 md:w-80 justify-start items-center mb-3
 
 .stay-signed-in
-    @apply text-sm text-gray-900
+    @apply text-xs md:text-sm text-gray-900
 
 .login-switch
     @apply mr-4
 
 // SignUp
 .signup-links-container
-    @apply text-sm w-80 text-center my-3 font-light text-gray-900
+    @apply text-xs md:text-sm w-72 md:w-80 text-center my-3 font-light text-gray-900
 
 .signup-link
     @apply font-medium hover:text-green-700
