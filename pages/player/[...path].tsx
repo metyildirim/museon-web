@@ -20,6 +20,7 @@ import {
 } from "../../app/playerSlice";
 import { SongType } from "../../utils/museon-music-player";
 import { useMutation, gql } from "@apollo/client";
+import Spinner from "../../components/common/spinner";
 
 const LIKE_SONG = gql`
   mutation LikeSong($songID: ID!, $userID: ID!) {
@@ -99,23 +100,25 @@ export default function Player() {
 
   return (
     <div className="web-player-container">
-      {isLoggedIn ? (
-        <React.Fragment>
-          <div className="player-top-container">
-            <UserSection />
-            <BodySection>{getBodySection(query)}</BodySection>
-          </div>
-          <MusicPlayer
-            likedSongs={likedSongs}
-            likeSong={playerLikeSong}
-            removeLike={playerRemoveLike}
-            isPlaying={isPlaying}
-            setIsPlaying={setIsPlaying}
-          />
-        </React.Fragment>
-      ) : (
-        <div>Loading...</div>
-      )}
+      {typeof window !== "undefined" ? (
+        isLoggedIn ? (
+          <React.Fragment>
+            <div className="player-top-container">
+              <UserSection />
+              <BodySection>{getBodySection(query)}</BodySection>
+            </div>
+            <MusicPlayer
+              likedSongs={likedSongs}
+              likeSong={playerLikeSong}
+              removeLike={playerRemoveLike}
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
+            />
+          </React.Fragment>
+        ) : (
+          <Spinner />
+        )
+      ) : null}
     </div>
   );
 }

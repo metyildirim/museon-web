@@ -11,6 +11,7 @@ import DropDown from "../../common/dropdown";
 import PlaylistItem from "./playlist-item";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import MMP, { AlbumType } from "../../../utils/museon-music-player";
+import Spinner from "../../common/spinner";
 
 const GET_PLAYLISTS = gql`
   query {
@@ -52,31 +53,35 @@ const UserSection = () => {
     { title: "Logout", action: onLogoutClicked },
   ];
 
-  return !data ? (
-    <div>LOADING...</div>
-  ) : (
+  return (
     <div className="player-user-section">
-      <div className="player-user-profile">
-        <div className="profile-image">
-          <FontAwesomeIcon icon={faUser} />
-        </div>
-        <DropDown title={username} items={dropdownItems} />
-      </div>
-      <div className="player-playlists-header">
-        My Playlists
-        <FontAwesomeIcon icon={faListUl} />
-      </div>
-      <div className="player-playlists">
-        <PlaylistItem text="Liked Songs" icon={faHeart} listId="likes" />
-        {data.featured.playlists.map(({ id, title }: AlbumType) => (
-          <PlaylistItem
-            key={id}
-            text={title}
-            icon={faCompactDisc}
-            listId={id}
-          />
-        ))}
-      </div>
+      {!data ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="player-user-profile">
+            <div className="profile-image">
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+            <DropDown title={username} items={dropdownItems} />
+          </div>
+          <div className="player-playlists-header">
+            My Playlists
+            <FontAwesomeIcon icon={faListUl} />
+          </div>
+          <div className="player-playlists">
+            <PlaylistItem text="Liked Songs" icon={faHeart} listId="likes" />
+            {data.featured.playlists.map(({ id, title }: AlbumType) => (
+              <PlaylistItem
+                key={id}
+                text={title}
+                icon={faCompactDisc}
+                listId={id}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
