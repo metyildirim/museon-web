@@ -2,6 +2,7 @@ import Album from "../../common/album-item";
 import Artist from "../../common/artist";
 import { gql, useQuery } from "@apollo/client";
 import { ArtistType, AlbumType } from "../../../utils/museon-music-player";
+import Spinner from "../../common/spinner";
 
 const GET_FEATURED = gql`
   query {
@@ -37,7 +38,9 @@ const GET_FEATURED = gql`
 const Home = () => {
   const { loading, error, data } = useQuery(GET_FEATURED);
   return loading ? (
-    <div>Loading...</div>
+    <div className="player-home">
+      <Spinner />
+    </div>
   ) : (
     <div className="player-home">
       <span className="player-welcome-text">Welcome to Museon!</span>

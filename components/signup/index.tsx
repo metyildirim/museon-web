@@ -7,6 +7,7 @@ import GoogleLoginButton from "../login/google-login-button";
 import AppleLoginButton from "../login/apple-login-button";
 import AuthDivider from "../common/auth-divider";
 import Heading from "../common/heading";
+import Spinner from "../common/spinner";
 import { useMutation, gql } from "@apollo/client";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -41,6 +42,7 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const [isLoading, setIsLoading] = useState(false);
   const [emailErrorVisibility, setEmailErrorVisibility] = useState(false);
   const [usernameErrorVisibility, setUsernameErrorVisibility] = useState(false);
   const [passwordErrorVisibility, setPasswordErrorVisibility] = useState(false);
@@ -49,6 +51,7 @@ const Register = () => {
   const { next } = router.query;
 
   const onRegister = (values: typeof initialValues) => {
+    setIsLoading(true);
     registerErrorSet = false;
     register({
       variables: {
@@ -66,6 +69,7 @@ const Register = () => {
     if (error && !registerErrorSet) {
       registerErrorSet = true;
       setRegisterError(error.message);
+      setIsLoading(false);
     }
     if (data) {
       if (data.register.result) {
@@ -80,6 +84,7 @@ const Register = () => {
       } else if (!registerErrorSet) {
         registerErrorSet = true;
         setRegisterError(data.register.error);
+        setIsLoading(false);
       }
     }
   }, [setRegisterError, data, error, router, isLoggedIn, dispatch, next]);
@@ -196,7 +201,7 @@ const Register = () => {
             use.
           </div>
           <button type="submit" className="submit-btn">
-            Sign Up
+            {isLoading ? <Spinner /> : "Sign Up"}
           </button>
           <div className="auth-question-container">
             <span>Have an account?</span>

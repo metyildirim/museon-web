@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Album from "../../common/album-item";
 import { gql, useQuery } from "@apollo/client";
+import Spinner from "../../common/spinner";
 
 type ArtistProps = {
   param: string;
@@ -41,7 +42,9 @@ const Artist = ({ param }: ArtistProps) => {
   });
 
   return loading ? (
-    <div>LOADING...</div>
+    <div className="player-artist-section">
+      <Spinner />
+    </div>
   ) : (
     <div className="player-artist-section">
       <div className="player-artist-header">

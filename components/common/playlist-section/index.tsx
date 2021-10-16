@@ -20,6 +20,7 @@ import {
   setListID,
   setIsPlaying,
 } from "../../../app/playerSlice";
+import Spinner from "../spinner";
 
 type PlaylistSectionProps = {
   id: string;
@@ -145,7 +146,9 @@ const PlaylistSection = ({
   };
 
   return loading ? (
-    <div>LOADING...</div>
+    <div className="player-playlist-section">
+      <Spinner />
+    </div>
   ) : (
     <div className="player-playlist-section">
       <div className="player-playlist-header">
