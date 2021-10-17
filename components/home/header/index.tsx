@@ -38,9 +38,7 @@ const Header = () => {
         </a>
       </Link>
       <Link href="/player/home">
-        <a className="header-btn md-visible ml-auto" target="_top">
-          Web Player
-        </a>
+        <a className="header-btn md-visible ml-auto">Web Player</a>
       </Link>
       <Link href="/download">
         <a className="header-btn ml-auto md:ml-6 ">Download</a>

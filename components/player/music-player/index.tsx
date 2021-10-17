@@ -22,6 +22,8 @@ type MusicPlayerProps = {
   removeLike: (song: SongType) => void;
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
+  list: Array<ListType>;
+  listID: string;
 };
 
 type StateTypes = {
@@ -60,45 +62,34 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
       duration: "0:00",
       currentTime: "0:00",
       progress: "0",
-      song: "",
-      album: {
-        id: "1",
-        cover:
-          "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
-        title: "The Best of LMMS Vol. 6",
-        songs: [],
-      },
-      artists: [],
-      cover:
-        "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
-      isAlbum: true,
-      listID: "",
+      song: this.props.list[0].title,
+      album: this.props.list[0].album,
+      artists: this.props.list[0].artists,
+      cover: this.props.list[0].album.cover,
+      isAlbum: false,
+      listID: this.props.listID,
     };
-    this.list = [
-      {
-        id: "1",
-        title: "Other Side",
-        album: {
-          songs: [],
-          title: "The Best of LMMS Vol. 6",
-          id: "1",
-          cover:
-            "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2Fcover6.png?alt=media&token=ce39f255-e283-4c6b-bfaf-013da1a47a90",
-        },
-        artists: [{ id: "1", name: "Umcaruje", cover: "" }],
-        src: "https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/lmms-vol-6%2FUmcaruje%20-%20The%20Best%20of%20LMMS%20Vol.%206%20-%2001%20Other%20side.mp3?alt=media&token=c6b46661-09d2-44dd-88b5-6ee7b6f94d8f",
-      },
-    ];
-    this.songID = "";
+    this.list = this.props.list;
+    this.songID = this.props.list[0].id;
     this.likedSongs = this.props.likedSongs;
   }
 
   componentDidMount() {
     try {
-      this.mmp = new MMP(this.playerCallback, this.state.isAlbum, this.list);
+      this.mmp = new MMP(
+        this.playerCallback,
+        this.state.isAlbum,
+        this.list,
+        this.props.listID
+      );
     } catch {
       this.mmp = MMP.instance;
-      this.mmp.updateCallback(this.playerCallback);
+      this.mmp.updatePlayer(
+        this.playerCallback,
+        this.state.isAlbum,
+        this.list,
+        this.props.listID
+      );
     }
   }
 
@@ -230,8 +221,9 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
           <Link
             href={
               "/player/" +
-              (this.state.isAlbum ? "album/" : "playlist/") +
-              this.state.listID
+              (this.state.isAlbum
+                ? `album/${this.state.listID}`
+                : `playlist/${this.state.listID}`)
             }
           >
             <a>

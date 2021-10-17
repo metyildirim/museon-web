@@ -71,16 +71,17 @@ export default class MuseonMusicPlayer {
   private loop: number;
   private isAlbum: boolean;
   private listID: string;
+  private intervalID: NodeJS.Timeout;
 
   constructor(
     playerCallback: CallbackType,
     isAlbum: boolean,
     list?: Array<ListType>,
+    listID?: string,
     index?: number,
     loop?: number,
     shuffle?: boolean,
-    volume?: number,
-    listID?: string
+    volume?: number
   ) {
     if (MuseonMusicPlayer.instance) {
       throw "There should only be one music player instance";
@@ -101,7 +102,7 @@ export default class MuseonMusicPlayer {
     this.player.onended = this.onMusicEnd;
     this.updateMusic(this.index);
     this.setMediaButtons();
-    setInterval(this.notify, 200);
+    this.intervalID = setInterval(this.notify, 200);
     MuseonMusicPlayer.instance = this;
   }
 
@@ -345,6 +346,7 @@ export default class MuseonMusicPlayer {
     this.list = [];
     this.index = 0;
     this.player.src = "";
+    clearInterval(this.intervalID);
   };
 
   updateList = (
@@ -390,7 +392,32 @@ export default class MuseonMusicPlayer {
     this.loop = loopState;
   };
 
-  updateCallback = (playerCallback: CallbackType) => {
+  updatePlayer = (
+    playerCallback: CallbackType,
+    isAlbum: boolean,
+    list?: Array<ListType>,
+    listID?: string,
+    index?: number,
+    loop?: number,
+    shuffle?: boolean,
+    volume?: number
+  ) => {
     this.callback = playerCallback;
+    this.isAlbum = isAlbum;
+    this.loop = loop || 0;
+    this.shuffle = shuffle || false;
+    this.index = index || 0;
+    this.list = list || [];
+    this.listID = listID || "";
+    this.shuffledIndexes = shuffleIndexes(this.list);
+    this.shufflePivot = this.index;
+    this.queue = [];
+    this.fetcher = new Audio();
+    this.player = new Audio();
+    this.player.volume = volume || 1;
+    this.player.onended = this.onMusicEnd;
+    this.updateMusic(this.index);
+    this.setMediaButtons();
+    setInterval(this.notify, 200);
   };
 }
