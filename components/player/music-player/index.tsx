@@ -215,7 +215,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
   };
 
   render() {
-    return !this.state.listID ? null : (
+    return (
       <div className="player-container">
         <div className="player-album-cover">
           <Link
