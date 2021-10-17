@@ -12,9 +12,7 @@ const Jumbotron = () => {
       </span>
       {isLoggedIn ? (
         <Link href="/player">
-          <a className="jumbotron-btn-join" target="_top">
-            Open Web Player
-          </a>
+          <a className="jumbotron-btn-join">Open Web Player</a>
         </Link>
       ) : (
         <Link href="/signup">

@@ -19,7 +19,7 @@ import {
   setIsPlaying as setIsPlayingApp,
 } from "../../app/playerSlice";
 import { SongType } from "../../utils/museon-music-player";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useQuery } from "@apollo/client";
 import Spinner from "../../components/common/spinner";
 
 const LIKE_SONG = gql`
@@ -38,6 +38,32 @@ const REMOVE_LIKE = gql`
   }
 `;
 
+const GET_FEATURED_PLAYLISTS = gql`
+  query {
+    featured {
+      playlists {
+        id
+        title
+        cover
+        songs {
+          id
+          title
+          src
+          album {
+            id
+            title
+            cover
+          }
+          artists {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
 export default function Player() {
   const router = useRouter();
   const query = router.query;
@@ -48,6 +74,7 @@ export default function Player() {
   const userID = useAppSelector(selectID);
   const [likeMutation] = useMutation(LIKE_SONG);
   const [removeLikeMutation] = useMutation(REMOVE_LIKE);
+  const { loading, data } = useQuery(GET_FEATURED_PLAYLISTS);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -107,13 +134,21 @@ export default function Player() {
               <UserSection />
               <BodySection>{getBodySection(query)}</BodySection>
             </div>
-            <MusicPlayer
-              likedSongs={likedSongs}
-              likeSong={playerLikeSong}
-              removeLike={playerRemoveLike}
-              isPlaying={isPlaying}
-              setIsPlaying={setIsPlaying}
-            />
+            {loading ? (
+              <div className="player-container items-center justify-center">
+                <Spinner />
+              </div>
+            ) : (
+              <MusicPlayer
+                likedSongs={likedSongs}
+                likeSong={playerLikeSong}
+                removeLike={playerRemoveLike}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                list={data.featured.playlists[0].songs}
+                listID={data.featured.playlists[0].id}
+              />
+            )}
           </React.Fragment>
         ) : (
           <Spinner />
