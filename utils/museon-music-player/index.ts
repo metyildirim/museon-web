@@ -287,7 +287,7 @@ export default class MuseonMusicPlayer {
   private fetchNext = () => {
     let nextIndex = this.getNextIndex();
     nextIndex = nextIndex === this.list.length ? 0 : nextIndex;
-    if (this.list[nextIndex].src) {
+    if (this.list[nextIndex]) {
       this.fetcher.src = this.list[nextIndex].src;
     }
   };

@@ -160,9 +160,10 @@ const PlaylistSection = ({
           ) : (
             <Image
               src={data.album.cover}
-              height="144px"
-              width="144px"
+              height="max-content"
+              width="max-content"
               alt={data.album.title}
+              layout="responsive"
             />
           )}
         </div>
@@ -184,8 +185,10 @@ const PlaylistSection = ({
         <div className="playlist-table-title-item w-1/12">#</div>
         <div className="playlist-table-title-item w-3/12">TITLE</div>
         <div className="playlist-table-title-item w-3/12">ARTISTS</div>
-        <div className="playlist-table-title-item w-3/12">ALBUM</div>
-        <div className="playlist-table-title-item w-2/12"></div>
+        <div className="playlist-table-title-item w-3/12 md-invisible">
+          ALBUM
+        </div>
+        <div className="playlist-table-title-item w-2/12 md-invisible"></div>
       </div>
       <div className="playlist-table-items">
         {getPlaylist().map(
