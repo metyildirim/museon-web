@@ -228,10 +228,11 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
           >
             <a>
               <Image
-                height="100%"
-                width="100%"
+                height="max-content"
+                width="max-content"
                 src={this.state.cover}
                 alt="Album Cover"
+                layout="responsive"
               />
             </a>
           </Link>

@@ -71,7 +71,13 @@ const PlaylistItem = ({
     >
       <div className="playlist-table-item w-1/12">
         {index !== undefined ? index + 1 : null}
-        <Image src={album.cover} height="36px" width="36px" alt="cover" />
+        <Image
+          src={album.cover}
+          className="lg-invisible"
+          height="36px"
+          width="36px"
+          alt="cover"
+        />
       </div>
       <div className="playlist-table-item w-3/12">{title}</div>
       <div className="playlist-table-item w-3/12">
@@ -85,12 +91,12 @@ const PlaylistItem = ({
           ))}
         </div>
       </div>
-      <div className="playlist-table-item w-3/12">
+      <div className="playlist-table-item w-3/12 md-invisible">
         <Link href={"/player/album/" + album.id}>
           <a className="player-artist-link">{album.title}</a>
         </Link>
       </div>
-      <div className="playlist-table-item w-2/12">
+      <div className="playlist-table-item w-2/12 sm-invisible">
         {isMouseOn ? (
           <div className="playlist-table-item-action" onClick={toggleLike}>
             <FontAwesomeIcon icon={isLiked ? faHeart : faHeartOutline} />
@@ -100,7 +106,7 @@ const PlaylistItem = ({
         )}
         {isMouseOn ? (
           <div
-            className="playlist-table-item-action"
+            className={"playlist-table-item-action sm-invisible"}
             onClick={() => {
               updateList(index || 0, listID);
             }}
@@ -110,10 +116,18 @@ const PlaylistItem = ({
         ) : (
           <div />
         )}
-        <div className="playlist-table-item-action">
+        <div className="playlist-table-item-action sm-invisible">
           <DropDown items={[{ title: "Add to queue", action: addToQueue }]}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </DropDown>
+        </div>
+        <div
+          className="playlist-table-item-action sm-block text-sm"
+          onClick={() => {
+            updateList(index || 0, listID);
+          }}
+        >
+          <FontAwesomeIcon icon={faPlayCircle} />
         </div>
       </div>
     </div>
