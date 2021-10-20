@@ -1,45 +1,89 @@
-# museon-frontend
+# [Museon Web](https://museon-web.vercel.app/)
 
-An open source music platform
+A free and open-source music platform
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[![GitHub license](https://img.shields.io/badge/License-GPL3-blue.svg)](https://github.com/metyildirim/museon-web/blob/master/LICENSE) [![Build](https://github.com/metyildirim/museon-web/actions/workflows/build.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/build.yml) [![Lint](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml) [![Test](https://github.com/metyildirim/museon-web/actions/workflows/test.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/test.yml)
 
-## Getting Started
+![screenshot1](https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/logo%2F22.png?alt=media&token=f79e36d5-823b-4357-b1b2-9b47922cac15)
 
-First, run the development server:
+## Development
+
+### Environments
+
+- Copy `.env.local.template` to `.env.local` on same structure level.
+- Fill required environment variables.
+
+| Environment      | Type   | Recommendation for Development | Description             |
+| ---------------- | ------ | ------------------------------ | ----------------------- |
+| GRAPHQL_ENDPOINT | String | http://localhost:4000/graphql  | GraphQL Server Endpoint |
+
+### Running GraphQL Server
+
+Clone [museon-backend](https://github.com/metyildirim/museon-dummy-backend) repository and run GraphQL server:
 
 ```bash
-npm run dev
+$ npm start
+```
+
+Now, server should be running on [http://localhost:4000/graphql](http://localhost:4000/graphql)
+
+### Running App
+
+Running the development server:
+
+```bash
+$ npm run dev
 # or
-yarn dev
+$ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Docker
+Building:
 
 ```bash
-docker-compose build # building
-docker-compose up # running
+$ npm run build
+# or
+$ yarn build
 ```
 
-## Learn More
+Linting:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+$ npm run lint
+# or
+$ yarn lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Testing:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+$ npm test
+# or
+$ yarn test
+```
 
-## Deploy on Vercel
+Analyzing bundle:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+$ npm run analyze
+# or
+$ yarn analyze
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Containerization with Docker
+
+```bash
+$ docker-compose build
+# run
+$ docker-compose up
+```
+
+### Contributing
+
+Please, follow these steps to contribute:
+
+  1. Create a branch
+  2. Commit your changes
+  3. Run build, lint and test scripts
+  4. Create pull request
