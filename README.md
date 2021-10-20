@@ -64,7 +64,6 @@ $ yarn analyze
 ## Containerization with Docker
 
 ```bash
-# buil
 $ docker-compose build
 # run
 $ docker-compose up
