@@ -10,7 +10,6 @@ A free and open-source music platform
 
 - Copy `.env.local.template` to `.env.local` on same structure level.
 - Fill required environment variables.
-- Check _Environments_ section to understand environment variables.
 
 | Environment      | Type   | Recommendation for Development | Description             |
 | ---------------- | ------ | ------------------------------ | ----------------------- |
