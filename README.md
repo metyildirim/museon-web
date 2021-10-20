@@ -1,4 +1,4 @@
-# museon-web
+# [Museon Web](https://museon-web.vercel.app/) &middot; [![GitHub license](https://img.shields.io/badge/license-GPL3-blue.svg)](https://github.com/metyildirim/museon-web/blob/master/LICENSE) ![Build](https://github.com/metyildirim/museon-web/actions/workflows/build.yml/badge.svg) ![Lint](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml/badge.svg) ![Test](https://github.com/metyildirim/museon-web/actions/workflows/test.yml/badge.svg)
 
 A free and open-source music platform
 
