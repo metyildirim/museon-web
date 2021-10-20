@@ -8,6 +8,14 @@ A free and open-source music platform
 
 ## Development
 
+### Installing Dependencies
+
+```bash
+$ npm install
+# or
+$ yarn
+```
+
 ### Environments
 
 - Copy `.env.local.template` to `.env.local` on same structure level.
