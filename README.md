@@ -83,7 +83,8 @@ $ docker-compose up
 
 Please, follow these steps to contribute:
 
-  1. Create a branch
-  2. Commit your changes
-  3. Run build, lint and test scripts
-  4. Create pull request
+  1. Fork the repository
+  2. Create a branch
+  3. Commit your changes
+  4. Run build, lint and test scripts
+  5. Create pull request
