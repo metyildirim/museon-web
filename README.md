@@ -1,4 +1,4 @@
-# [Museon](https://museon-web.vercel.app/)
+# [Museon Web](https://museon-web.vercel.app/)
 
 A free and open-source music platform
 
@@ -23,7 +23,7 @@ Clone [museon-backend](https://github.com/metyildirim/museon-dummy-backend) repo
 $ npm start
 ```
 
-Open [http://localhost:4000/graphql](http://localhost:4000/graphql) with your browser to see the result.
+Now, server should be running on [http://localhost:4000/graphql](http://localhost:4000/graphql)
 
 ### Running App
 
@@ -61,7 +61,7 @@ $ npm run analyze
 $ yarn analyze
 ```
 
-## Containerization with Docker
+### Containerization with Docker
 
 ```bash
 $ docker-compose build
