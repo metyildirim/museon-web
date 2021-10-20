@@ -2,7 +2,7 @@
 
 A free and open-source music platform
 
-[![GitHub license](https://img.shields.io/badge/License-GPL3-blue.svg)](https://github.com/metyildirim/museon-web/blob/master/LICENSE) [![Build](https://github.com/metyildirim/museon-web/actions/workflows/build.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/build.yml) [![Lint](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml) [![Test](https://github.com/metyildirim/museon-web/actions/workflows/test.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/test.yml)
+[![GitHub license](https://img.shields.io/badge/License-GPL3-blue.svg)](https://github.com/metyildirim/museon-web/blob/master/LICENSE) [![Build](https://github.com/metyildirim/museon-web/actions/workflows/build.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/build.yml) [![Lint](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml) [![Test](https://github.com/metyildirim/museon-web/actions/workflows/test.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/test.yml) [![CodeQL](https://github.com/metyildirim/museon-web/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/metyildirim/museon-web/actions/workflows/codeql-analysis.yml)
 
 ![screenshot1](https://firebasestorage.googleapis.com/v0/b/museon-873e6.appspot.com/o/logo%2F22.png?alt=media&token=f79e36d5-823b-4357-b1b2-9b47922cac15)
 
@@ -94,5 +94,5 @@ Please, follow these steps to contribute:
   1. Fork the repository
   2. Create a branch
   3. Commit your changes
-  4. Run build, lint and test scripts
+  4. Run **build**, **lint** and **test** scripts
   5. Create pull request
