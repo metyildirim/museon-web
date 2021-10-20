@@ -19,7 +19,7 @@ A free and open-source music platform
 Clone the museon-backend repository and run the GraphQL server:
 
 ```bash
-npm start
+$ npm start
 ```
 
 Open [http://localhost:4000](http://localhost:4000) with your browser to see the result.
@@ -29,9 +29,9 @@ Open [http://localhost:4000](http://localhost:4000) with your browser to see the
 Running the development server:
 
 ```bash
-npm run dev
+$ npm run dev
 # or
-yarn dev
+$ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -39,30 +39,30 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Linting:
 
 ```bash
-npm run lint
+$ npm run lint
 # or
-yarn lint
+$ yarn lint
 ```
 
 Testing:
 
 ```bash
-npm test
+$ npm test
 # or
-yarn test
+$ yarn test
 ```
 
 Analyzing bundle:
 
 ```bash
-npm run analyze
+$ npm run analyze
 # or
-yarn analyze
+$ yarn analyze
 ```
 
 ## Containerization with Docker
 
 ```bash
-docker-compose build # building
-docker-compose up # running
+$ docker-compose build # building
+$ docker-compose up # running
 ```
