@@ -16,13 +16,13 @@ A free and open-source music platform
 
 ### Running GraphQL Server
 
-Clone the museon-backend repository and run the GraphQL server:
+Clone [museon-backend](https://github.com/metyildirim/museon-dummy-backend) repository and run GraphQL server:
 
 ```bash
 $ npm start
 ```
 
-Open [http://localhost:4000](http://localhost:4000) with your browser to see the result.
+Open [http://localhost:4000/graphql](http://localhost:4000/graphql) with your browser to see the result.
 
 ### Running the App
 
