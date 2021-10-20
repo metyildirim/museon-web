@@ -1,8 +1,12 @@
-# [Museon Web](https://museon-web.vercel.app/) &middot; [![GitHub license](https://img.shields.io/badge/license-GPL3-blue.svg)](https://github.com/metyildirim/museon-web/blob/master/LICENSE) ![Build](https://github.com/metyildirim/museon-web/actions/workflows/build.yml/badge.svg) ![Lint](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml/badge.svg) ![Test](https://github.com/metyildirim/museon-web/actions/workflows/test.yml/badge.svg)
+# [Museon](https://museon-web.vercel.app/)
 
 A free and open-source music platform
 
-## Environments
+[![GitHub license](https://img.shields.io/badge/license-GPL3-blue.svg)](https://github.com/metyildirim/museon-web/blob/master/LICENSE) ![Build](https://github.com/metyildirim/museon-web/actions/workflows/build.yml/badge.svg) ![Lint](https://github.com/metyildirim/museon-web/actions/workflows/lint.yml/badge.svg) ![Test](https://github.com/metyildirim/museon-web/actions/workflows/test.yml/badge.svg)
+
+## Development
+
+### Environments
 
 - Copy `.env.local.template` to `.env.local` on same structure level.
 - Fill required environment variables.
@@ -11,8 +15,6 @@ A free and open-source music platform
 | Environment      | Type   | Recommendation for Development | Description             |
 | ---------------- | ------ | ------------------------------ | ----------------------- |
 | GRAPHQL_ENDPOINT | String | http://localhost:4000/graphql  | GraphQL Server Endpoint |
-
-## Development
 
 ### Running GraphQL Server
 
@@ -24,7 +26,7 @@ $ npm start
 
 Open [http://localhost:4000/graphql](http://localhost:4000/graphql) with your browser to see the result.
 
-### Running the App
+### Running App
 
 Running the development server:
 
@@ -63,6 +65,8 @@ $ yarn analyze
 ## Containerization with Docker
 
 ```bash
-$ docker-compose build # building
-$ docker-compose up # running
+# buil
+$ docker-compose build
+# run
+$ docker-compose up
 ```
