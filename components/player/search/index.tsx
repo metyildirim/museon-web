@@ -1,6 +1,7 @@
 import Album from "../../common/album-item";
 import Artist from "../../common/artist";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_SEARCH_RESULT } from "../../../app/queries";
 import {
   ArtistType,
   AlbumType,
@@ -10,50 +11,6 @@ import {
 type SearchProps = {
   param: string;
 };
-
-const GET_SEARCH_RESULT = gql`
-  query GetSearchResult($query: String!) {
-    search(query: $query) {
-      albums {
-        id
-        title
-        cover
-        songs {
-          id
-          title
-          src
-          album {
-            id
-            title
-          }
-          artists {
-            id
-            name
-          }
-        }
-      }
-      artists {
-        id
-        name
-        cover
-      }
-      songs {
-        id
-        src
-        title
-        artists {
-          id
-          name
-        }
-        album {
-          id
-          title
-          cover
-        }
-      }
-    }
-  }
-`;
 
 const Search = ({ param }: SearchProps) => {
   const { error, loading, data } = useQuery(GET_SEARCH_RESULT, {

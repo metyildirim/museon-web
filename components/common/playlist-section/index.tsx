@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { faHeart, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import PlaylistItem from "./playlist-item";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_ALBUM, GET_PLAYLIST } from "../../../app/queries";
 import MMP, {
   ListType,
   SongType,
@@ -20,6 +17,8 @@ import {
   setListID,
   setIsPlaying,
 } from "../../../app/playerSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "../spinner";
 
 type PlaylistSectionProps = {
@@ -28,54 +27,6 @@ type PlaylistSectionProps = {
   likeSong: (song: SongType) => void;
   removeLike: (song: SongType) => void;
 };
-
-const GET_ALBUM = gql`
-  query GetAlbum($id: ID!) {
-    album(id: $id) {
-      id
-      title
-      cover
-      songs {
-        id
-        title
-        src
-        album {
-          id
-          title
-          cover
-        }
-        artists {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
-
-const GET_PLAYLIST = gql`
-  query GetPlaylist($id: ID!) {
-    album: playlist(id: $id) {
-      id
-      title
-      cover
-      songs {
-        id
-        title
-        src
-        album {
-          id
-          title
-          cover
-        }
-        artists {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
 
 const PlaylistSection = ({
   id,

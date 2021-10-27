@@ -1,39 +1,9 @@
 import Album from "../../common/album-item";
 import Artist from "../../common/artist";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_FEATURED } from "../../../app/queries";
 import { ArtistType, AlbumType } from "../../../utils/museon-music-player";
 import Spinner from "../../common/spinner";
-
-const GET_FEATURED = gql`
-  query {
-    featured {
-      playlists {
-        id
-        title
-        cover
-        songs {
-          id
-          title
-          src
-          album {
-            id
-            title
-            cover
-          }
-          artists {
-            id
-            name
-          }
-        }
-      }
-      artists {
-        id
-        name
-        cover
-      }
-    }
-  }
-`;
 
 const Home = () => {
   const { loading, error, data } = useQuery(GET_FEATURED);

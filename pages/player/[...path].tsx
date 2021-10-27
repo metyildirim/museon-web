@@ -19,50 +19,10 @@ import {
   setIsPlaying as setIsPlayingApp,
 } from "../../app/playerSlice";
 import { SongType } from "../../utils/museon-music-player";
-import { useMutation, gql, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_FEATURED_PLAYLISTS } from "../../app/queries";
+import { LIKE_SONG, REMOVE_LIKE } from "../../app/mutations";
 import Spinner from "../../components/common/spinner";
-
-const LIKE_SONG = gql`
-  mutation LikeSong($songID: ID!, $userID: ID!) {
-    addLike(songID: $songID, userID: $userID) {
-      result
-    }
-  }
-`;
-
-const REMOVE_LIKE = gql`
-  mutation RemoveLike($songID: ID!, $userID: ID!) {
-    removeLike(songID: $songID, userID: $userID) {
-      result
-    }
-  }
-`;
-
-const GET_FEATURED_PLAYLISTS = gql`
-  query {
-    featured {
-      playlists {
-        id
-        title
-        cover
-        songs {
-          id
-          title
-          src
-          album {
-            id
-            title
-            cover
-          }
-          artists {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`;
 
 export default function Player() {
   const router = useRouter();
