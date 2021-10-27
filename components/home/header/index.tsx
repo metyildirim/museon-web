@@ -7,15 +7,10 @@ import {
   signOut,
 } from "../../../app/authSlice";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { useMutation } from "@apollo/client";
+import { LOGOUT_MUTATION } from "../../../app/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { gql, useMutation } from "@apollo/client";
-
-const LOGOUT_MUTATION = gql`
-  mutation {
-    logout
-  }
-`;
 
 const Header = () => {
   const dispatch = useAppDispatch();

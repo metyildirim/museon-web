@@ -9,31 +9,16 @@ import { selectUsername, signOut } from "../../../app/authSlice";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import DropDown from "../../common/dropdown";
 import PlaylistItem from "./playlist-item";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_FEATURED_PLAYLISTS } from "../../../app/queries";
+import { LOGOUT_MUTATION } from "../../../app/mutations";
 import MMP, { AlbumType } from "../../../utils/museon-music-player";
 import Spinner from "../../common/spinner";
-
-const GET_PLAYLISTS = gql`
-  query {
-    featured {
-      playlists {
-        id
-        title
-      }
-    }
-  }
-`;
-
-const LOGOUT_MUTATION = gql`
-  mutation {
-    logout
-  }
-`;
 
 const UserSection = () => {
   const dispatch = useAppDispatch();
   const username = useAppSelector(selectUsername);
-  const { loading, error, data } = useQuery(GET_PLAYLISTS);
+  const { loading, error, data } = useQuery(GET_FEATURED_PLAYLISTS);
   const [logout] = useMutation(LOGOUT_MUTATION);
   const mmp = MMP.instance;
 

@@ -10,27 +10,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { selectID } from "../../../app/authSlice";
 import { setLikes } from "../../../app/playerSlice";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_LIKES } from "../../../app/queries";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-
-const GET_LIKES = gql`
-  query GetLikes($id: ID!) {
-    likes(id: $id) {
-      id
-      title
-      src
-      album {
-        id
-        title
-        cover
-      }
-      artists {
-        id
-        name
-      }
-    }
-  }
-`;
 
 type BodySectionProps = {
   children: JSX.Element;

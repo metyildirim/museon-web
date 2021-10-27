@@ -1,40 +1,12 @@
 import Image from "next/image";
 import Album from "../../common/album-item";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_ARTIST_DATA } from "../../../app/queries";
 import Spinner from "../../common/spinner";
 
 type ArtistProps = {
   param: string;
 };
-
-const GET_ARTIST_DATA = gql`
-  query GetArtistData($id: ID!) {
-    artist(id: $id) {
-      cover
-      name
-      songs {
-        album {
-          id
-          title
-          cover
-          songs {
-            title
-            src
-            album {
-              id
-              cover
-              title
-            }
-            artists {
-              id
-              name
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 const Artist = ({ param }: ArtistProps) => {
   const { loading, error, data } = useQuery(GET_ARTIST_DATA, {

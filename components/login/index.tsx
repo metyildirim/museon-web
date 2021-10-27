@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { AuthState, selectIsLoggedIn, signIn } from "../../app/authSlice";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { LOGIN_MUTATION } from "../../app/mutations";
 import { useFormik } from "formik";
 import Link from "next/link";
 import GoogleLoginButton from "./google-login-button";
@@ -12,18 +13,6 @@ import Heading from "../common/heading";
 import Switch from "../common/switch";
 import Spinner from "../common/spinner";
 import * as yup from "yup";
-
-const LOGIN_MUTATION = gql`
-  mutation Login($username_email: String!, $password: String!) {
-    login(username_email: $username_email, password: $password) {
-      result {
-        id
-        username
-      }
-      error
-    }
-  }
-`;
 
 const validationSchema = yup.object().shape({
   username_email: yup.string().required().min(4).label("Username or Email"),
