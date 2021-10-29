@@ -1,0 +1,35 @@
+@mixin button
+    @apply hover:text-green-300 transition-colors font-bold whitespace-nowrap text-sm md:text-base
+
+.header
+    @apply flex flex-row items-center w-full py-4 px-4 font-bold text-white bg-gray-700 fixed
+    @apply md:px-20 z-50
+
+.logo
+    @apply flex justify-center h-[35px] w-[115px] md:h-[50px] md:w-[165px] mt-auto mb-auto
+
+.userIcon
+    @apply ml-6 hidden md:block
+
+.username
+    @apply ml-2 font-normal hidden md:block
+
+.webPlayerButton
+    @include button
+    @apply ml-auto hidden md:block
+
+.downloadButton
+    @include button
+    @apply ml-auto md:ml-6
+
+.signinButton
+    @include button
+    @apply ml-6
+
+.signupButton
+    @apply flex items-center justify-center bg-white text-green-500 rounded-full hover:text-white
+    @apply transition-colors font-bold text-sm md:text-base whitespace-nowrap
+    @apply hover:bg-green-500 ml-2 md:ml-6 py-2 px-2 md:px-4 hidden md:block
+
+.divider
+    @apply h-6 border-l-2 border-green-500 ml-6 hidden md:block

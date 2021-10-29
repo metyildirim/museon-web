@@ -11,6 +11,7 @@ import { useMutation } from "@apollo/client";
 import { LOGOUT_MUTATION } from "../../../app/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import styles from "./header.module.sass";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -19,10 +20,10 @@ const Header = () => {
   const [logout] = useMutation(LOGOUT_MUTATION);
 
   return (
-    <div className="header">
+    <div className={styles.header}>
       <Link href="/">
         <a>
-          <div className="header-logo">
+          <div className={styles.logo}>
             <Image
               height="max-content"
               width="max-content"
@@ -33,26 +34,26 @@ const Header = () => {
         </a>
       </Link>
       <Link href="/player/home">
-        <a className="header-btn md-visible ml-auto">Web Player</a>
+        <a className={styles.webPlayerButton}>Web Player</a>
       </Link>
       <Link href="/download">
-        <a className="header-btn ml-auto md:ml-6 ">Download</a>
+        <a className={styles.downloadButton}>Download</a>
       </Link>
-      <Divider className="header-divider md-visible" />
+      <Divider />
       {isLoggedIn ? (
         <>
           <FontAwesomeIcon
-            className="ml-6 md-visible"
+            className={styles.userIcon}
             icon={faUserCircle}
             size="2x"
           />
-          <span className="header-username md-visible">{username}</span>
+          <span className={styles.username}>{username}</span>
           <button
             onClick={() => {
               logout();
               dispatch(signOut());
             }}
-            className="header-btn-signup"
+            className={styles.signupButton}
           >
             Sign Out
           </button>
@@ -60,10 +61,10 @@ const Header = () => {
       ) : (
         <>
           <Link href="/login">
-            <a className="header-btn ml-6">Sign In</a>
+            <a className={styles.signinButton}>Sign In</a>
           </Link>
           <Link href="/signup">
-            <a className="header-btn-signup md-visible">Sign Up</a>
+            <a className={styles.signupButton}>Sign Up</a>
           </Link>
         </>
       )}

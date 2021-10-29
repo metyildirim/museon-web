@@ -7,6 +7,7 @@ import {
   faTwitter,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
+import styles from "./footer.module.sass";
 
 const sections = [
   {
@@ -63,11 +64,11 @@ const socialIcons = [
 
 const Footer = () => {
   return (
-    <div className="footer">
-      <div className="footer-top">
+    <div className={styles.footer}>
+      <div className={styles.topContainer}>
         <Link href="/">
           <a>
-            <div className="footer-logo">
+            <div className={styles.logo}>
               <Image
                 height="max-content"
                 width="max-content"
@@ -77,33 +78,33 @@ const Footer = () => {
             </div>
           </a>
         </Link>
-        <div className="footer-section-container">
+        <div className={styles.sectionContainer}>
           {sections.map(({ heading, links }) => (
             <Section key={heading} heading={heading} links={links} />
           ))}
         </div>
-        <div className="footer-language">
+        <div className={styles.language}>
           <Link href="/">
-            <a className="footer-language-btn">EN</a>
+            <a className={styles.languageButton}>EN</a>
           </Link>
         </div>
       </div>
-      <div className="footer-bottom">
-        <div className="footer-copyright">
+      <div className={styles.bottomContainer}>
+        <div className={styles.copyright}>
           © {new Date().getFullYear()} Museon
         </div>
-        <div className="footer-links-container">
+        <div className={styles.linksContainer}>
           {links.map(({ title, path }) => (
-            <div key={title} className="footer-link">
+            <div key={title} className={styles.link}>
               <Link href={path}>
                 <a>{title}</a>
               </Link>
             </div>
           ))}
         </div>
-        <div className="footer-social-container">
+        <div className={styles.socialContainer}>
           {socialIcons.map(({ icon, url }) => (
-            <div key={url} className="footer-icon">
+            <div key={url} className={styles.icon}>
               <a href={url} target="_blink">
                 <FontAwesomeIcon icon={icon} size="lg" />
               </a>
