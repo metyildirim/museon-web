@@ -1,0 +1,37 @@
+.navigationButton
+    @apply bg-gray-700 rounded-full text-white text-base md:text-lg hover:bg-gray-600 active:bg-green-500
+    @apply disabled:bg-gray-800 disabled:bg-opacity-80 disabled:text-gray-600 disabled:cursor-not-allowed
+    @apply w-9 h-9 md:w-10 md:h-10 mx-1
+
+.bodySection
+    height: calc(100vh - 80px)
+    @apply bg-gray-900 pb-8 pt-32 overflow-x-hidden ml-auto w-full pl-0 md:pl-64
+
+.bodySection::-webkit-scrollbar
+    @apply w-2
+
+.bodySection::-webkit-scrollbar-track
+    @apply bg-black
+
+.bodySection::-webkit-scrollbar-thumb
+    @apply bg-green-500 rounded-full
+
+.bodySection::-webkit-scrollbar-thumb:hover
+    @apply bg-white
+
+.bodyHeader
+    @apply flex flex-row h-24 items-center px-4 md:px-8 bg-black bg-opacity-20 shadow-2xl fixed top-0 right-2
+    @apply w-full md:pl-72 z-10
+
+.navigationContainer
+    @apply flex flex-row w-32 md:w-36 justify-between items-center
+
+.searchContainer
+    @apply flex flex-row relative items-center ml-auto w-36 md:w-56 lg:w-80
+
+.searchIcon
+    @apply absolute origin-top-left text-white left-3 pointer-events-none
+
+.inputSearch
+    @apply rounded-full bg-gray-700 border-0 pl-10 pr-4 text-white m-0 h-9 md:h-10
+    @apply text-xs md:text-sm w-full

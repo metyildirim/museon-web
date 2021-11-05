@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import styles from "./music-player.module.sass";
 
 type QueueActionProps = {
   icon?: IconDefinition;
@@ -7,13 +8,6 @@ type QueueActionProps = {
   onClick: () => void;
   isActive: boolean;
   labelText?: string | null;
-};
-
-const getClassName = (isActive: boolean) => {
-  if (isActive) {
-    return "player-queue-action player-action-selected";
-  }
-  return "player-queue-action";
 };
 
 const QueueAction = ({
@@ -25,11 +19,15 @@ const QueueAction = ({
 }: QueueActionProps) => {
   return (
     <button onClick={onClick} className="common-btn">
-      <div className={getClassName(isActive)}>
+      <div
+        className={
+          isActive ? styles.playerActionSelected : styles.playerQueueAction
+        }
+      >
         {icon ? <FontAwesomeIcon icon={icon} /> : IconSVGR}
-        {isActive ? <div className="player-action-active-indicator" /> : null}
+        {isActive ? <div className={styles.actionActiveIndicator} /> : null}
         {labelText ? (
-          <div className="player-action-label">{labelText}</div>
+          <div className={styles.actionLabel}>{labelText}</div>
         ) : null}
       </div>
     </button>

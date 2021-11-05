@@ -20,6 +20,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "../spinner";
+import styles from "./playlist-section.module.sass";
 
 type PlaylistSectionProps = {
   id: string;
@@ -69,10 +70,6 @@ const PlaylistSection = ({
     return false;
   };
 
-  const getPlayButtonClassName = () => {
-    return "playlist-play-btn " + (isPauseActive() ? "playlist-pause-btn" : "");
-  };
-
   const getPlayButtonIcon = () => {
     return isPauseActive() ? faPause : faPlay;
   };
@@ -97,15 +94,15 @@ const PlaylistSection = ({
   };
 
   return loading ? (
-    <div className="player-playlist-section">
+    <div className={styles.playlistSection}>
       <Spinner />
     </div>
   ) : (
-    <div className="player-playlist-section">
-      <div className="player-playlist-header">
-        <div className="player-playlist-image">
+    <div className={styles.playlistSection}>
+      <div className={styles.playlistHeader}>
+        <div className={styles.playlistImage}>
           {listState === LIST_STATES.Likes ? (
-            <div className="playlist-likes-icon">
+            <div className={styles.likesIcon}>
               <FontAwesomeIcon icon={faHeart} />
             </div>
           ) : (
@@ -118,30 +115,30 @@ const PlaylistSection = ({
             />
           )}
         </div>
-        <span className="player-playlist-title">
+        <span className={styles.playlistTitle}>
           {listState === LIST_STATES.Likes ? "Liked Songs" : data.album.title}
         </span>
         {listState === LIST_STATES.Likes && likedSongs.length === 0 ? (
           <div />
         ) : (
           <div
-            className={getPlayButtonClassName()}
+            className={isPauseActive() ? styles.pauseButton : styles.playButton}
             onClick={onPlayButtonClicked}
           >
             <FontAwesomeIcon icon={getPlayButtonIcon()} />
           </div>
         )}
       </div>
-      <div className="playlist-table-titles">
-        <div className="playlist-table-title-item w-1/12">#</div>
-        <div className="playlist-table-title-item w-3/12">TITLE</div>
-        <div className="playlist-table-title-item w-3/12">ARTISTS</div>
-        <div className="playlist-table-title-item w-3/12 md-invisible">
+      <div className={styles.tableTitles}>
+        <div className={styles.tableTitleItem + " w-1/12"}>#</div>
+        <div className={styles.tableTitleItem + " w-3/12"}>TITLE</div>
+        <div className={styles.tableTitleItem + " w-3/12"}>ARTISTS</div>
+        <div className={styles.tableTitleItem + " w-3/12 md-invisible"}>
           ALBUM
         </div>
-        <div className="playlist-table-title-item w-2/12 md-invisible"></div>
+        <div className={styles.tableTitleItem + " w-2/12 md-invisible"}></div>
       </div>
-      <div className="playlist-table-items">
+      <div className={styles.tableItems}>
         {getPlaylist().map(
           ({ id, title, src, artists, album }: ListType, index: number) => (
             <PlaylistItem

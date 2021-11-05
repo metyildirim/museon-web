@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./artist.module.sass";
 
 type ArtistProps = {
   cover: string;
@@ -11,15 +12,15 @@ const Artist = ({ cover, artistId, children }: ArtistProps) => {
   return (
     <Link href={"/player/artist/" + artistId}>
       <a>
-        <div className="artist-item">
+        <div className={styles.item}>
           <Image
             src={cover}
-            className="artist-image"
+            className={styles.image}
             height="128px"
             width="128px"
             alt={children}
           />
-          <span className="artist-item-title">{children}</span>
+          <span className={styles.title}>{children}</span>
         </div>
       </a>
     </Link>

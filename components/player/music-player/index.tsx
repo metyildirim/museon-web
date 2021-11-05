@@ -15,6 +15,7 @@ import LoopIcon from "../../../icons/Loop";
 import MusicInfo from "./music-info";
 import MusicController from "./music-controller";
 import PlayerControls from "./player-controls";
+import styles from "./music-player.module.sass";
 
 type MusicPlayerProps = {
   likedSongs: Array<SongType>;
@@ -216,8 +217,8 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
 
   render() {
     return (
-      <div className="player-container">
-        <div className="player-album-cover">
+      <div className={styles.musicPlayerContainer}>
+        <div className={styles.albumCover}>
           <Link
             href={
               "/player/" +
@@ -237,7 +238,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
             </a>
           </Link>
         </div>
-        <div className="player-center-container">
+        <div className={styles.playerCenterContainer}>
           <MusicInfo
             isLiked={this.state.isLiked}
             artists={this.state.artists}
@@ -259,7 +260,7 @@ class MusicPlayer extends React.Component<MusicPlayerProps, StateTypes> {
           previous={this.previous}
           isPlaying={this.props.isPlaying}
         />
-        <div className="player-queue-action-container">
+        <div className={styles.queueActionContainer}>
           <QueueAction
             icon={faRandom}
             onClick={this.onShuffleClicked}

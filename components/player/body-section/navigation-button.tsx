@@ -1,5 +1,6 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styles from "./body-section.module.sass";
 
 type NavigationButtonProps = {
   onClick: () => void;
@@ -15,7 +16,7 @@ const NavigationButton = ({
   return (
     <button
       onClick={onClick}
-      className="common-btn navigation-btn"
+      className={"common-btn " + styles.navigationButton}
       disabled={disabled}
     >
       <FontAwesomeIcon icon={icon} />
