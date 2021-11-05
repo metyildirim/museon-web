@@ -11,6 +11,7 @@ import {
   HttpLink,
 } from "@apollo/client";
 import fetch from "cross-fetch";
+import Head from "next/head";
 
 const client = new ApolloClient({
   ssrMode: typeof window === "undefined",
@@ -23,11 +24,16 @@ const client = new ApolloClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <ApolloProvider client={client}>
-        <Component {...pageProps} />
-      </ApolloProvider>
-    </Provider>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <Component {...pageProps} />
+        </ApolloProvider>
+      </Provider>
+    </>
   );
 }
 export default MyApp;

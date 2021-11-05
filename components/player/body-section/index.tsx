@@ -13,6 +13,7 @@ import { setLikes } from "../../../app/playerSlice";
 import { useQuery } from "@apollo/client";
 import { GET_LIKES } from "../../../app/queries";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import styles from "./body-section.module.sass";
 
 type BodySectionProps = {
   children: JSX.Element;
@@ -125,9 +126,9 @@ const BodySection = ({ children }: BodySectionProps) => {
   };
 
   return (
-    <div className="player-body-section">
-      <div className="player-body-header">
-        <div className="player-navigation-container">
+    <div className={styles.bodySection}>
+      <div className={styles.bodyHeader}>
+        <div className={styles.navigationContainer}>
           <NavigationButton
             onClick={onHomeClicked}
             icon={faHome}
@@ -144,11 +145,11 @@ const BodySection = ({ children }: BodySectionProps) => {
             disabled={disabledForward}
           />
         </div>
-        <div className="search-container">
-          <FontAwesomeIcon className="search-icon" icon={faSearch} />
+        <div className={styles.searchContainer}>
+          <FontAwesomeIcon className={styles.searchIcon} icon={faSearch} />
           <input
             placeholder="Search anything..."
-            className="input-common input-search"
+            className={"input-common " + styles.inputSearch}
             value={searchValue}
             onChange={onSearchTextChanged}
           />

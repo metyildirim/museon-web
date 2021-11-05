@@ -1,9 +1,7 @@
-type DividerProps = {
-  className: string;
-};
+import styles from "./header.module.sass";
 
-const Divider = ({ className }: DividerProps) => {
-  return <div className={className}></div>;
+const Divider = () => {
+  return <div className={styles.divider}></div>;
 };
 
 export default Divider;

@@ -1,3 +1,5 @@
+import styles from "./music-player.module.sass";
+
 type MusicControllerProps = {
   currentTime: string;
   duration: string;
@@ -12,10 +14,10 @@ const MusicController = ({
   onProgressChanged,
 }: MusicControllerProps) => {
   return (
-    <div className="player-music-controller">
-      <div className="player-music-time">{currentTime}</div>
+    <div className={styles.playerMusicController}>
+      <div className={styles.playerMusicTime}>{currentTime}</div>
       <input
-        className="common-range-input player-music-controller-input"
+        className={"common-range-input " + styles.musicControllerInput}
         type="range"
         value={progress}
         onChange={onProgressChanged}
@@ -23,7 +25,7 @@ const MusicController = ({
         min="0"
         step={0.001}
       />
-      <div className="player-music-time">{duration}</div>
+      <div className={styles.playerMusicTime}>{duration}</div>
     </div>
   );
 };

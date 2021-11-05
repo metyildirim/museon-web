@@ -1,0 +1,47 @@
+@mixin button
+    @apply flex items-center justify-center h-12 w-12 bg-green-600 text-white rounded-full cursor-pointer
+    @apply hover:bg-green-500 pl-1 ml-1 md:ml-4
+
+.playButton
+    @include button
+
+.pauseButton
+    @include button
+    @apply pl-0 bg-red-500 hover:bg-red-400
+
+.tableItemContainer
+    @apply flex flex-row w-full h-10 items-center justify-center mb-2 rounded-xl px-2 pr-4 hover:bg-gray-800
+
+.tableItem
+    @apply flex flex-row items-center justify-between pl-4 text-gray-300 font-normal text-xs lg:text-sm
+
+.artistLink
+    @apply hover:text-green-400
+
+.tableItemAction
+    @apply cursor-pointer hover:text-green-500 active:text-white
+
+.playlistSection
+    @apply flex flex-col px-4 lg:px-8 xl:px-16 mt-8
+
+.playlistHeader
+    @apply flex flex-row items-center
+
+.playlistImage
+    @apply rounded-xl border border-gray-400 overflow-hidden w-24 md:h-36 md:w-36
+
+.playlistTitle
+    @apply w-24 md:w-40 lg:w-max overflow-hidden ml-4 md:ml-8 text-base md:text-xl font-bold text-white
+    @apply lg:text-2xl mr-auto md:mr-0
+
+.likesIcon
+    @apply flex text-5xl items-center justify-center h-full w-full bg-gray-800 text-white
+
+.tableTitles
+    @apply flex flex-row w-full h-10 items-center justify-center bg-gray-800 mt-8 rounded-xl px-2 pr-4
+
+.tableTitleItem
+    @apply md:flex items-center text-gray-400 text-xs lg:text-sm pl-4 font-bold
+
+.tableItems
+    @apply flex flex-col w-full mt-2 items-center justify-center

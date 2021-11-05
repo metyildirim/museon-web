@@ -1,4 +1,5 @@
 import Link from "next/link";
+import styles from "./footer.module.sass";
 
 type LinksType = {
   title: string;
@@ -13,11 +14,11 @@ type SectionProps = {
 
 const Section = ({ heading, links }: SectionProps) => {
   return (
-    <div className="footer-section">
+    <div className={styles.section}>
       <span>{heading}</span>
-      <div className="footer-section-link-container">
+      <div className={styles.sectionLinkContainer}>
         {links.map(({ title, path, target }) => (
-          <div key={title} className="footer-section-link">
+          <div key={title} className={styles.sectionLink}>
             <Link href={path}>
               <a target={target}>{title}</a>
             </Link>

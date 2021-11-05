@@ -14,6 +14,7 @@ import { GET_FEATURED_PLAYLISTS } from "../../../app/queries";
 import { LOGOUT_MUTATION } from "../../../app/mutations";
 import MMP, { AlbumType } from "../../../utils/museon-music-player";
 import Spinner from "../../common/spinner";
+import styles from "./user-section.module.sass";
 
 const UserSection = () => {
   const dispatch = useAppDispatch();
@@ -39,22 +40,22 @@ const UserSection = () => {
   ];
 
   return (
-    <div className="player-user-section">
+    <div className={styles.userSection}>
       {!data ? (
         <Spinner />
       ) : (
         <>
-          <div className="player-user-profile">
-            <div className="profile-image">
+          <div className={styles.userProfile}>
+            <div className={styles.profileImage}>
               <FontAwesomeIcon icon={faUser} />
             </div>
             <DropDown title={username} items={dropdownItems} />
           </div>
-          <div className="player-playlists-header">
+          <div className={styles.playlistsHeader}>
             My Playlists
             <FontAwesomeIcon icon={faListUl} />
           </div>
-          <div className="player-playlists">
+          <div className={styles.playlists}>
             <PlaylistItem text="Liked Songs" icon={faHeart} listId="likes" />
             {data.featured.playlists.map(({ id, title }: AlbumType) => (
               <PlaylistItem

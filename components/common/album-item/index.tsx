@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch } from "../../../app/hooks";
 import { setListID, setListState } from "../../../app/playerSlice";
 import MMP from "../../../utils/museon-music-player";
+import styles from "./album-item.module.sass";
 
 type AlbumProps = {
   cover: string;
@@ -43,14 +44,17 @@ const Album = ({
   };
 
   return (
-    <div className="album-item">
+    <div className={styles.item}>
       <div
-        className="album-item-cover"
+        className={styles.cover}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
         {isHover ? (
-          <button className="common-btn album-play-btn" onClick={onPlayClicked}>
+          <button
+            className={"common-btn " + styles.button}
+            onClick={onPlayClicked}
+          >
             <FontAwesomeIcon icon={faPlay} />
           </button>
         ) : null}
@@ -62,7 +66,7 @@ const Album = ({
         }
       >
         <a>
-          <span className="album-item-title">{children}</span>
+          <span className={styles.title}>{children}</span>
         </a>
       </Link>
     </div>

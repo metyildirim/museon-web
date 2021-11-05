@@ -1,0 +1,97 @@
+@mixin playerControlAction
+    @apply bg-gray-900 rounded-full flex text-gray-100 text-sm w-7 h-7 md:w-8 md:h-8 items-center
+    @apply justify-center transition-colors active:bg-gray-700 xl:mx-2 mx-1 hover:bg-black
+
+@mixin playerQueueAction
+    @apply flex text-gray-400 text-sm w-8 h-8 items-center justify-center mx-1 xl:mx-2
+    @apply fill-current hover:text-white transition-colors
+
+@mixin like
+    @apply text-gray-400 text-lg h-8 w-6 flex items-center justify-center hover:text-white hover:text-xl
+    @apply justify-center active:text-green-500 active:text-lg
+
+@mixin button
+    @apply rounded-full text-white w-9 h-9 md:w-10 md:h-10
+
+.musicPlayerContainer
+    @apply flex flex-row w-full bg-gray-800 h-20 fixed bottom-0 z-30 justify-center
+
+.playerCenterContainer
+    @apply flex flex-col justify-center w-5/12 overflow-hidden lg:w-6/12 mr-0 ml-2 lg:mx-6
+
+.albumCover
+    @apply w-16 overflow-hidden my-auto rounded-md ml-2 md:ml-6
+
+.queueActionContainer
+    @apply hidden md:flex flex-row mr-2 xl:mr-8
+
+.playerControlAction
+    @include playerControlAction
+
+.playerQueueAction
+    @include playerQueueAction
+
+.playerActionSelected
+    @include playerQueueAction
+    @apply fill-current text-green-400 hover:text-green-300
+
+.playerMusicController
+    @apply flex flex-row items-center w-full justify-between mt-auto mb-3
+
+.playerMusicTime
+    @apply text-gray-400 text-xs hidden md:block
+
+.musicControllerInput
+    @apply w-10/12
+
+.musicInfo
+    @apply flex flex-row flex-wrap items-center w-full mb-auto mt-2
+
+.songName
+    @apply text-white mr-2 text-sm whitespace-nowrap
+
+.like
+    @include like
+
+.liked
+    @include like
+    @apply text-green-500
+
+.albumTitle
+    @apply hidden lg:block text-gray-400 ml-2 text-xs hover:text-green-400
+
+.artists
+    @apply hidden md:flex flex-row ml-auto text-xs text-gray-300
+
+.artistLink
+    @apply hover:text-green-400
+
+.playerControls
+    @apply ml-auto my-auto md:mx-auto w-32 lg:w-max
+
+.playButton
+    @include playerControlAction
+    @include button
+    @apply bg-white text-black pl-1 hover:bg-green-500 hover:text-white active:bg-green-600
+    @apply active:text-white
+
+.pauseButton
+    @include playerControlAction
+    @include button
+    @apply bg-white text-black hover:bg-red-500 hover:text-white active:bg-red-600 active:text-white
+
+.actionActiveIndicator
+    @apply bg-green-400 h-1 w-1 absolute bottom-7 rounded-full
+
+.actionLabel
+    @apply text-[9px] font-mono font-bold absolute ml-3 mb-3 bg-green-400 h-4 w-4 rounded-full text-gray-800
+    @apply flex justify-center items-center border-2 pt-[1px] border-gray-800
+
+.volumeContainer
+    @apply hidden md:flex flex-row text-gray-400 hover:text-white items-center mr-6
+
+.volumeIcon
+    @apply flex items-center justify-start w-8 h-6
+
+.volumeInput
+    @apply md:w-16 lg:w-24

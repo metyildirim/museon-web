@@ -9,6 +9,7 @@ import Link from "next/link";
 import DropDown from "../dropdown";
 import { useAppSelector } from "../../../app/hooks";
 import { selectLikedSongs } from "../../../app/playerSlice";
+import styles from "./playlist-section.module.sass";
 
 type PlaylistItemProps = {
   likeSong: (song: SongType) => void;
@@ -61,7 +62,7 @@ const PlaylistItem = ({
 
   return (
     <div
-      className="playlist-table-item-container"
+      className={styles.tableItemContainer}
       onMouseEnter={() => {
         setIsMouseOn(true);
       }}
@@ -69,7 +70,7 @@ const PlaylistItem = ({
         setIsMouseOn(false);
       }}
     >
-      <div className="playlist-table-item w-1/12">
+      <div className={styles.tableItem + " w-1/12"}>
         {index !== undefined ? index + 1 : null}
         <Image
           src={album.cover}
@@ -79,26 +80,26 @@ const PlaylistItem = ({
           alt="cover"
         />
       </div>
-      <div className="playlist-table-item w-3/12">{title}</div>
-      <div className="playlist-table-item w-3/12">
+      <div className={styles.tableItem + " w-3/12"}>{title}</div>
+      <div className={styles.tableItem + " w-3/12"}>
         <div>
           {artists.map((artist, index) => (
             <Link key={artist.id} href={"/player/artist/" + artist.id}>
-              <a className="player-artist-link">
+              <a className={styles.artistLink}>
                 {artist.name + (index === artists.length - 1 ? "" : ", ")}
               </a>
             </Link>
           ))}
         </div>
       </div>
-      <div className="playlist-table-item w-3/12 md-invisible">
+      <div className={styles.tableItem + " w-3/12 md-invisible"}>
         <Link href={"/player/album/" + album.id}>
-          <a className="player-artist-link">{album.title}</a>
+          <a className={styles.artistLink}>{album.title}</a>
         </Link>
       </div>
-      <div className="playlist-table-item w-2/12 sm-invisible">
+      <div className={styles.tableItem + " w-2/12 sm-invisible"}>
         {isMouseOn ? (
-          <div className="playlist-table-item-action" onClick={toggleLike}>
+          <div className={styles.tableItemAction} onClick={toggleLike}>
             <FontAwesomeIcon icon={isLiked ? faHeart : faHeartOutline} />
           </div>
         ) : (
@@ -106,7 +107,7 @@ const PlaylistItem = ({
         )}
         {isMouseOn ? (
           <div
-            className={"playlist-table-item-action sm-invisible"}
+            className={styles.tableItemAction + " sm-invisible"}
             onClick={() => {
               updateList(index || 0, listID);
             }}
@@ -116,13 +117,13 @@ const PlaylistItem = ({
         ) : (
           <div />
         )}
-        <div className="playlist-table-item-action sm-invisible">
+        <div className={styles.tableItemAction + " sm-invisible"}>
           <DropDown items={[{ title: "Add to queue", action: addToQueue }]}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </DropDown>
         </div>
         <div
-          className="playlist-table-item-action sm-block text-sm"
+          className={styles.tableItemAction + " sm-block text-sm"}
           onClick={() => {
             updateList(index || 0, listID);
           }}

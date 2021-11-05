@@ -1,13 +1,17 @@
 import Header from "../../components/common/header";
 import AppLogin from "../../components/login";
 import Footer from "../../components/common/footer";
+import Head from "next/head";
 
 export default function Login() {
   return (
-    <div className="login-container">
+    <>
+      <Head>
+        <title>Museon - Login</title>
+      </Head>
       <Header />
       <AppLogin />
       <Footer />
-    </div>
+    </>
   );
 }

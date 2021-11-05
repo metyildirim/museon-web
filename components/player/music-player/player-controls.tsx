@@ -5,6 +5,7 @@ import {
   faStepBackward,
   faStepForward,
 } from "@fortawesome/free-solid-svg-icons";
+import styles from "./music-player.module.sass";
 
 type PlayerControlsProps = {
   play: () => void;
@@ -22,14 +23,12 @@ const PlayerControls = ({
   isPlaying,
 }: PlayerControlsProps) => {
   return (
-    <div className="player-controls">
+    <div className={styles.playerControls}>
       <ControlAction icon={faStepBackward} onClick={previous} />
       <ControlAction
         icon={isPlaying ? faPause : faPlay}
         onClick={isPlaying ? pause : play}
-        className={
-          isPlaying ? "play-pause-btn pause-btn" : "play-pause-btn play-btn"
-        }
+        className={isPlaying ? styles.pauseButton : styles.playButton}
       />
       <ControlAction icon={faStepForward} onClick={next} />
     </div>
