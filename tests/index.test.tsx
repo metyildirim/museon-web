@@ -45,5 +45,5 @@ test("renders Web Player link", () => {
 });
 
 test("renders copyright text", () => {
-  expect(wrapper.find(".footer-copyright")).toIncludeText("Museon");
+  expect(wrapper.find(".copyright")).toIncludeText("Museon");
 });
