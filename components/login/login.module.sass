@@ -1,0 +1,27 @@
+@mixin socialLoginButton
+    @apply flex flex-row justify-center items-center rounded-full h-10 my-2 font-bold px-4
+    @apply active:outline-none focus:outline-none hover:bg-gray-600 active:bg-gray-500 focus:bg-gray-500
+    @apply w-72 md:w-80 text-sm md:text-base
+
+.googleLoginButton
+    @include socialLoginButton
+    @apply bg-blue-600 text-white
+
+.appleLoginButton
+    @include socialLoginButton
+    @apply bg-black text-white
+
+.socialLoginText
+    @apply ml-3
+
+.resetPassword
+    @apply mr-auto text-xs mb-2 text-gray-600 hover:text-green-700 mb-4
+
+.staySignedIn
+    @apply text-xs md:text-sm text-gray-900
+
+.switchContainer
+    @apply flex flex-row w-72 md:w-80 justify-start items-center mb-3
+
+.switch
+    @apply mr-4

@@ -4,10 +4,10 @@ import Footer from "../../components/common/footer";
 
 export default function Login() {
   return (
-    <div className="login-container">
+    <>
       <Header />
       <AppLogin />
       <Footer />
-    </div>
+    </>
   );
 }

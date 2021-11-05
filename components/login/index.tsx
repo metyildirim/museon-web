@@ -13,6 +13,7 @@ import Heading from "../common/heading";
 import Switch from "../common/switch";
 import Spinner from "../common/spinner";
 import * as yup from "yup";
+import styles from "./login.module.sass";
 
 const validationSchema = yup.object().shape({
   username_email: yup.string().required().min(4).label("Username or Email"),
@@ -144,15 +145,15 @@ const Login = () => {
             {passwordErrorVisibility && formik.errors.password}
           </span>
           <Link href="/reset-password">
-            <a className="reset-password">Forgot your password?</a>
+            <a className={styles.resetPassword}>Forgot your password?</a>
           </Link>
-          <div className="login-switch-container">
+          <div className={styles.switchContainer}>
             <Switch
               checked={staySignedIn}
               onChange={setStaySignedIn}
-              className="login-switch"
+              className={styles.switch}
             />
-            <span className="stay-signed-in">Stay signed in</span>
+            <span className={styles.staySignedIn}>Stay signed in</span>
           </div>
           <button type="submit" className="submit-btn">
             {isLoading ? <Spinner /> : "Login"}

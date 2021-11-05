@@ -12,6 +12,7 @@ import { useMutation } from "@apollo/client";
 import { REGISTER_MUTATION } from "../../app/mutations";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import styles from "./signup.module.sass";
 
 const validationSchema = yup.object().shape({
   username: yup.string().required().min(4).label("Username"),
@@ -168,23 +169,23 @@ const Register = () => {
           <span className="form-error-message">
             {passwordErrorVisibility && formik.errors.password}
           </span>
-          <div className="signup-links-container">
+          <div className={styles.linkContainer}>
             By signing up, you agree the{" "}
             <Link href="/terms">
               <a>
-                <span className="signup-link">Terms of Service</span>
+                <span className={styles.link}>Terms of Service</span>
               </a>
             </Link>{" "}
             and{" "}
             <Link href="/privacy">
               <a>
-                <span className="signup-link">Privacy Policy</span>
+                <span className={styles.link}>Privacy Policy</span>
               </a>
             </Link>
             , including{" "}
             <Link href="/cookies">
               <a>
-                <span className="signup-link">Cookie</span>
+                <span className={styles.link}>Cookie</span>
               </a>
             </Link>{" "}
             use.
